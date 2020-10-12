@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+    django:
+        container_name: django
+        build: .
+        command: bash -c 'docker/wait-for-it/wait-for-it.sh db:3306 -t 120 -- docker/startup.sh'
+        volumes:
+            - .:/code
+        ports:
+            - "8000:80"
+        env_file:
+            - ./config.env
+        depends_on:
+            - db
+
+    db:
+        image: mariadb
+        container_name: db
+        ports:
+            - "3306:3306"
+        env_file:
+            - ./config.env
+        volumes:
+            - /var/lib/mysql
+
+    mailhog:
+        container_name: mailhog
+        image: mailhog/mailhog
+        ports:
+            - 1025:1025
+            - 8025:8025
