@@ -5,4 +5,4 @@ from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse("Test erfolgreich :)")
+    return render(request, 'wahlrechner/index.html')

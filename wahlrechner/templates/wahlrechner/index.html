@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="{% static 'tailwind/styles.css' %}?" />
+        <title>Index</title>
+    </head>
+    <body class="bg-gray-100 p-8 lg:p-32">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-3 space-x-5">
+                <div class="w-full bg-white shadow-lg rounded-lg p-4">Hallo</div>
+                <div class="col-span-2 w-full bg-white shadow-lg rounded-lg p-4">
+                    <h1 class="dark:text-blue-500">Hallo</h1>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
