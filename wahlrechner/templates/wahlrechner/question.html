@@ -1,0 +1,21 @@
+{% extends 'wahlrechner/base.html' %} {% block sidebar %}
+<p class="text-lg mb-2 font-bold dark:text-gray-200">Übersicht aller Fragen</p>
+<ul class="space-y-1 sidebar-menu">
+    <li>{% include "icons/disagree.html" %}<a onClick="location.href='/'" class="clickable">Sozialhilfen</a></li>
+    <li>{% include "icons/neutral.html" %}<a onClick="location.href='/'" class="clickable">Migrationspolitik</a></li>
+    <li>{% include "icons/empty.html" %}<a onClick="location.href='/'" class="active">Klimanotstand</a></li>
+    <li>{% include "icons/empty.html" %}<a onClick="location.href='/'" class="clickable">Autofreie Innenstadt</a></li>
+</ul>
+{% endblock %} {% block content %}
+<div class="w-full bg-white shadow-lg rounded-lg p-6 lg:p-10 text-center dark:bg-gray-800">
+    <p class="font-mono text-gray-500 dark:text-gray-400">Frage 3 von 32</p>
+    <p class="text-2xl font-bold text-gray-800 dark:text-gray-200">Die Hansestadt Buxtehude sollte den Klimanotstand ausrufen.</p>
+    <div class="w-full mx-auto mt-5 p-5 lg:space-x-2 space-y-2">
+        <button onClick="location.href='/'" class="btn btn-green w-full lg:w-44">{% include "icons/agree-white.html" %} stimme zu</button>
+        <button onClick="location.href='/'" class="btn btn-gray w-full lg:w-auto">{% include "icons/neutral-white.html" %}neutral</button>
+        <button onClick="location.href='/'" class="btn btn-red w-full lg:w-44">
+            {% include "icons/disagree-white.html" %} stimme nicht zu
+        </button>
+    </div>
+</div>
+{% endblock %}

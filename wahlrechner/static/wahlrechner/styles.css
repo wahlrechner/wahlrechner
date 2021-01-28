@@ -11,7 +11,7 @@
 }
 
 .sidebar-menu li a {
-    @apply text-sm text-gray-600 dark:text-gray-300 m-1 ml-0;
+    @apply text-sm text-gray-600 dark:text-gray-300 m-1 ml-0 truncate;
 }
 
 .sidebar-menu li a.clickable {
@@ -19,5 +19,21 @@
 }
 
 .sidebar-menu li a.active {
-    @apply bg-white dark:bg-gray-700 rounded-md text-gray-800 dark:text-gray-100 shadow-md m-0 p-1 cursor-default font-bold;
+    @apply text-gray-800 dark:text-gray-100 cursor-default font-bold;
+}
+
+.btn {
+    @apply px-3 py-1.5 rounded-lg focus:ring-4 focus:outline-none shadow-md transition;
+}
+
+.btn-green {
+    @apply text-white bg-green-600 focus:ring-green-400  hover:bg-green-700 focus:bg-green-700;
+}
+
+.btn-gray {
+    @apply text-white bg-gray-500 focus:ring-gray-400  hover:bg-gray-600 focus:bg-gray-600;
+}
+
+.btn-red {
+    @apply text-white bg-red-600 focus:ring-red-400  hover:bg-red-800 focus:bg-red-800;
 }
