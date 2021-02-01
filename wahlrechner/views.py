@@ -5,4 +5,4 @@ from django.shortcuts import render
 
 
 def index(request):
-    return render(request, 'wahlrechner/question.html')
+    return render(request, 'wahlrechner/these.html')
