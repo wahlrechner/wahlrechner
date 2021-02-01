@@ -7,11 +7,11 @@
 }
 
 .sidebar-menu li {
-    @apply truncate;
+    @apply text-gray-600 dark:text-gray-300 truncate;
 }
 
 .sidebar-menu li a {
-    @apply text-sm text-gray-600 dark:text-gray-300 m-1 ml-0 truncate;
+    @apply text-sm text-gray-600 dark:text-gray-300 m-1 ml-0;
 }
 
 .sidebar-menu li a.clickable {
@@ -26,14 +26,18 @@
     @apply px-3 py-1.5 rounded-lg focus:ring-4 focus:outline-none shadow-md transition;
 }
 
+.btn.active {
+    @apply ring-4 font-bold;
+}
+
 .btn-green {
-    @apply text-white bg-green-600 focus:ring-green-400  hover:bg-green-700 focus:bg-green-700;
+    @apply text-white bg-green-600 ring-green-400  hover:bg-green-700 focus:bg-green-700;
 }
 
 .btn-gray {
-    @apply text-white bg-gray-500 focus:ring-gray-400  hover:bg-gray-600 focus:bg-gray-600;
+    @apply text-white bg-gray-500 ring-gray-400  hover:bg-gray-600 focus:bg-gray-600;
 }
 
 .btn-red {
-    @apply text-white bg-red-600 focus:ring-red-400  hover:bg-red-800 focus:bg-red-800;
+    @apply text-white bg-red-600 ring-red-400  hover:bg-red-800 focus:bg-red-800;
 }

@@ -47,12 +47,25 @@ def these(request):
     payload[these_pk] = 'd'
     payload_disagree = urllib.parse.urlencode(payload)
 
+    # Payload anpassen bei Neutral
+    del payload[these_pk]
+    payload[these_pk] = 'n'
+    payload_neutral = urllib.parse.urlencode(payload)
+
+    # Payload anpassen bei Überspringen
+    del payload[these_pk]
+    payload[these_pk] = 's'
+    payload_skip = urllib.parse.urlencode(payload)
+
     context = {'these_list': these_list,
                'aktuelle_these': current_these,
                'pos': pos + 1,
                'max_pos': max_pos,
                'current_payload': current_payload,
                'payload_agree': payload_agree,
-               'payload_disagree': payload_disagree}
+               'payload_disagree': payload_disagree,
+               'payload_neutral': payload_neutral,
+               'payload_skip': payload_skip
+               }
 
     return render(request, 'wahlrechner/these.html', context)
