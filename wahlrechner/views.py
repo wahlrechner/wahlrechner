@@ -28,9 +28,13 @@ def these(request):
     del payload['t']
     current_payload = urllib.parse.urlencode(payload)
 
-    # Berechne PK von nächster These
-    next_these = these_list[pos + 1]
-    payload['t'] = next_these.pk
+    # Payload anpassen auf nächste These, wenn Frage nicht bearbeitet
+    if these_pk not in payload:
+        next_these = these_list[pos + 1]
+        payload['t'] = next_these.pk
+    else:
+        # Sonst bei aktueller These bleiben
+        payload['t'] = these_pk
 
     # Versuche Key aus Payload zu entfernen
     try:

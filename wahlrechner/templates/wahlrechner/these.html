@@ -34,22 +34,30 @@
 {% block content %}
 <div class="w-full bg-white shadow-lg rounded-lg p-6 lg:p-10 text-center dark:bg-gray-800">
     <p class="font-mono text-gray-500 dark:text-gray-400">These {{ pos }} von {{ max_pos }}</p>
-    <p class="text-2xl font-bold text-gray-800 dark:text-gray-200">{{ aktuelle_these.these_text }}</p>
-    <div class="w-full mx-auto mt-5 p-5 lg:space-x-2 space-y-2">
-        {% with status=request.GET|get_item:aktuelle_these.pk %}
+    <p class="text-xl mb-8 font-bold text-gray-800 dark:text-gray-200 break-words">{{ aktuelle_these.these_text }}</p>
+    
+    {% with status=request.GET|get_item:aktuelle_these.pk %}
+        <p class="text-sm text-gray-600 dark:text-gray-400 italic mb-3 lg:mb-0">
+            {% if status and status != 's' %}
+            Du hast dich bereits zu dieser These positioniert, aber du kannst deine Antwort noch anpassen:
+            {% else %}
+            Bitte positioniere dich zu dieser These:
+            {% endif %}
+        </p>
+        <div class="w-full mx-auto py-2 px-5 lg:space-x-2 space-y-2">
             <button onClick="location.href='{% url 'these' %}?{{ payload_agree }}'"
                     class="btn btn-green w-full lg:w-48 {% if status == 'a' %}active{% endif %}">
                 {% include "icons/agree-white.html" %} stimme zu
             </button>
             <button onClick="location.href='{% url 'these' %}?{{ payload_neutral }}'"
-                    class="btn btn-gray w-full lg:w-auto {% if status == 'n' %}active{% endif %}">
+                    class="btn btn-gray w-full lg:w-28 {% if status == 'n' %}active{% endif %}">
                 {% include "icons/neutral-white.html" %} neutral
             </button>
             <button onClick="location.href='{% url 'these' %}?{{ payload_disagree }}'"
                     class="btn btn-red w-full lg:w-48 {% if status == 'd' %}active{% endif %}">
                 {% include "icons/disagree-white.html" %} stimme nicht zu
             </button>
-        {% endwith %}
-    </div>
+        </div>
+    {% endwith %}
 </div>
 {% endblock %}
