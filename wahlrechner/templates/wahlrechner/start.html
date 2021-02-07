@@ -1,0 +1,19 @@
+{% extends 'wahlrechner/base.html' %}
+{% load get_item %}
+
+{% block sidebar %}
+<p class="text-lg mb-2 font-bold dark:text-gray-200">Übersicht aller Thesen</p>
+<ul class="space-y-1 sidebar-menu">
+    {% for these in these_list %}
+    <li><a>{% include "icons/empty.html" %}{{ these.these_keyword }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+{% block content %}
+<div class="w-full bg-white shadow-lg rounded-lg p-6 lg:p-10 text-center dark:bg-gray-800">
+    <button onClick="location.href='{% url 'these' %}?t={{ these_list.0.pk }}'" class="btn btn-gray">
+            Start
+    </button>
+</div>
+{% endblock %}

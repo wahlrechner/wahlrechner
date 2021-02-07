@@ -1,7 +1,14 @@
 import urllib
 from django.http.response import Http404
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from .models import These
+
+
+def start(request):
+    # Erhalte alle Thesen sortiert nach der Thesen-Nummer
+    these_list = These.objects.all().order_by('these_nr')
+
+    return render(request, 'wahlrechner/start.html', {'these_list': these_list})
 
 
 def these(request):
@@ -15,6 +22,17 @@ def these(request):
     if these_pk == '':
         raise Http404
 
+    # Erhalte Payload aus den Get-Parametern
+    payload = request.GET.copy()
+    del payload['t']
+    current_payload = urllib.parse.urlencode(payload)
+
+    # Wenn letzte Frage beantwortet, leite zur Bestätigungsseite weiter
+    if these_pk == 'c':
+        response = redirect('confirm')
+        response['Location'] += f'?{current_payload}'
+        return response
+
     # Erhalte Objekt der aktuellen These von PK existiert, sonst 404
     current_these = get_object_or_404(These, pk=these_pk)
 
@@ -22,16 +40,15 @@ def these(request):
     pos = (*these_list,).index(current_these)
     max_pos = len(these_list)
 
-    # Erhalte Payload aus den Get-Parametern
-    payload = request.GET.copy()
-
-    del payload['t']
-    current_payload = urllib.parse.urlencode(payload)
-
     # Payload anpassen auf nächste These, wenn Frage nicht bearbeitet
+    print(type(these_list.reverse()[0].pk))
+    print(type(these_pk))
     if these_pk not in payload:
-        next_these = these_list[pos + 1]
-        payload['t'] = next_these.pk
+        if these_list.reverse()[0].pk == int(these_pk):
+            payload['t'] = 'c'
+        else:
+            next_these = these_list[pos + 1]
+            payload['t'] = next_these.pk
     else:
         # Sonst bei aktueller These bleiben
         payload['t'] = these_pk
@@ -73,3 +90,10 @@ def these(request):
                }
 
     return render(request, 'wahlrechner/these.html', context)
+
+
+def confirm(request):
+    # Erhalte alle Thesen sortiert nach der Thesen-Nummer
+    these_list = These.objects.all().order_by('these_nr')
+
+    return render(request, 'wahlrechner/confirm.html', {'these_list': these_list})
