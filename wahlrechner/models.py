@@ -33,3 +33,45 @@ class These(models.Model):
     class Meta:
         verbose_name = "These"
         verbose_name_plural = "Thesen"
+
+
+class Partei(models.Model):
+    partei_name_help = """<i>Maximal 50 Zeichen</i><br>
+    Gib den Namen der Partei an, der für den Benutzer angezeigt werden soll."""
+    partei_name = models.CharField(
+        "Name", help_text=partei_name_help, max_length=50)
+
+    def __str__(self):
+        return self.partei_name
+
+    class Meta:
+        verbose_name = "Partei"
+        verbose_name_plural = "Parteien"
+
+
+class Antwort(models.Model):
+    antwort_these = models.ForeignKey(
+        These, on_delete=models.CASCADE, verbose_name="These")
+    antwort_partei = models.ForeignKey(
+        Partei, on_delete=models.CASCADE, verbose_name="Partei")
+
+    antwort_position_choices = [
+        ('a', 'stimmt zu'),
+        ('d', 'stimmt nicht zu'),
+        ('n', 'neutral')
+    ]
+    antwort_position_help = """Wähle aus, wie sich die Partei zu der ausgewählten These positioniert."""
+    antwort_position = models.CharField("Position zur These",
+                                        choices=antwort_position_choices, help_text=antwort_position_help, max_length=1)
+
+    antwort_text_help = """<i>Maximal 400 Zeichen</i><br>
+    Vollständige Antwort/Begründung der Partei zu ihrer Position."""
+    antwort_text = models.TextField(
+        "Antwort", help_text=antwort_text_help, max_length=600)
+
+    def __str__(self):
+        return f"{self.antwort_these.these_keyword} - {self.antwort_partei.partei_name}"
+
+    class Meta:
+        verbose_name = "Antwort"
+        verbose_name_plural = "Antworten"
