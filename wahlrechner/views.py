@@ -40,9 +40,21 @@ def these(request):
     pos = (*these_list,).index(current_these)
     max_pos = len(these_list)
 
+    # Payload anpassen für nächste These (nur wenn aktuelle These beantwortet)
+    if these_pk in payload:
+        payload['t'] = these_list[pos + 1].pk
+        payload_next = urllib.parse.urlencode(payload)
+    else:
+        payload_next = None
+
+    # Payload anpassen für vorherige These (nicht bei erster These)
+    if current_these != these_list[0]:
+        payload['t'] = these_list[pos - 1].pk
+        payload_previous = urllib.parse.urlencode(payload)
+    else:
+        payload_previous = None
+
     # Payload anpassen auf nächste These, wenn Frage nicht bearbeitet
-    print(type(these_list.reverse()[0].pk))
-    print(type(these_pk))
     if these_pk not in payload:
         if these_list.reverse()[0].pk == int(these_pk):
             payload['t'] = 'c'
@@ -53,27 +65,21 @@ def these(request):
         # Sonst bei aktueller These bleiben
         payload['t'] = these_pk
 
-    # Versuche Key aus Payload zu entfernen
-    try:
-        del payload[these_pk]
-    except:
-        pass
-
-    # Payload anpassen bei Zustimmung
+    # Payload anpassen für Zustimmung
     payload[these_pk] = 'a'
     payload_agree = urllib.parse.urlencode(payload)
 
-    # Payload anpassen bei Ablehnung
+    # Payload anpassen für Ablehnung
     del payload[these_pk]
     payload[these_pk] = 'd'
     payload_disagree = urllib.parse.urlencode(payload)
 
-    # Payload anpassen bei Neutral
+    # Payload anpassen für Neutral
     del payload[these_pk]
     payload[these_pk] = 'n'
     payload_neutral = urllib.parse.urlencode(payload)
 
-    # Payload anpassen bei Überspringen
+    # Payload anpassen für Überspringen
     del payload[these_pk]
     payload[these_pk] = 's'
     payload_skip = urllib.parse.urlencode(payload)
@@ -86,7 +92,9 @@ def these(request):
                'payload_agree': payload_agree,
                'payload_disagree': payload_disagree,
                'payload_neutral': payload_neutral,
-               'payload_skip': payload_skip
+               'payload_skip': payload_skip,
+               'payload_next': payload_next,
+               'payload_previous': payload_previous
                }
 
     return render(request, 'wahlrechner/these.html', context)

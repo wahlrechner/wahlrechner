@@ -60,4 +60,27 @@
         </div>
     {% endwith %}
 </div>
+<div class="flex justify-between mt-3">
+    <div>
+        {% if payload_previous %}
+        <button onClick="location.href='{% url 'these' %}?{{ payload_previous }}'"
+                class="btn btn-white">
+            {% include "icons/arrow-left.html" %} vorherige These
+        </button>
+        {% endif %}
+    </div>
+    <div>
+        {% if payload_next %}
+        <button onClick="location.href='{% url 'these' %}?{{ payload_next }}'"
+                class="btn btn-white">
+            nächste These {% include "icons/arrow-right.html" %} 
+        </button>
+        {% else %}
+        <button onClick="location.href='{% url 'these' %}?{{ payload_skip }}'"
+                class="btn btn-white">
+            These überspringen {% include "icons/skip.html" %} 
+        </button>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

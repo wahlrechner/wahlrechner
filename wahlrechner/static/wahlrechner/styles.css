@@ -41,3 +41,7 @@
 .btn-red {
     @apply text-white bg-red-600 ring-red-400  hover:bg-red-800 focus:bg-red-800;
 }
+
+.btn-white {
+    @apply text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 ring-white dark:ring-gray-600  hover:bg-gray-200 dark:hover:bg-gray-700 focus:bg-gray-200;
+}
