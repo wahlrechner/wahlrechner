@@ -1,8 +1,5 @@
-{% extends 'wahlrechner/base.html' %}
-{% load get_item %}
-
-{% block sidebar %}
-<p class="text-lg mb-2 font-bold dark:text-gray-200">Übersicht aller Thesen</p>
+{% extends 'wahlrechner/base.html' %} {% load get_item %} {% block sidebar %}
+<p class="text-lg mb-2 dark:text-gray-200">Übersicht aller Thesen</p>
 <ul class="space-y-1 sidebar-menu">
     {% for these in these_list %}
     <li>
@@ -29,17 +26,17 @@
     </li>
     {% endfor %}
 </ul>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <div class="w-full bg-white shadow-lg rounded-lg p-6 lg:p-10 text-center dark:bg-gray-800">
     <p class="font-mono text-gray-500 dark:text-gray-400">These {{ pos }} von {{ max_pos }}</p>
     <p class="text-xl mb-8 font-bold text-gray-800 dark:text-gray-200 break-words">{{ aktuelle_these.these_text }}</p>
-    
+
     {% with status=request.GET|get_item:aktuelle_these.pk %}
-        <p class="text-sm text-gray-600 dark:text-gray-400 italic mb-3 lg:mb-0">
+    <p class="text-sm text-gray-600 dark:text-gray-400 italic mb-3 lg:mb-0">
             {% if status and status != 's' %}
             Du hast dich bereits zu dieser These positioniert, aber du kannst deine Antwort noch anpassen:
+            {% elif status == 's' %}
+            Du hast diese These übersprungen, ab du kannst sie jetzt noch beantworten:
             {% else %}
             Bitte positioniere dich zu dieser These:
             {% endif %}
@@ -60,25 +57,26 @@
         </div>
     {% endwith %}
 </div>
-<div class="flex justify-between mt-3">
+<div class="flex justify-between mt-3 space-x-2">
     <div>
         {% if payload_previous %}
-        <button onClick="location.href='{% url 'these' %}?{{ payload_previous }}'"
-                class="btn btn-white">
+        <button onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="btn btn-white h-full">
             {% include "icons/arrow-left.html" %} vorherige These
         </button>
         {% endif %}
     </div>
     <div>
-        {% if payload_next %}
-        <button onClick="location.href='{% url 'these' %}?{{ payload_next }}'"
-                class="btn btn-white">
-            nächste These {% include "icons/arrow-right.html" %} 
+        {% if letzte_these %}
+        <button onClick="location.href='{% url 'these' %}?{{ payload_next }}'" class="btn btn-white h-full">
+            weiter zur Gewichtung {% include "icons/arrow-right.html" %}
+        </button>
+        {% elif payload_next %}
+        <button onClick="location.href='{% url 'these' %}?{{ payload_next }}'" class="btn btn-white h-full">
+            nächste These {% include "icons/arrow-right.html" %}
         </button>
         {% else %}
-        <button onClick="location.href='{% url 'these' %}?{{ payload_skip }}'"
-                class="btn btn-white">
-            These überspringen {% include "icons/skip.html" %} 
+        <button onClick="location.href='{% url 'these' %}?{{ payload_skip }}'" class="btn btn-white h-full">
+            These überspringen {% include "icons/skip.html" %}
         </button>
         {% endif %}
     </div>

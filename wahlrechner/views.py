@@ -41,7 +41,10 @@ def these(request):
     max_pos = len(these_list)
 
     # Payload anpassen für nächste These (nur wenn aktuelle These beantwortet)
-    if these_pk in payload:
+    if letzte_these := (these_list.reverse()[0].pk == int(these_pk)):
+        payload['t'] = 'c'
+        payload_next = urllib.parse.urlencode(payload)
+    elif these_pk in payload:
         payload['t'] = these_list[pos + 1].pk
         payload_next = urllib.parse.urlencode(payload)
     else:
@@ -56,7 +59,7 @@ def these(request):
 
     # Payload anpassen auf nächste These, wenn Frage nicht bearbeitet
     if these_pk not in payload:
-        if these_list.reverse()[0].pk == int(these_pk):
+        if letzte_these:
             payload['t'] = 'c'
         else:
             next_these = these_list[pos + 1]
@@ -94,7 +97,8 @@ def these(request):
                'payload_neutral': payload_neutral,
                'payload_skip': payload_skip,
                'payload_next': payload_next,
-               'payload_previous': payload_previous
+               'payload_previous': payload_previous,
+               'letzte_these': letzte_these
                }
 
     return render(request, 'wahlrechner/these.html', context)
@@ -104,4 +108,10 @@ def confirm(request):
     # Erhalte alle Thesen sortiert nach der Thesen-Nummer
     these_list = These.objects.all().order_by('these_nr')
 
-    return render(request, 'wahlrechner/confirm.html', {'these_list': these_list})
+    # Payload für den Zurück-Knopf
+    payload = request.GET.copy()
+    current_payload = urllib.parse.urlencode(payload)
+    payload['t'] = these_list.reverse()[0].pk
+    payload_previous = urllib.parse.urlencode(payload)
+
+    return render(request, 'wahlrechner/confirm.html', {'these_list': these_list, 'current_payload': current_payload, 'payload_previous': payload_previous})
