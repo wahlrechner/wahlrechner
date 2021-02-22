@@ -1,7 +1,7 @@
 import urllib
 from django.http.response import Http404
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import These
+from .models import Antwort, Partei, These
 
 
 def start(request):
@@ -137,7 +137,41 @@ def results(request):
     payload = request.GET.copy()
     current_payload = urllib.parse.urlencode(payload)
 
+    results = calculate_results(request)
+
     context = {'these_list': these_list,
-               'current_payload': current_payload}
+               'current_payload': current_payload,
+               'results': results}
 
     return render(request, 'wahlrechner/results.html', context)
+
+
+def calculate_results(request):
+
+    results = []
+
+    for partei in Partei.objects.all():
+        match = []
+
+        for antwort in Antwort.objects.filter(antwort_partei=partei):
+            # Falls These nicht übersprungen
+            if (position := request.GET.get(str(antwort.antwort_these.pk), "s")) != "s":
+                if position == antwort.antwort_position:
+                    match.append(True)
+                    # Ist These als wichtig makiert? (Doppelte Wertung)
+                    if request.GET.get(f"p{antwort.antwort_these.pk}", False):
+                        match.append(True)
+                else:
+                    match.append(False)
+                    # Ist These als wichtig makiert? (Doppelte Wertung)
+                    if request.GET.get(f"p{antwort.antwort_these.pk}", False):
+                        match.append(False)
+
+        if len(match) == 0:
+            percentage = 0
+        else:
+            percentage = int(match.count(True) / len(match) * 100)
+
+        results.append((partei, percentage))
+
+    return results

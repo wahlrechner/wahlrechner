@@ -25,6 +25,15 @@
 {% endblock %}
 {% block content %}
 <div class="w-full bg-white shadow-lg rounded-lg p-6 lg:p-10 text-center dark:bg-gray-800">
-    <h1>Ergebnisse</h1>
+    <h1 class="mb-3">Ergebnisse</h1>
+    <div class="text-left">
+        <ul>
+        {% for partei, percentage in results %}
+
+            <li><b>{{ partei.partei_name }}</b>: {{percentage}}%</li>
+        
+        {% endfor %}
+        </ul>
+    </div>
 </div>
 {% endblock %}
