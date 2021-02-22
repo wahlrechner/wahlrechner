@@ -40,11 +40,17 @@ def these(request):
     pos = (*these_list,).index(current_these)
     max_pos = len(these_list)
 
-    # Payload anpassen für nächste These (nur wenn aktuelle These beantwortet)
+    letzte_these_beantwortet = False
+
+    # Payload anpassen für nächste These
     if letzte_these := (these_list.reverse()[0].pk == int(these_pk)):
+        # Falls letzte These ändere PK auf c für Bestätigungsseite
         payload['t'] = 'c'
         payload_next = urllib.parse.urlencode(payload)
+        if these_pk in payload:
+            letzte_these_beantwortet = True
     elif these_pk in payload:
+        # Falls These beantwortet ändere TK um 1
         payload['t'] = these_list[pos + 1].pk
         payload_next = urllib.parse.urlencode(payload)
     else:
@@ -98,7 +104,8 @@ def these(request):
                'payload_skip': payload_skip,
                'payload_next': payload_next,
                'payload_previous': payload_previous,
-               'letzte_these': letzte_these
+               'letzte_these': letzte_these,
+               'letzte_these_beantwortet': letzte_these_beantwortet
                }
 
     return render(request, 'wahlrechner/these.html', context)
@@ -114,4 +121,23 @@ def confirm(request):
     payload['t'] = these_list.reverse()[0].pk
     payload_previous = urllib.parse.urlencode(payload)
 
-    return render(request, 'wahlrechner/confirm.html', {'these_list': these_list, 'current_payload': current_payload, 'payload_previous': payload_previous})
+    context = {'these_list': these_list,
+               'current_payload': current_payload,
+               'payload_previous': payload_previous
+               }
+
+    return render(request, 'wahlrechner/confirm.html', context)
+
+
+def results(request):
+    # Erhalte alle Thesen sortiert nach der Thesen-Nummer
+    these_list = These.objects.all().order_by('these_nr')
+
+    # Aktueller Payload
+    payload = request.GET.copy()
+    current_payload = urllib.parse.urlencode(payload)
+
+    context = {'these_list': these_list,
+               'current_payload': current_payload}
+
+    return render(request, 'wahlrechner/results.html', context)

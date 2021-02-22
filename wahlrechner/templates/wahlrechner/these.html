@@ -66,11 +66,11 @@
         {% endif %}
     </div>
     <div>
-        {% if letzte_these %}
+        {% if letzte_these_beantwortet %}
         <button onClick="location.href='{% url 'these' %}?{{ payload_next }}'" class="btn btn-white h-full">
             zur Gewichtung der Thesen {% include "icons/arrow-right.html" %}
         </button>
-        {% elif payload_next %}
+        {% elif payload_next and not letzte_these %}
         <button onClick="location.href='{% url 'these' %}?{{ payload_next }}'" class="btn btn-white h-full">
             nächste These {% include "icons/arrow-right.html" %}
         </button>

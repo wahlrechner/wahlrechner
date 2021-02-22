@@ -1,0 +1,30 @@
+{% extends 'wahlrechner/base.html' %} {% load get_item %} {% block sidebar %}
+<p class="text-lg mb-2 dark:text-gray-200">Übersicht aller Thesen</p>
+<ul class="space-y-1 sidebar-menu">
+    {% for these in these_list %}
+    <li>
+        {% with status=request.GET|get_item:these.pk %}
+            {% if status == 'a' %}
+                {% include "icons/agree.html" %}
+            {% elif status == 'd' %}
+                {% include "icons/disagree.html" %}
+            {% elif status == 'n' %}
+                {% include "icons/neutral.html" %}
+            {% elif status == 's' %}
+                {% include "icons/skip.html" %}
+            {% else %}
+                {% include "icons/empty.html" %}
+            {% endif %}
+        {% endwith %}    
+        <a onClick="location.href='{% url 'these' %}?t={{ these.pk }}&{{ current_payload }}'" class="clickable">
+            {{ these.these_keyword }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+{% block content %}
+<div class="w-full bg-white shadow-lg rounded-lg p-6 lg:p-10 text-center dark:bg-gray-800">
+    <h1>Ergebnisse</h1>
+</div>
+{% endblock %}
