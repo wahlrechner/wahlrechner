@@ -151,26 +151,35 @@ def calculate_results(request):
     results = []
 
     for partei in Partei.objects.all():
-        match = []
+        points = 0
+        max_points = 0
 
         for antwort in Antwort.objects.filter(antwort_partei=partei):
             # Falls These nicht übersprungen
             if (position := request.GET.get(str(antwort.antwort_these.pk), "s")) != "s":
-                if position == antwort.antwort_position:
-                    match.append(True)
-                    # Ist These als wichtig makiert? (Doppelte Wertung)
-                    if request.GET.get(f"p{antwort.antwort_these.pk}", False):
-                        match.append(True)
-                else:
-                    match.append(False)
-                    # Ist These als wichtig makiert? (Doppelte Wertung)
-                    if request.GET.get(f"p{antwort.antwort_these.pk}", False):
-                        match.append(False)
 
-        if len(match) == 0:
+                # Stimmt Position mit Antwort der Partei überein? (2 Punkte)
+                if position == antwort.antwort_position:
+                    p = 2
+                # Teilweise Übereinstimmung, Position der Partei oder eigene Position neutral? (1 Punkt)
+                elif position == "n" or antwort.antwort_position == "n":
+                    p = 1
+                # Keine Übereinstummung (0 Punkte)
+                else:
+                    p = 0
+
+                # Ist These als wichtig makiert? (Doppelte Punkte)
+                if request.GET.get(f"p{antwort.antwort_these.pk}", False):
+                    points += p * 2
+                    max_points += 4  # bei einer wichtigen These sind maximal erreichbare Punkte 4
+                else:
+                    points += p
+                    max_points += 2  # bei einer normalen These sind maximal erreichbare Punkte 2
+
+        if max_points == 0:
             percentage = 0
         else:
-            percentage = int(match.count(True) / len(match) * 100)
+            percentage = round((points / max_points * 100), 1)
 
         results.append((partei, percentage))
 
