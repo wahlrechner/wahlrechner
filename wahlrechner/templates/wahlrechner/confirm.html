@@ -29,7 +29,7 @@
 </div>
 
 <form method="get" action="{% url 'results' %}">
-    <div class="w-full bg-white shadow-lg rounded-lg p-5 text-center dark:bg-gray-800">
+    <div class="w-full bg-white shadow-lg rounded-lg p-1 lg:p-5 text-center dark:bg-gray-800">
         <div class="m-4">
         {% for these in these_list %}
             {% with status=request.GET|get_item:these.pk %}
@@ -67,17 +67,14 @@
         {% endfor %}
         </div>
     </div>
-    <div class="flex justify-between mt-2 space-x-2">
-        <div>
-            <button type="button" onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="btn btn-white h-full">
-                {% include "icons/arrow-left.html" %} Antworten bearbeiten
-            </button>
-        </div>
-        <div>
-            <button type="submit" class="btn btn-white h-full">
-                Ergebnisse anzeigen {% include "icons/arrow-right.html" %}
-            </button>
-        </div>
+    <div class="flex flex-col md:flex-row justify-between mt-2 space-y-2 md:space-y-0 md:space-x-2">
+        <button type="button" onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="btn btn-white h-full">
+            {% include "icons/pen.html" %} Antworten bearbeiten
+        </button>
+
+        <button type="submit" class="btn btn-white h-full">
+            Ergebnisse anzeigen {% include "icons/circle-right.html" %}
+        </button>
     </div>
 </form>
 {% endblock %}

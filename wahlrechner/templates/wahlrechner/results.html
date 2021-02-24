@@ -10,7 +10,7 @@
                 {% include "icons/disagree.html" %}
             {% elif status == 'n' %}
                 {% include "icons/neutral.html" %}
-            {% elif status == 's' %}
+            {% elif status == 's' or status == None %}
                 {% include "icons/skip.html" %}
             {% else %}
                 {% include "icons/empty.html" %}

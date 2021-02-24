@@ -57,28 +57,31 @@
         </div>
     {% endwith %}
 </div>
-<div class="flex justify-between mt-2 space-x-2">
-    <div>
-        {% if payload_previous %}
-        <button onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="btn btn-white h-full">
-            {% include "icons/arrow-left.html" %} vorherige These
-        </button>
-        {% endif %}
-    </div>
-    <div>
-        {% if letzte_these_beantwortet %}
-        <button onClick="location.href='{% url 'these' %}?{{ payload_next }}'" class="btn btn-white h-full">
-            zur Gewichtung der Thesen {% include "icons/arrow-right.html" %}
-        </button>
-        {% elif payload_next and not letzte_these %}
-        <button onClick="location.href='{% url 'these' %}?{{ payload_next }}'" class="btn btn-white h-full">
-            nächste These {% include "icons/arrow-right.html" %}
-        </button>
-        {% else %}
-        <button onClick="location.href='{% url 'these' %}?{{ payload_skip }}'" class="btn btn-white h-full">
-            These überspringen {% include "icons/skip.html" %}
-        </button>
-        {% endif %}
-    </div>
+<div class="flex flex-col md:flex-row justify-between mt-2 space-y-2 md:space-y-0 md:space-x-2">
+
+    {% if payload_previous %}
+    <button onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="btn btn-white h-full">
+        {% include "icons/arrow-left.html" %} vorherige These
+    </button>
+    {% elif not show_continue_button %}
+    <div></div>
+    {% endif %}
+    
+    {% if show_continue_button %}
+    <button onClick="location.href='{% url 'confirm' %}?{{ current_payload }}'" class="btn btn-white h-full">
+        Abschließen {% include "icons/circle-right.html" %}
+    </button>
+    {% endif %}
+
+    {% if these_beantwortet and payload_next %}
+    <button onClick="location.href='{% url 'these' %}?{{ payload_next }}'" class="btn btn-white h-full">
+        nächste These {% include "icons/arrow-right.html" %}
+    </button>
+    {% elif not show_continue_button %}
+    <button onClick="location.href='{% url 'these' %}?{{ payload_skip }}'" class="btn btn-white h-full">
+        These überspringen {% include "icons/skip.html" %}
+    </button>
+    {% endif %}
+    
 </div>
 {% endblock %}

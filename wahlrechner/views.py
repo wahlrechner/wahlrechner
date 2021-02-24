@@ -27,7 +27,7 @@ def these(request):
     del payload['t']
     current_payload = urllib.parse.urlencode(payload)
 
-    # Wenn letzte Frage beantwortet, leite zur Bestätigungsseite weiter
+    # Wenn letzte Frage beantwortet, leite zur Gewichtungsseite weiter
     if these_pk == 'c':
         response = redirect('confirm')
         response['Location'] += f'?{current_payload}'
@@ -40,16 +40,20 @@ def these(request):
     pos = (*these_list,).index(current_these)
     max_pos = len(these_list)
 
-    letzte_these_beantwortet = False
+    # Falls letzte These beantwortet, zeige Weiter-Button
+    if str(these_list.reverse()[0].pk) in payload:
+        show_continue_button = True
+    else:
+        show_continue_button = False
 
-    # Payload anpassen für nächste These
-    if letzte_these := (these_list.reverse()[0].pk == int(these_pk)):
-        # Falls letzte These ändere PK auf c für Bestätigungsseite
-        payload['t'] = 'c'
-        payload_next = urllib.parse.urlencode(payload)
-        if these_pk in payload:
-            letzte_these_beantwortet = True
-    elif these_pk in payload:
+    # Aktuelle These beantwortet?
+    if these_pk in payload:
+        these_beantwortet = True
+    else:
+        these_beantwortet = False
+
+    # Payload anpassen für nächste These (nicht bei letzter These)
+    if current_these != these_list.reverse()[0]:
         # Falls These beantwortet ändere TK um 1
         payload['t'] = these_list[pos + 1].pk
         payload_next = urllib.parse.urlencode(payload)
@@ -65,7 +69,8 @@ def these(request):
 
     # Payload anpassen auf nächste These, wenn Frage nicht bearbeitet
     if these_pk not in payload:
-        if letzte_these:
+        if current_these == these_list.reverse()[0]:
+            # bei der letzten These ändern für Gewichtungs-Seite
             payload['t'] = 'c'
         else:
             next_these = these_list[pos + 1]
@@ -104,8 +109,8 @@ def these(request):
                'payload_skip': payload_skip,
                'payload_next': payload_next,
                'payload_previous': payload_previous,
-               'letzte_these': letzte_these,
-               'letzte_these_beantwortet': letzte_these_beantwortet
+               'show_continue_button': show_continue_button,
+               'these_beantwortet': these_beantwortet
                }
 
     return render(request, 'wahlrechner/these.html', context)
