@@ -183,4 +183,7 @@ def calculate_results(request):
 
         results.append((partei, percentage))
 
+    # Sortiere die Ergebnisse nach der prozentualen Übereinstimmung
+    results.sort(key=lambda partei: partei[1], reverse=True)
+
     return results
