@@ -200,7 +200,7 @@ def aussagekraeftig(request):
     skips = 0
 
     for these in These.objects.all():
-        if request.GET.get(these.pk, "s") == "s":
+        if request.GET.get(str(these.pk), "s") == "s":
             skips += 1
 
     if skips > These.objects.all().count() * 0.6:
