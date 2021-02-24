@@ -18,7 +18,7 @@
                 {% include "icons/empty.html" %}
             {% endif %}
         {% endwith %}    
-        <a onClick="location.href='{% url 'these' %}?t={{ these.pk }}&{{ current_payload }}'" class="clickable">
+        <a onClick="location.href='{% url 'reason' %}?t={{ these.pk }}&{{ current_payload }}'" class="clickable">
             {{ these.these_keyword }}
         </a>
     </li>
@@ -67,5 +67,15 @@
     <p class="text-gray-600 dark:text-gray-300 text-sm text-left">{{ partei.partei_beschreibung }}</p>
 </div>
 {% endfor %}
+
+<div class="flex flex-col md:flex-row justify-between mt-2 space-y-2 md:space-y-0 md:space-x-2">
+    <button onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="btn btn-white h-full">
+        {% include "icons/pen.html" %} Antworten bearbeiten
+    </button>
+
+    <button onClick="location.href='{% url 'reason' %}?t={{ these_list.first.pk}}&{{ current_payload }}'"class="btn btn-white h-full">
+        Zu den Begründungen {% include "icons/circle-right.html" %}
+    </button>
+</div>
 
 {% endblock %}

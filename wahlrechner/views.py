@@ -142,15 +142,79 @@ def results(request):
     # Aktueller Payload
     payload = request.GET.copy()
     current_payload = urllib.parse.urlencode(payload)
+    payload['t'] = these_list.reverse()[0].pk
+    payload_previous = urllib.parse.urlencode(payload)
 
     results = calculate_results(request)
 
     context = {'these_list': these_list,
                'current_payload': current_payload,
+               'payload_previous': payload_previous,
                'results': results,
                'aussagekraeftig': aussagekraeftig(request)}
 
     return render(request, 'wahlrechner/results.html', context)
+
+
+def reason(request):
+    # Erhalte alle Thesen sortiert nach der Thesen-Nummer
+    these_list = These.objects.all().order_by('these_nr')
+
+    # Erhalte Payload aus den Get-Parametern
+    payload = request.GET.copy()
+    del payload['t']
+    current_payload = urllib.parse.urlencode(payload)
+
+    # Erhalte these_pk aus Parameter
+    these_pk = request.GET.get('t', '')
+
+    # 404 wenn kein Parameter angegeben
+    if these_pk == '':
+        raise Http404
+
+    # Erhalte Objekt der aktuellen These von PK existiert, sonst 404
+    current_these = get_object_or_404(These, pk=these_pk)
+
+    # Erhalte Index der aktuellen These und Länge aller Thesen
+    pos = (*these_list,).index(current_these)
+    max_pos = len(these_list)
+
+    # Payload anpassen für nächste These (nicht bei letzter These)
+    if current_these != these_list.reverse()[0]:
+        # Falls These beantwortet ändere TK um 1
+        payload['t'] = these_list[pos + 1].pk
+        payload_next = urllib.parse.urlencode(payload)
+    else:
+        payload_next = None
+
+    # Payload anpassen für vorherige These (nicht bei erster These)
+    if current_these != these_list[0]:
+        payload['t'] = these_list[pos - 1].pk
+        payload_previous = urllib.parse.urlencode(payload)
+    else:
+        payload_previous = None
+
+    # Berechne Ergebnisse
+    results = calculate_results(request)
+
+    # Erhalte Antworten der Parteien
+    antworten = []
+    for partei, _ in results:
+        antwort = Antwort.objects.get(
+            antwort_these=current_these, antwort_partei=partei)
+        antworten.append(antwort)
+
+    context = {'these_list': these_list,
+               'current_payload': current_payload,
+               'pos': pos + 1,
+               'aktuelle_these': current_these,
+               'payload_next': payload_next,
+               'payload_previous': payload_previous,
+               'antworten': antworten,
+               'max_pos': max_pos,
+               'results': results}
+
+    return render(request, 'wahlrechner/reason.html', context)
 
 
 def calculate_results(request):
