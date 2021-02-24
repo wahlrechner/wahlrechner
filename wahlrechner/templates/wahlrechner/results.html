@@ -1,4 +1,6 @@
-{% extends 'wahlrechner/base.html' %} {% load get_item %} {% block sidebar %}
+{% extends 'wahlrechner/base.html' %} {% load get_item %}
+{% block title %}Dein Ergebnis{% endblock %}
+{% block sidebar %}
 <p class="text-lg mb-2 dark:text-gray-200">Übersicht aller Thesen</p>
 <ul class="space-y-1 sidebar-menu">
     {% for these in these_list %}
