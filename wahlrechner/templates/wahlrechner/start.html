@@ -1,4 +1,6 @@
-{% extends 'wahlrechner/base.html' %} {% load get_item %} {% block sidebar %}
+{% extends 'wahlrechner/base.html' %} {% load get_item %}
+{% block title %}Startseite{% endblock %}
+{% block sidebar %}
 <p class="text-lg mb-2 dark:text-gray-200">Übersicht aller Thesen</p>
 <ul class="space-y-1 sidebar-menu">
     {% for these in these_list %}
@@ -6,7 +8,17 @@
     {% endfor %}
 </ul>
 {% endblock %} {% block content %}
-<div class="w-full bg-white shadow-lg rounded-lg p-6 lg:p-10 text-center dark:bg-gray-800">
-    <button onClick="location.href='{% url 'these' %}?t={{ these_list.0.pk }}'" class="btn btn-gray">Start</button>
+<div class="w-full bg-white shadow-lg rounded-lg p-6 text-center dark:bg-gray-800">
+    <h1 class="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-100">Willkommen beim Wahlrechner</h1>
+    <div class="text-gray-600 dark:text-gray-300 text-left">
+        {% lorem %}<br>{% lorem %}
+    </div>
+</div>
+<div class="flex flex-col md:flex-row justify-between mt-2 space-y-2 md:space-y-0 md:space-x-2">
+    <div></div>
+
+    <button onClick="location.href='{% url 'these' %}?t={{ these_list.first.pk }}'"class="btn btn-white h-full">
+        Start {% include "icons/circle-right.html" %}
+    </button>
 </div>
 {% endblock %}
