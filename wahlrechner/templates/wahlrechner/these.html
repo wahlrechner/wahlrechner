@@ -77,7 +77,7 @@
     <button onClick="location.href='{% url 'these' %}?{{ payload_next }}'" class="btn btn-white h-full">
         nächste These {% include "icons/arrow-right.html" %}
     </button>
-    {% elif not show_continue_button %}
+    {% elif not these_beantwortet %}
     <button onClick="location.href='{% url 'these' %}?{{ payload_skip }}'" class="btn btn-white h-full">
         These überspringen {% include "icons/skip.html" %}
     </button>
