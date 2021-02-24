@@ -25,11 +25,16 @@
 {% endblock %}
 {% block content %}
 <div class="w-full bg-white shadow-lg rounded-lg p-5 text-center dark:bg-gray-800">
-    <h1 class="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-100">Dein Ergebniss</h1>
+    <h1 class="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-100">Dein Ergebnis</h1>
     <div class="text-gray-600 dark:text-gray-300 text-left">
         Auf Grundlage deiner Positionen zu jeder These haben wir deine Übereinstimmung mit
         den einzelnen Parteien berechnet. Bitte beachte, dass Parteien mit einer ähnlichen
         Übereinstimmung nicht auch automatisch eine inhaltliche Nähe zueinander haben.
+        {% if not aussagekraeftig %}
+        <br><br>
+        <span class="text-red-700 dark:text-red-500 font-semibold">Dein Ergebnis ist möglicherweise nicht aussagekräftig, weil du zu viele Thesen
+        übersprungen hast.</span>
+        {% endif %}
     </div>
 </div>
 

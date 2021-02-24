@@ -128,7 +128,8 @@ def confirm(request):
 
     context = {'these_list': these_list,
                'current_payload': current_payload,
-               'payload_previous': payload_previous
+               'payload_previous': payload_previous,
+               'aussagekraeftig': aussagekraeftig(request)
                }
 
     return render(request, 'wahlrechner/confirm.html', context)
@@ -146,7 +147,8 @@ def results(request):
 
     context = {'these_list': these_list,
                'current_payload': current_payload,
-               'results': results}
+               'results': results,
+               'aussagekraeftig': aussagekraeftig(request)}
 
     return render(request, 'wahlrechner/results.html', context)
 
@@ -192,3 +194,16 @@ def calculate_results(request):
     results.sort(key=lambda partei: partei[1], reverse=True)
 
     return results
+
+
+def aussagekraeftig(request):
+    skips = 0
+
+    for these in These.objects.all():
+        if request.GET.get(these.pk, "s") == "s":
+            skips += 1
+
+    if skips > These.objects.all().count() * 0.6:
+        return False
+    else:
+        return True
