@@ -23,11 +23,14 @@
     {% endfor %}
 </ul>
 {% endblock %} {% block content %}
-<form method="get" action="{% url 'results' %}">
-    <div class="w-full bg-white shadow-lg rounded-lg p-6 lg:p-10 text-center dark:bg-gray-800">
-        <h1 class="text-xl mb-3 text-gray-800 dark:text-gray-100">Gewichtung der Thesen</h1>
-        <div class="text-gray-500 dark:text-gray-400 mb-4">Wähle die Thesen aus, die dir wichtig sind. Diese Thesen werden in der Berechnung doppelt gewichtet.</div>
+<div class="w-full bg-white shadow-lg rounded-lg p-5 text-center dark:bg-gray-800 mb-2">
+    <h1 class="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-100">Gewichtung der Thesen</h1>
+    <div class="text-gray-600 text-left dark:text-gray-300">Wähle die Thesen aus, die dir wichtig sind. Diese Thesen werden in der Berechnung doppelt gewichtet.</div>
+</div>
 
+<form method="get" action="{% url 'results' %}">
+    <div class="w-full bg-white shadow-lg rounded-lg p-5 text-center dark:bg-gray-800">
+        <div class="m-4">
         {% for these in these_list %}
             {% with status=request.GET|get_item:these.pk %}
                 <input type="hidden" name="{{ these.pk }}" value="{% if status %}{{ status }}{% else %}s{% endif %}">
@@ -62,8 +65,9 @@
                 {% endif %}
             {% endwith %}   
         {% endfor %}
+        </div>
     </div>
-    <div class="flex justify-between mt-3 space-x-2">
+    <div class="flex justify-between mt-2 space-x-2">
         <div>
             <button type="button" onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="btn btn-white h-full">
                 {% include "icons/arrow-left.html" %} Antworten bearbeiten

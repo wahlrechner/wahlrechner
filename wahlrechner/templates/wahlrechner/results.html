@@ -25,8 +25,8 @@
 {% endblock %}
 {% block content %}
 <div class="w-full bg-white shadow-lg rounded-lg p-5 text-center dark:bg-gray-800">
-    <h1 class="mb-2 text-xl font-semibold text-gray-700">Dein Ergebniss</h1>
-    <div class="text-gray-600 text-justify">
+    <h1 class="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-100">Dein Ergebniss</h1>
+    <div class="text-gray-600 dark:text-gray-300 text-left">
         Auf Grundlage deiner Positionen zu jeder These haben wir deine Übereinstimmung mit
         den einzelnen Parteien berechnet. Bitte beachte, dass Parteien mit einer ähnlichen
         Übereinstimmung nicht auch automatisch eine inhaltliche Nähe zueinander haben.
@@ -37,7 +37,7 @@
 <div class="w-full bg-white shadow-lg rounded-lg p-4 my-2 dark:bg-gray-800">
     
     {% if forloop.first %}
-        <div class="text-gray-500 text-sm mb-3">
+        <div class="text-gray-500 dark:text-gray-400 text-sm mb-3">
             <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 inline-flex align-middle">
                 <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -48,16 +48,16 @@
 
     <div class="mb-3">
         {% if percentage > 70 %}
-            <span class="font-bold text-green-700 bg-green-200 rounded px-1.5 py-1 mr-1">{{ percentage }}%</span>
+            <span class="font-bold text-green-700 dark:text-green-900 bg-green-200 dark:bg-green-400 rounded px-1.5 py-1 mr-1">{{ percentage }}%</span>
         {% elif percentage > 50 %}
-            <span class="font-bold text-yellow-600 bg-yellow-200 rounded px-1.5 py-1 mr-1">{{ percentage }}%</span>
+            <span class="font-bold text-yellow-600 dark:text-yellow-900 bg-yellow-200 dark:bg-yellow-400 rounded px-1.5 py-1 mr-1">{{ percentage }}%</span>
         {% else %}
-            <span class="font-bold text-red-700 bg-red-200 rounded px-1.5 py-1 mr-1">{{ percentage }}%</span>
+            <span class="font-bold text-red-700 dark:text-red-900 bg-red-200 dark:bg-red-400 rounded px-1.5 py-1 mr-1">{{ percentage }}%</span>
         {% endif %}
-        <span class="text-lg text-gray-700 font-semibold">{{ partei.partei_name }}</span>
+        <span class="text-lg text-gray-700 dark:text-gray-100 font-semibold">{{ partei.partei_name }}</span>
     </div>
 
-    <p class="text-gray-600 text-sm text-justify">{{ partei.partei_beschreibung }}</p>
+    <p class="text-gray-600 dark:text-gray-300 text-sm text-left">{{ partei.partei_beschreibung }}</p>
 </div>
 {% endfor %}
 
