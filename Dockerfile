@@ -1,5 +1,3 @@
-LABEL org.opencontainers.image.source https://github.com/wahlrechner/wahlrechner
-
 FROM python:3
 
 RUN mkdir /code
