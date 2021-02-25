@@ -1,4 +1,4 @@
-name: Build beta image
+name: Preview Image
 
 on:
     push:
@@ -13,12 +13,12 @@ jobs:
             - name: Check out the repo
               uses: actions/checkout@v2
             - name: Include version number
-              run: echo "BETA-${{ github.run_number }}" > version.txt
+              run: echo "PREVIEW-${{ github.run_number }}" > version.txt
             - name: Push to GitHub Packages
-              uses: docker/build-push-action@v2
+              uses: docker/build-push-action@v2.3
               with:
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}
                   registry: docker.pkg.github.com
-                  repository: # <username>/<repository>/<package>
-                  tags: beta, BETA-${{ github.run_number }}
+                  repository: wahlrechner/wahlrechner/wahlrechner-preview
+                  tags: latest, PREVIEW-${{ github.run_number }}
