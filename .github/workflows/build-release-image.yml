@@ -3,7 +3,7 @@ name: Build Release Docker Image
 on:
     push:
         tags:
-            - *
+            - "*"
 
 jobs:
     push_to_registry:
