@@ -10,6 +10,8 @@ jobs:
         name: Docker Image
         runs-on: ubuntu-latest
         steps:
+            - run: echo ::set-env name=IMAGE_TAG::${GITHUB_REF:10}
+        
             - name: Check out the repo
               uses: actions/checkout@v2
               
@@ -42,4 +44,4 @@ jobs:
               uses: docker/build-push-action@v2
               with:
                 push: true
-                # tags: ghcr.io/${{ github.repository_owner }}/wahlrechner-preview:preview-latest, ghcr.io/${{ github.repository_owner }}/wahlrechner-preview:preview-${{ github.run_number }}
+                tags: ghcr.io/${{ github.repository_owner }}/<image-name>:${{ env.IMAGE_TAG }}
