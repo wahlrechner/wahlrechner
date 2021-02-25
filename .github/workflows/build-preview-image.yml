@@ -48,5 +48,6 @@ jobs:
             - name: Push to GitHub Packages
               uses: docker/build-push-action@v2
               with:
+                  context: .
                   push: true
                   tags: ghcr.io/${{ github.repository_owner }}/wahlrechner-preview:latest, ghcr.io/${{ github.repository_owner }}/wahlrechner-preview:preview-${{ github.run_number }}
