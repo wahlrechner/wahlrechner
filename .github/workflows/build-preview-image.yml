@@ -21,4 +21,4 @@ jobs:
                   password: ${{ secrets.GITHUB_TOKEN }}
                   registry: docker.pkg.github.com
                   repository: wahlrechner/wahlrechner/wahlrechner-preview
-                  tags: latest, PREVIEW-${{ github.run_number }}
+                  tags: wahlrechner/wahlrechner:latest-preview, wahlrechenr/wahlrechner:preview-${{ github.run_number }}
