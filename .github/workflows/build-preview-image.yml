@@ -1,4 +1,4 @@
-name: build preview image
+name: Build Preview Docker Image
 
 on:
     push:
@@ -7,18 +7,39 @@ on:
 
 jobs:
     push_to_registry:
-        name: build & push image
+        name: Docker Image
         runs-on: ubuntu-latest
         steps:
             - name: Check out the repo
               uses: actions/checkout@v2
+              
             - name: Include version number
               run: echo "PREVIEW-${{ github.run_number }}" > version.txt
+            
+            - name: Set up QEMU
+              uses: docker/setup-qemu-action@v1
+              with:
+                platforms: all
+
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v1
+
+            - name: Login to Registry
+              uses: docker/login-action@v1
+              with:
+                registry: docker.pkg.github.com
+                username: ${{ github.repository_owner }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+            
+            - name: Cache Docker layers
+              uses: actions/cache@v2
+              with:
+                path: /tmp/.buildx-cache
+                key: ${{ runner.os }}-buildx-${{ github.sha }}
+                restore-keys: ${{ runner.os }}-buildx-
+            
             - name: Push to GitHub Packages
               uses: docker/build-push-action@v2
               with:
-                  username: ${{ github.actor }}
-                  password: ${{ secrets.GITHUB_TOKEN }}
-                  registry: docker.pkg.github.com
-                  repository: wahlrechner/wahlrechner/wahlrechner-preview
-                  tags: wahlrechner/wahlrechner:latest-preview, wahlrechenr/wahlrechner:preview-${{ github.run_number }}
+                push: true
+                tags: wahlrechner/wahlrechner/wahlrechner-preview:latest, wahlrechner/wahlrechner/wahlrechner-preview:preview-${{ github.run_number }}
