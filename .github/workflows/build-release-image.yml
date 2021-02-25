@@ -13,8 +13,11 @@ jobs:
             - name: Check out the repo
               uses: actions/checkout@v2
 
+            - name: Get version number
+              run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+
             - name: Include version number
-              run: echo "${{ github.event.release.tag_name }}" > version.txt
+              run: echo "${{ steps.get_version.outputs.VERSION }}" > version.txt
 
             - name: Purge Tailwind
               uses: actions/setup-node@v1
@@ -49,4 +52,4 @@ jobs:
               uses: docker/build-push-action@v2
               with:
                   push: true
-                  tags: ghcr.io/${{ github.repository_owner }}/wahlrechner:latest, ghcr.io/${{ github.repository_owner }}/wahlrechner:${{ github.event.release.tag_name }}
+                  tags: ghcr.io/${{ github.repository_owner }}/wahlrechner:latest, ghcr.io/${{ github.repository_owner }}/wahlrechner:${{ steps.get_version.outputs.VERSION }}
