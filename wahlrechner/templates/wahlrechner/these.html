@@ -1,7 +1,7 @@
 {% extends 'wahlrechner/base.html' %} {% load get_item %}
 {% block title %}These {{ pos }} von {{ max_pos }}{% endblock %}
 {% block sidebar %}
-<p class="text-lg mb-2 dark:text-gray-200">Übersicht aller Thesen</p>
+<p class="text-lg mb-2 dark:text-gray-200 font-semibold">Übersicht aller Thesen</p>
 <ul class="space-y-1 sidebar-menu">
     {% for these in these_list %}
     <li>
@@ -31,7 +31,7 @@
 {% endblock %} {% block content %}
 <div class="w-full bg-white shadow-lg rounded-lg p-6 lg:p-10 text-center dark:bg-gray-800">
     <p class="font-mono text-gray-500 dark:text-gray-400">These {{ pos }} von {{ max_pos }}</p>
-    <p class="text-xl mb-8 font-bold text-gray-800 dark:text-gray-200 break-words">{{ aktuelle_these.these_text }}</p>
+    <p class="text-xl mb-8 font-semibold text-gray-800 dark:text-gray-200 break-words ">{{ aktuelle_these.these_text }}</p>
 
     {% with status=request.GET|get_item:aktuelle_these.pk %}
     <p class="text-sm text-gray-600 dark:text-gray-400 italic mb-3 lg:mb-0">
