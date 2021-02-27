@@ -11,7 +11,7 @@
 }
 
 .sidebar-menu li a {
-    @apply text-sm text-gray-600 dark:text-gray-300 m-1 ml-0;
+    @apply text-sm text-gray-600 dark:text-gray-300 m-1 ml-0 select-none;
 }
 
 .sidebar-menu li a.clickable {
