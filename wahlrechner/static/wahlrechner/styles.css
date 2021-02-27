@@ -43,7 +43,7 @@
 }
 
 .btn-white {
-    @apply text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 ring-white dark:ring-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 focus:bg-gray-200;
+    @apply text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 ring-white dark:ring-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 focus:bg-gray-200 dark:focus:bg-gray-500;
 }
 
 input:checked + svg {
