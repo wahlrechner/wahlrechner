@@ -6,7 +6,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{% static 'tailwind/styles.css' %}?">
-        <title>Wahlrechner | {% block title %}{% endblock %}</title>
+        <title>{% block title %}{% endblock %} | Wahlrechner</title>
     </head>
     <body class="bg-gradient-to-br from-green-100 to-indigo-200 bg-fixed dark:from-gray-900 dark:to-gray-900 min-h-screen">
         <div class="container mx-auto xl:max-w-7xl p-4 sm:p-8 sm:px-16 md:p-8 lg:p-12 xl:p-16 2xl:p-28">
