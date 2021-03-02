@@ -219,43 +219,75 @@ def reason(request):
 
 def calculate_results(request):
 
-    results = []
+    # import time
+    # start_time = time.time()
 
-    for partei in Partei.objects.all():
-        points = 0
-        max_points = 0
+    # Erhalte Cache falls vorhanden, sonst erstelle das globale Dictionary
+    if not 'cache' in globals():
+        global cache
+        cache = {}
 
-        for antwort in Antwort.objects.filter(antwort_partei=partei):
-            # Falls These nicht übersprungen
-            if (position := request.GET.get(str(antwort.antwort_these.pk), "s")) != "s":
+    # Erhalte Payload und entferne Parameter für die aktuelle These, falls vorhanden
+    payload = request.GET.copy()
+    if 't' in payload:
+        del payload['t']
 
-                # Stimmt Position mit Antwort der Partei überein? (2 Punkte)
-                if position == antwort.antwort_position:
-                    p = 2
-                # Teilweise Übereinstimmung, Position der Partei oder eigene Position neutral? (1 Punkt)
-                elif position == "n" or antwort.antwort_position == "n":
-                    p = 1
-                # Keine Übereinstummung (0 Punkte)
+    # Sortiere die URL-Parameter und verwandel sie in einen String
+    urlstr = urllib.parse.urlencode(sorted(payload.items()))
+
+    # Erhalte Ergebnis aus Cache, falls vorhanden
+    if urlstr in cache:
+        results = cache.get(urlstr)
+
+        # print("Ergebnis aus Cache erhalten")
+
+    # Sonst berechne Ergebnis
+    else:
+        results = []
+
+        for partei in Partei.objects.all():
+            points = 0
+            max_points = 0
+
+            for antwort in Antwort.objects.filter(antwort_partei=partei):
+
+                # Falls These nicht übersprungen
+                if (position := request.GET.get(str(antwort.antwort_these.pk), "s")) != "s":
+
+                    # Stimmt Position mit Antwort der Partei überein? (2 Punkte)
+                    if position == antwort.antwort_position:
+                        p = 2
+                    # Teilweise Übereinstimmung, Position der Partei oder eigene Position neutral? (1 Punkt)
+                    elif position == "n" or antwort.antwort_position == "n":
+                        p = 1
+                    # Keine Übereinstummung (0 Punkte)
+                    else:
+                        p = 0
+
+                    # Ist These als wichtig makiert? (Doppelte Punkte)
+                    if request.GET.get(f"p{antwort.antwort_these.pk}", False):
+                        points += p * 2
+                        max_points += 4  # bei einer wichtigen These sind maximal erreichbare Punkte 4
+                    else:
+                        points += p
+                        max_points += 2  # bei einer normalen These sind maximal erreichbare Punkte 2
+
+                if max_points == 0:
+                    percentage = 0
                 else:
-                    p = 0
+                    percentage = round((points / max_points * 100), 1)
 
-                # Ist These als wichtig makiert? (Doppelte Punkte)
-                if request.GET.get(f"p{antwort.antwort_these.pk}", False):
-                    points += p * 2
-                    max_points += 4  # bei einer wichtigen These sind maximal erreichbare Punkte 4
-                else:
-                    points += p
-                    max_points += 2  # bei einer normalen These sind maximal erreichbare Punkte 2
+            results.append((partei, percentage))
 
-        if max_points == 0:
-            percentage = 0
-        else:
-            percentage = round((points / max_points * 100), 1)
+        # Sortiere die Ergebnisse nach der prozentualen Übereinstimmung
+        results.sort(key=lambda partei: partei[1], reverse=True)
 
-        results.append((partei, percentage))
+        # Füge Ergebnis dem Cache hinzu
+        cache[urlstr] = results
 
-    # Sortiere die Ergebnisse nach der prozentualen Übereinstimmung
-    results.sort(key=lambda partei: partei[1], reverse=True)
+        # print("Ergebnis neu berechnet, Cache erweitert")
+
+    # print(time.time() - start_time)
 
     return results
 
