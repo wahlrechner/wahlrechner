@@ -1,4 +1,5 @@
 import urllib
+import os
 from django.http.response import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Antwort, Partei, These
@@ -236,7 +237,7 @@ def calculate_results(request):
     urlstr = urllib.parse.urlencode(sorted(payload.items()))
 
     # Erhalte Ergebnis aus Cache, falls vorhanden
-    if urlstr in cache:
+    if urlstr in cache and bool(int(os.environ['WAHLRECHNER_CACHING'])):
         results = cache.get(urlstr)
 
         # print("Ergebnis aus Cache erhalten")
