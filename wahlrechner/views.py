@@ -268,10 +268,10 @@ def calculate_results(request):
                         total_p += p
                         max_p += 2  # bei einer normalen These sind maximal erreichbare Punkte 2
 
-                if max_p == 0:
-                    percentage = 0
-                else:
-                    percentage = round((total_p / max_p * 100), 1)
+            if max_p == 0:
+                percentage = 0
+            else:
+                percentage = round((total_p / max_p * 100), 1)
 
             results.append((partei, percentage))
 
