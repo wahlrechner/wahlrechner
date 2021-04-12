@@ -1,7 +1,7 @@
 {% extends 'wahlrechner/base.html' %} {% load get_item %}
 {% block title %}Gewichtung der Thesen{% endblock %}
 {% block sidebar %}
-<p class="text-lg mb-2 dark:text-gray-200 font-semibold">Übersicht aller Thesen</p>
+<p class="mb-2 text-lg font-semibold dark:text-gray-200">Übersicht aller Thesen</p>
 <ul class="space-y-1 sidebar-menu">
     {% for these in these_list %}
     <li>
@@ -25,24 +25,24 @@
     {% endfor %}
 </ul>
 {% endblock %} {% block content %}
-<div class="w-full bg-white shadow-lg rounded-lg p-5 text-center dark:bg-gray-800 mb-2">
+<div class="w-full p-5 mb-2 text-center bg-white rounded-lg shadow-lg dark:bg-gray-800">
     <h1 class="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-100">Gewichtung der Thesen</h1>
-    <div class="text-gray-600 text-left dark:text-gray-300">Wähle die Thesen aus, die dir wichtig sind. Diese Thesen werden in der Berechnung doppelt gewichtet.</div>
+    <div class="text-left text-gray-600 dark:text-gray-300">Wähle die Thesen aus, die dir wichtig sind. Diese Thesen werden in der Berechnung doppelt gewichtet.</div>
 </div>
 
 <form method="get" action="{% url 'results' %}">
-    <div class="w-full bg-white shadow-lg rounded-lg p-1 lg:p-5 text-center dark:bg-gray-800">
+    <div class="w-full p-1 text-center bg-white rounded-lg shadow-lg lg:p-5 dark:bg-gray-800">
         <div class="m-4">
         {% for these in these_list %}
             {% with status=request.GET|get_item:these.pk %}
                 <input type="hidden" name="{{ these.pk }}" value="{% if status %}{{ status }}{% else %}s{% endif %}">
                 {% if status and status != 's' %}
-                    <label class="flex justify-start items-start cursor-pointer mb-2 group" for="p{{ these.pk }}">
+                    <label class="flex items-start justify-start mb-2 cursor-pointer group" for="p{{ these.pk }}">
                         <div
-                            class="bg-yellow-500 rounded shadow-md w-6 h-6 flex flex-shrink-0 justify-center items-center mr-3 focus-within:ring-4 ring-yellow-300 dark:ring-yellow-800 transition duration-150 group-hover:bg-yellow-600"
+                            class="flex items-center justify-center flex-shrink-0 w-6 h-6 mr-3 transition duration-150 bg-yellow-500 rounded shadow-md focus-within:ring-4 ring-yellow-300 dark:ring-yellow-800 group-hover:bg-yellow-600"
                         >
-                            <input type="checkbox" class="opacity-0 absolute cursor-pointer" id="p{{ these.pk }}" name="p{{ these.pk }}" value=1 {% if request.GET|get_item_p:these.pk %}checked{% endif %}>
-                            <svg class="fill-current hidden w-4 h-4 text-white" viewBox="0 0 20 20">
+                            <input type="checkbox" class="absolute opacity-0 cursor-pointer" id="p{{ these.pk }}" name="p{{ these.pk }}" value=1 {% if request.GET|get_item_p:these.pk %}checked{% endif %}>
+                            <svg class="hidden w-4 h-4 text-white fill-current" viewBox="0 0 20 20">
                                 <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
                                 <path
                                     d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
@@ -50,7 +50,7 @@
                             </svg>
                         </div>
                         <div class="text-left">
-                            <div class="select-none text-gray-700 dark:text-gray-200">
+                            <div class="text-gray-700 select-none dark:text-gray-200">
                                 {{ these.these_keyword }}
                                 {% if status == 'a' %}
                                     {% include "icons/agree.html" %}
@@ -60,7 +60,7 @@
                                     {% include "icons/neutral.html" %}
                                 {% endif %}
                             </div>
-                            <div class="text-gray-500 dark:text-gray-400 text-sm">{{ these.these_text }}</div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">{{ these.these_text }}</div>
                         </div>
                         
                     </label>
@@ -69,12 +69,12 @@
         {% endfor %}
         </div>
     </div>
-    <div class="flex flex-col md:flex-row justify-between mt-2 space-y-2 md:space-y-0 md:space-x-2">
-        <button type="button" onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="btn btn-white h-full">
+    <div class="flex flex-col justify-between mt-2 space-y-2 md:flex-row md:space-y-0 md:space-x-2">
+        <button type="button" onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="h-full btn btn-white">
             {% include "icons/pen.html" %} Antworten bearbeiten
         </button>
 
-        <button type="submit" class="btn btn-white h-full">
+        <button type="submit" class="h-full btn btn-white">
             Ergebnisse anzeigen {% include "icons/circle-right.html" %}
         </button>
     </div>

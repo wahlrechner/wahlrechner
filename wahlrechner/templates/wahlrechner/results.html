@@ -1,7 +1,7 @@
 {% extends 'wahlrechner/base.html' %} {% load get_item %}
 {% block title %}Dein Ergebnis{% endblock %}
 {% block sidebar %}
-<p class="text-lg mb-2 dark:text-gray-200 font-semibold">Übersicht aller Thesen</p>
+<p class="mb-2 text-lg font-semibold dark:text-gray-200">Übersicht aller Thesen</p>
 <ul class="space-y-1 sidebar-menu">
     {% for these in these_list %}
     <li>
@@ -26,27 +26,27 @@
 </ul>
 {% endblock %}
 {% block content %}
-<div class="w-full bg-white shadow-lg rounded-lg p-5 text-center dark:bg-gray-800">
+<div class="w-full p-5 text-center bg-white rounded-lg shadow-lg dark:bg-gray-800">
     <h1 class="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-100">Dein Ergebnis</h1>
-    <div class="text-gray-600 dark:text-gray-300 text-left">
+    <div class="text-left text-gray-600 dark:text-gray-300">
         Auf Grundlage deiner Positionen zu jeder These haben wir deine Übereinstimmung mit
         den einzelnen Parteien berechnet. Bitte beachte, dass Parteien mit einer ähnlichen
         Übereinstimmung nicht auch automatisch eine inhaltliche Nähe zueinander haben.
         {% if not aussagekraeftig %}
         <br><br>
-        <span class="text-red-700 dark:text-red-500 font-semibold">Dein Ergebnis ist möglicherweise nicht aussagekräftig, weil du zu viele Thesen
+        <span class="font-semibold text-red-700 dark:text-red-500">Dein Ergebnis ist möglicherweise nicht aussagekräftig, weil du zu viele Thesen
         übersprungen hast.</span>
         {% endif %}
     </div>
 </div>
 
 {% for partei, percentage in results %}
-<div class="w-full bg-white shadow-lg rounded-lg p-4 my-2 dark:bg-gray-800">
+<div class="w-full p-4 my-2 bg-white rounded-lg shadow-lg dark:bg-gray-800">
     
     {% if forloop.first %}
-        <div class="text-gray-500 dark:text-gray-400 text-sm mb-3">
+        <div class="mb-3 text-sm text-gray-500 dark:text-gray-400">
             <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 inline-flex align-middle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="inline-flex w-5 h-5 align-middle">
                 <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
             </svg>
             Höchste Übereinstimmung
@@ -61,19 +61,19 @@
         {% else %}
             <span class="font-bold text-red-700 dark:text-red-300 bg-red-200 dark:bg-red-900 rounded px-1.5 py-1 mr-1">{{ percentage }}%</span>
         {% endif %}
-        <span class="text-lg text-gray-700 dark:text-gray-100 font-semibold">{{ partei.partei_name }}</span>
+        <span class="text-lg font-semibold text-gray-700 dark:text-gray-100">{{ partei.partei_name }}</span>
     </div>
 
-    <p class="text-gray-600 dark:text-gray-300 text-sm text-left">{{ partei.partei_beschreibung }}</p>
+    <p class="text-sm text-left text-gray-600 dark:text-gray-300">{{ partei.partei_beschreibung }}</p>
 </div>
 {% endfor %}
 
-<div class="flex flex-col md:flex-row justify-between mt-2 space-y-2 md:space-y-0 md:space-x-2">
-    <button onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="btn btn-white h-full">
+<div class="flex flex-col justify-between mt-2 space-y-2 md:flex-row md:space-y-0 md:space-x-2">
+    <button onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="h-full btn btn-white">
         {% include "icons/pen.html" %} Antworten bearbeiten
     </button>
 
-    <button onClick="location.href='{% url 'reason' %}?t={{ these_list.first.pk}}&{{ current_payload }}'"class="btn btn-white h-full">
+    <button onClick="location.href='{% url 'reason' %}?t={{ these_list.first.pk}}&{{ current_payload }}'"class="h-full btn btn-white">
         Zu den Begründungen {% include "icons/circle-right.html" %}
     </button>
 </div>

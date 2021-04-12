@@ -1,23 +1,23 @@
 {% extends 'wahlrechner/base.html' %} {% load get_item %}
 {% block title %}Startseite{% endblock %}
 {% block sidebar %}
-<p class="text-lg mb-2 dark:text-gray-200 font-semibold">Übersicht aller Thesen</p>
+<p class="mb-2 text-lg font-semibold dark:text-gray-200">Übersicht aller Thesen</p>
 <ul class="space-y-1 sidebar-menu">
     {% for these in these_list %}
     <li><a>{% include "icons/empty.html" %}{{ these.these_keyword }}</a></li>
     {% endfor %}
 </ul>
 {% endblock %} {% block content %}
-<div class="w-full bg-white shadow-lg rounded-lg p-6 text-center dark:bg-gray-800">
+<div class="w-full p-6 text-center bg-white rounded-lg shadow-lg dark:bg-gray-800">
     <h1 class="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-100">Willkommen beim Wahlrechner</h1>
-    <div class="text-gray-600 dark:text-gray-300 text-left">
+    <div class="text-left text-gray-600 dark:text-gray-300">
         {% lorem %}<br>{% lorem %}
     </div>
 </div>
-<div class="flex flex-col md:flex-row justify-between mt-2 md:space-x-2">
+<div class="flex flex-col justify-between mt-2 md:flex-row md:space-x-2">
     <div></div>
 
-    <button onClick="location.href='{% url 'these' %}?t={{ these_list.first.pk }}'"class="btn btn-white h-full">
+    <button onClick="location.href='{% url 'these' %}?t={{ these_list.first.pk }}'"class="h-full btn btn-white">
         Start {% include "icons/circle-right.html" %}
     </button>
 </div>
