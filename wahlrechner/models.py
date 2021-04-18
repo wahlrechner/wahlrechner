@@ -69,10 +69,10 @@ class Antwort(models.Model):
     antwort_position = models.CharField("Position zur These",
                                         choices=antwort_position_choices, help_text=antwort_position_help, max_length=1)
 
-    antwort_text_help = """<i>Maximal 400 Zeichen</i><br>
+    antwort_text_help = """<i>Maximal 1000 Zeichen</i><br>
     Vollständige Antwort/Begründung der Partei zu ihrer Position."""
     antwort_text = models.TextField(
-        "Antwort", help_text=antwort_text_help, max_length=600, blank=True)
+        "Antwort", help_text=antwort_text_help, max_length=1000, blank=True)
 
     def __str__(self):
         return f"{self.antwort_these.these_keyword} - {self.antwort_partei.partei_name}"
