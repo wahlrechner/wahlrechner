@@ -10,7 +10,6 @@ if not User.objects.filter(username=os.environ['DJANGO_DEFAULT_ADMIN_USERNAME'])
     u.is_staff = True
     u.save()
     u = User.objects.get(username=os.environ['DJANGO_DEFAULT_ADMIN_USERNAME'])
-    u.profile.email_confirmed = True
     u.save()
     print('Django admin created: %s' %
           os.environ['DJANGO_DEFAULT_ADMIN_USERNAME'])

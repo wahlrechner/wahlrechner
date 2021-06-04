@@ -220,9 +220,6 @@ def reason(request):
 
 def calculate_results(request):
 
-    # import time
-    # start_time = time.time()
-
     # Erhalte Cache falls vorhanden, sonst erstelle das globale Dictionary
     if not 'cache' in globals():
         global cache
@@ -240,15 +237,13 @@ def calculate_results(request):
     if urlstr in cache and bool(int(os.environ['WAHLRECHNER_CACHING'])):
         results = cache.get(urlstr)
 
-        # print("Ergebnis aus Cache erhalten")
-
     # Sonst berechne Ergebnis
     else:
         results = []
 
         for partei in Partei.objects.all():
-            points = 0
-            max_points = 0
+            total_p = 0
+            max_p = 0
 
             for antwort in Antwort.objects.filter(antwort_partei=partei):
 
@@ -267,16 +262,16 @@ def calculate_results(request):
 
                     # Ist These als wichtig makiert? (Doppelte Punkte)
                     if request.GET.get(f"p{antwort.antwort_these.pk}", False):
-                        points += p * 2
-                        max_points += 4  # bei einer wichtigen These sind maximal erreichbare Punkte 4
+                        total_p += p * 2
+                        max_p += 4  # bei einer wichtigen These sind maximal erreichbare Punkte 4
                     else:
-                        points += p
-                        max_points += 2  # bei einer normalen These sind maximal erreichbare Punkte 2
+                        total_p += p
+                        max_p += 2  # bei einer normalen These sind maximal erreichbare Punkte 2
 
-                if max_points == 0:
-                    percentage = 0
-                else:
-                    percentage = round((points / max_points * 100), 1)
+            if max_p == 0:
+                percentage = 0
+            else:
+                percentage = round((total_p / max_p * 100), 1)
 
             results.append((partei, percentage))
 
@@ -285,10 +280,6 @@ def calculate_results(request):
 
         # Füge Ergebnis dem Cache hinzu
         cache[urlstr] = results
-
-        # print("Ergebnis neu berechnet, Cache erweitert")
-
-    # print(time.time() - start_time)
 
     return results
 
