@@ -1,10 +1,17 @@
-// const colors = require("tailwindcss/colors");
+const colors = require("tailwindcss/colors");
 
 module.exports = {
     mode: "jit",
-    purge: ["wahlrechner/**/*.{html,py}"],
-    theme: {},
-    variants: {},
+    theme: {
+        extend: {
+            colors: {
+                gray: colors.gray,
+                orange: colors.orange,
+                rose: colors.rose,
+            },
+        },
+    },
+    purge: ["./wahlrechner/**/*.{html,py}"],
     plugins: [],
-    darkMode: "class",
+    darkMode: "media", // class or media
 };

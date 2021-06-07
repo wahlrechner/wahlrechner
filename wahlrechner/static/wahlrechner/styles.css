@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    @apply bg-gradient-to-br from-green-100 to-indigo-200 dark:from-gray-900 dark:to-gray-900;
+}
+
 .sidebar-menu {
     @apply cursor-default;
 }
@@ -11,7 +15,7 @@
 }
 
 .sidebar-menu li a {
-    @apply text-sm text-gray-600 dark:text-gray-300 m-1 ml-0 select-none;
+    @apply text-sm text-gray-700 dark:text-gray-300 m-1 ml-0 select-none;
 }
 
 .sidebar-menu li a.clickable {
