@@ -11,7 +11,7 @@ module.exports = {
             },
         },
     },
-    purge: ["./wahlrechner/**/*.{html,py}"],
+    purge: ["./**/*.{html,py}"],
     plugins: [],
     darkMode: "media", // class or media
 };
