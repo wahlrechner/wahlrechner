@@ -241,6 +241,3 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
-# Wahlrechner Development
-enable_classes.html
