@@ -1,7 +1,11 @@
-import urllib
 import os
-from django.http.response import Http404
+import urllib
+
+from django.http.response import (Http404, HttpResponseNotFound,
+                                  HttpResponseServerError)
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
+
 from .models import Antwort, Partei, These
 
 
@@ -201,9 +205,12 @@ def reason(request):
     # Erhalte Antworten der Parteien
     antworten = []
     for partei, _ in results:
-        antwort = Antwort.objects.get(
-            antwort_these=current_these, antwort_partei=partei)
-        antworten.append(antwort)
+        try:
+            antwort = Antwort.objects.get(
+                antwort_these=current_these, antwort_partei=partei)
+            antworten.append(antwort)
+        except Antwort.DoesNotExist:
+            pass
 
     context = {'these_list': these_list,
                'current_payload': current_payload,
@@ -295,3 +302,11 @@ def aussagekraeftig(request):
         return False
     else:
         return True
+
+
+def handler404(request, exception=""):
+    return HttpResponseNotFound(render_to_string('error/404.html'))
+
+
+def handler500(request):
+    return HttpResponseServerError(render_to_string('error/500.html'))
