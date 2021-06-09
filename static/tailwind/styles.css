@@ -772,6 +772,9 @@ video {
 .mt-6 {
 	margin-top: 1.5rem;
 }
+.mt-4 {
+	margin-top: 1rem;
+}
 .box-border {
 	box-sizing: border-box;
 }
@@ -882,6 +885,21 @@ video {
 }
 .w-12 {
 	width: 3rem;
+}
+.w-5\/6 {
+	width: 83.333333%;
+}
+.w-1\/3 {
+	width: 33.333333%;
+}
+.w-2\/5 {
+	width: 40%;
+}
+.w-1\/2 {
+	width: 50%;
+}
+.w-3\/4 {
+	width: 75%;
 }
 .min-w-\[3\.23rem\] {
 	min-width: 3.23rem;
@@ -1020,6 +1038,22 @@ video {
 	-webkit-animation: spin 1s linear infinite;
 	        animation: spin 1s linear infinite;
 }
+@-webkit-keyframes pulse {
+
+	50% {
+		opacity: .5;
+	}
+}
+@keyframes pulse {
+
+	50% {
+		opacity: .5;
+	}
+}
+.animate-pulse {
+	-webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+	        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
 .cursor-pointer {
 	cursor: pointer;
 }
@@ -1144,6 +1178,11 @@ video {
 	--tw-space-y-reverse: 0;
 	margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
 	margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+	--tw-space-y-reverse: 0;
+	margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+	margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 .space-y-reverse > :not([hidden]) ~ :not([hidden]) {
 	--tw-space-y-reverse: 1;
@@ -1322,6 +1361,22 @@ video {
 .bg-black {
 	--tw-bg-opacity: 1;
 	background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+}
+.bg-gray-600 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(82, 82, 91, var(--tw-bg-opacity));
+}
+.bg-gray-400 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(161, 161, 170, var(--tw-bg-opacity));
+}
+.bg-gray-200 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(228, 228, 231, var(--tw-bg-opacity));
+}
+.bg-gray-300 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(212, 212, 216, var(--tw-bg-opacity));
 }
 .bg-opacity-\[0\.11\] {
 	--tw-bg-opacity: 0.11;
@@ -1624,6 +1679,12 @@ video {
 }
 .opacity-90 {
 	opacity: 0.9;
+}
+.opacity-50 {
+	opacity: 0.5;
+}
+.opacity-25 {
+	opacity: 0.25;
 }
 .bg-blend-darken {
 	background-blend-mode: darken;
@@ -2662,6 +2723,10 @@ input:checked + svg {
 
 	.md\:mt-0 {
 		margin-top: 0px;
+	}
+
+	.md\:block {
+		display: block;
 	}
 
 	.md\:grid-cols-3 {

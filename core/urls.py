@@ -24,3 +24,6 @@ urlpatterns = [
 admin.site.site_header = 'Wahlrechner Admin'
 admin.site.site_title = 'Wahlrechner Admin'
 admin.site.index_title = 'Konfiguration'
+
+handler404 = 'wahlrechner.views.handler404'
+handler500 = 'wahlrechner.views.handler500'
