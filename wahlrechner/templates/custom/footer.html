@@ -1,4 +1,4 @@
-<div class="w-full p-5 bg-gray-900 dark:bg-black">
+<div class="w-full p-3 bg-gray-800 dark:bg-gray-900">
 
     <div class="grid w-full max-w-2xl grid-cols-1 py-1 mx-auto sm:grid-cols-3 justify-items-stretch">
 
@@ -14,5 +14,21 @@
                 class="text-gray-200 transition dark:text-gray-300 dark:hover:text-gray-200 hover:text-gray-400"
                 href="https://github.com/wahlrechner/">GitHub</a></div>
     </div>
-    
+
+</div>
+
+<div class="w-full p-3 text-center bg-gray-900 dark:bg-gray-800">
+    <div class="text-xs text-gray-400">
+        {% wahlrechner_name %} basiert auf
+        <a class="font-bold hover:text-gray-200" href="https://github.com/wahlrechner/wahlrechner">Wahlrechner
+            {% wahlrechner_version %}</a>
+    </div>
+    <div class="mt-3 text-xs text-gray-400">
+        Wahlrechner ist eine offene Wahlempfehlungshilfe
+    </div>
+    <div class="text-xs text-gray-400">
+        und ist frei verfügbar unter der <a class="font-bold hover:text-gray-200"
+            href="https://github.com/wahlrechner/wahlrechner/blob/main/LICENSE">MIT Lizenz</a>
+        &copy; {% now 'Y' %} Linus Köster
+    </div>
 </div>
