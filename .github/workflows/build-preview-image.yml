@@ -16,7 +16,7 @@ jobs:
                   submodules: recursive
 
             - name: Include version number
-              run: echo "preview-${{ github.run_number }}" > version.txt
+              run: echo "PRE-${{ github.run_number }}" > version.txt
 
             - name: Purge Tailwind
               uses: actions/setup-node@v1
