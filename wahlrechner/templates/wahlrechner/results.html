@@ -73,6 +73,10 @@
         {% include "icons/pen.html" %} Antworten bearbeiten
     </button>
 
+    <button onClick="location.href='{% url 'start' %}'" class="h-full btn btn-white">
+        {% include "icons/restart.html" %} Neustart
+    </button>
+
     <button onClick="location.href='{% url 'reason' %}?t={{ these_list.first.pk}}&{{ current_payload }}'"class="h-full btn btn-white">
         Zu den Begründungen {% include "icons/circle-right.html" %}
     </button>
