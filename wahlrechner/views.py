@@ -158,6 +158,8 @@ def results(request):
                'results': results,
                'aussagekraeftig': aussagekraeftig(request)}
 
+    increase_result_count()
+
     return render(request, 'wahlrechner/results.html', context)
 
 
@@ -310,3 +312,22 @@ def handler404(request, exception=""):
 
 def handler500(request):
     return HttpResponseServerError(render_to_string('error/500.html'))
+
+
+def increase_result_count():
+    try:
+        file = open('result_count.txt', 'r')
+        result_count = file.read()
+        file.close()
+        if result_count == "":
+            result_count = 0
+        else:
+            result_count = int(result_count)
+    except FileNotFoundError:
+        result_count = 0
+
+    result_count += 1
+
+    file = open("result_count.txt", "w")
+    file.write(str(result_count))
+    file.close()
