@@ -64,7 +64,7 @@
         <span class="text-lg font-semibold text-gray-700 dark:text-gray-100">{{ partei.partei_name }}</span>
     </div>
 
-    <p class="text-sm text-left text-gray-600 dark:text-gray-300">"{{ partei.partei_beschreibung }}"</p>
+    <p class="text-sm text-left text-gray-600 dark:text-gray-300">"{{ partei.partei_beschreibung.strip }}"</p>
 </div>
 {% endfor %}
 
@@ -77,7 +77,7 @@
         {% include "icons/restart.html" %} Neustart
     </button>
 
-    <button onClick="location.href='{% url 'reason' %}?t={{ these_list.first.pk}}&{{ current_payload }}'"class="h-full btn btn-white">
+    <button onClick="location.href='{% url 'reason' %}?t={{ these_list.first.pk }}&{{ current_payload }}'"class="h-full btn btn-white">
         Zu den Begründungen {% include "icons/circle-right.html" %}
     </button>
 </div>
