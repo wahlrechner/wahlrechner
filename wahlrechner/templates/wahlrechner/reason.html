@@ -25,6 +25,9 @@
                 {{ these.these_keyword }}
             </a>
         {% endif %}
+        {% if request.GET|get_item_p:these.pk %}
+            {% include "icons/fav.html" %}
+        {% endif %}
     </li>
     {% endfor %}
 </ul>

@@ -21,6 +21,9 @@
         <a onClick="location.href='{% url 'reason' %}?t={{ these.pk }}&{{ current_payload }}'" class="clickable">
             {{ these.these_keyword }}
         </a>
+        {% if request.GET|get_item_p:these.pk %}
+            {% include "icons/fav.html" %}
+        {% endif %}
     </li>
     {% endfor %}
 </ul>
