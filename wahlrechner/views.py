@@ -316,7 +316,7 @@ def handler500(request):
 
 def increase_result_count():
     try:
-        file = open('result_count.txt', 'r')
+        file = open('wahlrechner/stats/result_count.txt', 'r')
         result_count = file.read()
         file.close()
         if result_count == "":
@@ -328,6 +328,6 @@ def increase_result_count():
 
     result_count += 1
 
-    file = open("result_count.txt", "w")
+    file = open("wahlrechner/stats/result_count.txt", "w")
     file.write(str(result_count))
     file.close()
