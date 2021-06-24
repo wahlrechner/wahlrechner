@@ -15,7 +15,8 @@ class AntwortAdmin(ImportExportModelAdmin):
     list_display = ['antwort_partei',
                     'antwort_these', 'antwort_position']
     list_display_links = ['antwort_partei', 'antwort_these']
-    search_fields = ['antwort_these', 'antwort_partei']
+    search_fields = ['antwort_these__these_text',
+                     'antwort_these__these_keyword', 'antwort_partei__partei_name']
     list_filter = ['antwort_partei']
     autocomplete_fields = ['antwort_these', 'antwort_partei']
     resource_class = AntwortResource

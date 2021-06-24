@@ -1606,6 +1606,10 @@ video {
 	--tw-text-opacity: 1;
 	color: rgba(239, 68, 68, var(--tw-text-opacity));
 }
+.text-yellow-500 {
+	--tw-text-opacity: 1;
+	color: rgba(245, 158, 11, var(--tw-text-opacity));
+}
 .text-gray-500 {
 	--tw-text-opacity: 1;
 	color: rgba(113, 113, 122, var(--tw-text-opacity));
@@ -2484,6 +2488,11 @@ input:checked + svg {
 	.dark\:text-gray-400 {
 		--tw-text-opacity: 1;
 		color: rgba(161, 161, 170, var(--tw-text-opacity));
+	}
+
+	.dark\:text-yellow-400 {
+		--tw-text-opacity: 1;
+		color: rgba(251, 191, 36, var(--tw-text-opacity));
 	}
 
 	.dark\:text-red-500 {
