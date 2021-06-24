@@ -43,6 +43,20 @@
     </div>
 </div>
 
+<div class="flex flex-col justify-between my-2 space-y-2 md:flex-row md:space-y-0 md:space-x-2">
+    <button onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="h-full btn btn-white">
+        {% include "icons/pen.html" %} Antworten bearbeiten
+    </button>
+
+    <button onClick="location.href='{% url 'start' %}'" class="h-full btn btn-white">
+        {% include "icons/restart.html" %} Neustart
+    </button>
+
+    <button onClick="location.href='{% url 'reason' %}?t={{ these_list.first.pk }}&{{ current_payload }}'"class="h-full btn btn-white">
+        Zu den Begründungen {% include "icons/circle-right.html" %}
+    </button>
+</div>
+
 {% for partei, percentage in results %}
 <div class="w-full p-4 my-2 bg-white rounded-lg shadow-lg dark:bg-gray-800">
     
@@ -57,7 +71,7 @@
     {% endif %}
 
     <div class="mb-3">
-        {% if percentage >= 90 %}
+        {% if percentage >= 85 %}
             <span class="font-bold text-green-700 dark:text-green-300 bg-green-200 dark:bg-green-900 rounded px-1.5 py-1 mr-1">{{ percentage }}%</span>
         {% elif percentage >= 60 %}
             <span class="font-bold text-yellow-600 dark:text-yellow-300 bg-yellow-200 dark:bg-yellow-900 rounded px-1.5 py-1 mr-1">{{ percentage }}%</span>
