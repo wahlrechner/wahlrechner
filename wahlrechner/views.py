@@ -323,7 +323,7 @@ def increase_result_count():
             result_count = 0
         else:
             result_count = int(result_count)
-    except FileNotFoundError:
+    except (FileNotFoundError, ValueError):
         result_count = 0
 
     result_count += 1

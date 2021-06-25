@@ -44,7 +44,7 @@ class Partei(models.Model):
     partei_beschreibung_help = """<i>Maximal 1000 Zeichen</i><br>
     Beschreibung für die Partei, wird auf der Ergebnis-Seite angezeigt."""
     partei_beschreibung = models.TextField(
-        "Name", help_text=partei_beschreibung_help, max_length=1000)
+        "Beschreibung", help_text=partei_beschreibung_help, max_length=1000, blank=True)
 
     def __str__(self):
         return self.partei_name
