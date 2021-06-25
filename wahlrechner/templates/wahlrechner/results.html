@@ -81,7 +81,11 @@
         <span class="text-lg font-semibold text-gray-700 dark:text-gray-100">{{ partei.partei_name }}</span>
     </div>
 
-    <p class="text-sm text-left text-gray-600 dark:text-gray-300">"{{ partei.partei_beschreibung.strip }}"</p>
+    {% if partei.partei_beschreibung %}
+        <p class="text-sm text-left text-gray-600 dark:text-gray-300">"{{ partei.partei_beschreibung.strip }}"</p>
+    {% else %}
+        <p class="text-sm italic text-left text-gray-600 dark:text-gray-300">Es liegt keine Beschreibung zu dieser Partei vor.</p>
+    {% endif %}
 </div>
 {% endfor %}
 
