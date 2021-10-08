@@ -11,5 +11,4 @@ if not User.objects.filter(username=os.environ['DJANGO_DEFAULT_ADMIN_USERNAME'])
     u.save()
     u = User.objects.get(username=os.environ['DJANGO_DEFAULT_ADMIN_USERNAME'])
     u.save()
-    print('Django admin created: %s' %
-          os.environ['DJANGO_DEFAULT_ADMIN_USERNAME'])
+    print('Successfully created admin account.')
