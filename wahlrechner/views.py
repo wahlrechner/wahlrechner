@@ -328,6 +328,9 @@ def increase_result_count():
 
     result_count += 1
 
+    if not os.path.exists("wahlrechner/stats"):
+        os.mkdir("wahlrechner/stats")
+
     file = open("wahlrechner/stats/result_count.txt", "w")
     file.write(str(result_count))
     file.close()

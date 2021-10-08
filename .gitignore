@@ -243,4 +243,4 @@ dist
 .pnp.*
 
 # Wahlrechner
-**/result_count.txt
+wahlrechner/stats/
