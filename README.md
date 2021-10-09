@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="460" src="https://github.com/wahlrechner/wahlrechner/blob/main/static/custom/logo-background.png?raw=true">
+  <img width="460" src="https://github.com/wahlrechner/wahlrechner/blob/main/.github/logo-background.png?raw=true">
 </p>
 
 <p align="center"><b>Wahlrechner</b> ist eine offene, individualisierbare und transparente Wahlempfehlungshilfe.</p>

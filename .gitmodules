@@ -1,3 +1,6 @@
 [submodule "docker/wait-for-it"]
 	path = docker/wait-for-it
 	url = https://github.com/vishnubob/wait-for-it.git
+[submodule "themes/theme_default"]
+	path = themes/theme_default
+	url = https://github.com/wahlrechner/theme_default.git
