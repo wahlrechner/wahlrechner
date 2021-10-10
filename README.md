@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="460" src="https://github.com/wahlrechner/wahlrechner/blob/main/static/custom/logo-background.png?raw=true">
+  <img width="460" src="https://github.com/wahlrechner/wahlrechner/blob/development/.github/logo-readme.png?raw=true">
 </p>
 
 <p align="center"><b>Wahlrechner</b> ist eine offene, individualisierbare und transparente Wahlempfehlungshilfe.</p>
@@ -25,7 +25,7 @@
 ----
 
 <p align="center">
-  <img width="full" src="https://github.com/wahlrechner/wahlrechner/blob/main/static/custom/screenshot.png?raw=true">
+  <img width="full" src="https://github.com/wahlrechner/wahlrechner/blob/development/.github/screenshot.png?raw=true">
 </p>
 
 ----

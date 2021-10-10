@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+# Get Wahlrechner theme
+THEME = os.environ.get('WAHLRECHNER_THEME', "theme_default")
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -58,7 +62,9 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / f"themes/{THEME}/templates",
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,4 +137,5 @@ STATIC_ROOT = '/code/assets/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
+    BASE_DIR / f"themes/{THEME}/static",
 ]
