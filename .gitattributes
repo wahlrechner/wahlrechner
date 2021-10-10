@@ -1,2 +1,2 @@
 static/tailwind/* linguist-generated=true
-wahlrechner/templates/* linguist-vendored
+wahlrechner/templates/** linguist-vendored
