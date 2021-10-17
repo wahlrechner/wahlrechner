@@ -20,7 +20,7 @@
   - automatischer, integrierter Darkmode
 - **Einfache Installation und Updates**
   - Wahlrechner wird in Form eines Docker Images bereitgestellt
-  - eine vorgefertigte Docker Compose-Umgebung wird [hier](https://github.com/wahlrechner/wahlrechner-server) bereitgestellt
+  - eine vorgefertigte Docker Compose-Umgebung wird [hier](https://github.com/wahlrechner/server) bereitgestellt
 
 ----
 
@@ -34,5 +34,5 @@
 ## Installation
 
 Eine vollständige Anleitung zum Aufsetzen einer Wahlrechner-Instanz findest du hier:
-https://github.com/wahlrechner/wahlrechner-server
+https://github.com/wahlrechner/server
 
