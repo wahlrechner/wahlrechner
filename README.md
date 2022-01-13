@@ -2,7 +2,10 @@
   <img width="460" src="https://raw.githubusercontent.com/wahlrechner/wahlrechner/development/.github/logo-readme.png">
 </p>
 
-<p align="center"><b>Wahlrechner</b> ist eine offene, individualisierbare und transparente Wahlempfehlungshilfe.</p>
+<h3 align="center"><i>Wahlrechner</i> ist eine offene, individualisierbare und transparente Wahlempfehlungshilfe.</h3>
+
+<p align="center">Wahlrechner im Einsatz: <a href="https://buxt-o-mat.de/"><b>Buxt-O-Mat</b></a> | <a href="https://stad-o-mat.de/"><b>Stad-O-Mat</b></a></p>
+
 
 ----
 
