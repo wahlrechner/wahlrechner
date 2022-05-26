@@ -16,7 +16,7 @@
    - Benutzerdaten werden ausschließlich in Form von GET-Parametern übergeben
    - auf dem Server werden keine Benutzerdaten gespeichert
    - keine Verwendung von Cookies
-- **Adminoberfläche mit Django 3.2**
+- **Adminoberfläche mit Django 4**
   - Thesenkataloge können einfach erstellt und bearbeitet werden
   - Import-/Exportfunktion mit allen gängigen Dateiformaten
 - **Modernes Design mit Tailwind CSS**
