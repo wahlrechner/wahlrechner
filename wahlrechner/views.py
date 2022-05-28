@@ -1,8 +1,7 @@
 import os
 import urllib
 
-from django.http.response import (Http404, HttpResponseNotFound,
-                                  HttpResponseServerError)
+from django.http.response import Http404, HttpResponseNotFound, HttpResponseServerError
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 
@@ -11,31 +10,31 @@ from .models import Antwort, Partei, These
 
 def start(request):
     # Erhalte alle Thesen sortiert nach der Thesen-Nummer
-    these_list = These.objects.all().order_by('these_nr')
+    these_list = These.objects.all().order_by("these_nr")
 
-    return render(request, 'wahlrechner/start.html', {'these_list': these_list})
+    return render(request, "wahlrechner/start.html", {"these_list": these_list})
 
 
 def these(request):
     # Erhalte alle Thesen sortiert nach der Thesen-Nummer
-    these_list = These.objects.all().order_by('these_nr')
+    these_list = These.objects.all().order_by("these_nr")
 
     # Erhalte these_pk aus Parameter
-    these_pk = request.GET.get('t', '')
+    these_pk = request.GET.get("t", "")
 
     # 404 wenn kein Parameter angegeben
-    if these_pk == '':
+    if these_pk == "":
         raise Http404
 
     # Erhalte Payload aus den Get-Parametern
     payload = request.GET.copy()
-    del payload['t']
+    del payload["t"]
     current_payload = urllib.parse.urlencode(payload)
 
     # Wenn letzte Frage beantwortet, leite zur Gewichtungsseite weiter
-    if these_pk == 'c':
-        response = redirect('confirm')
-        response['Location'] += f'?{current_payload}'
+    if these_pk == "c":
+        response = redirect("confirm")
+        response["Location"] += f"?{current_payload}"
         return response
 
     # Erhalte Objekt der aktuellen These von PK existiert, sonst 404
@@ -60,14 +59,14 @@ def these(request):
     # Payload anpassen für nächste These (nicht bei letzter These)
     if current_these != these_list.reverse()[0]:
         # Falls These beantwortet ändere TK um 1
-        payload['t'] = these_list[pos + 1].pk
+        payload["t"] = these_list[pos + 1].pk
         payload_next = urllib.parse.urlencode(payload)
     else:
         payload_next = None
 
     # Payload anpassen für vorherige These (nicht bei erster These)
     if current_these != these_list[0]:
-        payload['t'] = these_list[pos - 1].pk
+        payload["t"] = these_list[pos - 1].pk
         payload_previous = urllib.parse.urlencode(payload)
     else:
         payload_previous = None
@@ -76,107 +75,111 @@ def these(request):
     if these_pk not in payload:
         if current_these == these_list.reverse()[0]:
             # bei der letzten These ändern für Gewichtungs-Seite
-            payload['t'] = 'c'
+            payload["t"] = "c"
         else:
             next_these = these_list[pos + 1]
-            payload['t'] = next_these.pk
+            payload["t"] = next_these.pk
     else:
         # Sonst bei aktueller These bleiben
-        payload['t'] = these_pk
+        payload["t"] = these_pk
 
     # Payload anpassen für Zustimmung
-    payload[these_pk] = 'a'
+    payload[these_pk] = "a"
     payload_agree = urllib.parse.urlencode(payload)
 
     # Payload anpassen für Ablehnung
     del payload[these_pk]
-    payload[these_pk] = 'd'
+    payload[these_pk] = "d"
     payload_disagree = urllib.parse.urlencode(payload)
 
     # Payload anpassen für Neutral
     del payload[these_pk]
-    payload[these_pk] = 'n'
+    payload[these_pk] = "n"
     payload_neutral = urllib.parse.urlencode(payload)
 
     # Payload anpassen für Überspringen
     del payload[these_pk]
-    payload[these_pk] = 's'
+    payload[these_pk] = "s"
     payload_skip = urllib.parse.urlencode(payload)
 
-    context = {'these_list': these_list,
-               'aktuelle_these': current_these,
-               'pos': pos + 1,
-               'max_pos': max_pos,
-               'current_payload': current_payload,
-               'payload_agree': payload_agree,
-               'payload_disagree': payload_disagree,
-               'payload_neutral': payload_neutral,
-               'payload_skip': payload_skip,
-               'payload_next': payload_next,
-               'payload_previous': payload_previous,
-               'show_continue_button': show_continue_button,
-               'these_beantwortet': these_beantwortet
-               }
+    context = {
+        "these_list": these_list,
+        "aktuelle_these": current_these,
+        "pos": pos + 1,
+        "max_pos": max_pos,
+        "current_payload": current_payload,
+        "payload_agree": payload_agree,
+        "payload_disagree": payload_disagree,
+        "payload_neutral": payload_neutral,
+        "payload_skip": payload_skip,
+        "payload_next": payload_next,
+        "payload_previous": payload_previous,
+        "show_continue_button": show_continue_button,
+        "these_beantwortet": these_beantwortet,
+    }
 
-    return render(request, 'wahlrechner/these.html', context)
+    return render(request, "wahlrechner/these.html", context)
 
 
 def confirm(request):
     # Erhalte alle Thesen sortiert nach der Thesen-Nummer
-    these_list = These.objects.all().order_by('these_nr')
+    these_list = These.objects.all().order_by("these_nr")
 
     # Payload für den Zurück-Knopf
     payload = request.GET.copy()
     current_payload = urllib.parse.urlencode(payload)
-    payload['t'] = these_list.reverse()[0].pk
+    payload["t"] = these_list.reverse()[0].pk
     payload_previous = urllib.parse.urlencode(payload)
 
-    context = {'these_list': these_list,
-               'current_payload': current_payload,
-               'payload_previous': payload_previous,
-               'aussagekraeftig': aussagekraeftig(request)
-               }
+    context = {
+        "these_list": these_list,
+        "current_payload": current_payload,
+        "payload_previous": payload_previous,
+        "aussagekraeftig": aussagekraeftig(request),
+    }
 
-    return render(request, 'wahlrechner/confirm.html', context)
+    return render(request, "wahlrechner/confirm.html", context)
 
 
 def results(request):
     # Erhalte alle Thesen sortiert nach der Thesen-Nummer
-    these_list = These.objects.all().order_by('these_nr')
+    these_list = These.objects.all().order_by("these_nr")
 
     # Aktueller Payload
     payload = request.GET.copy()
     current_payload = urllib.parse.urlencode(payload)
-    payload['t'] = these_list.reverse()[0].pk
+    payload["t"] = these_list.reverse()[0].pk
     payload_previous = urllib.parse.urlencode(payload)
 
     results = calculate_results(request)
 
-    context = {'these_list': these_list,
-               'current_payload': current_payload,
-               'payload_previous': payload_previous,
-               'results': results,
-               'aussagekraeftig': aussagekraeftig(request)}
+    context = {
+        "these_list": these_list,
+        "current_payload": current_payload,
+        "payload_previous": payload_previous,
+        "results": results,
+        "aussagekraeftig": aussagekraeftig(request),
+    }
 
     increase_result_count()
 
-    return render(request, 'wahlrechner/results.html', context)
+    return render(request, "wahlrechner/results.html", context)
 
 
 def reason(request):
     # Erhalte alle Thesen sortiert nach der Thesen-Nummer
-    these_list = These.objects.all().order_by('these_nr')
+    these_list = These.objects.all().order_by("these_nr")
 
     # Erhalte Payload aus den Get-Parametern
     payload = request.GET.copy()
-    del payload['t']
+    del payload["t"]
     current_payload = urllib.parse.urlencode(payload)
 
     # Erhalte these_pk aus Parameter
-    these_pk = request.GET.get('t', '')
+    these_pk = request.GET.get("t", "")
 
     # 404 wenn kein Parameter angegeben
-    if these_pk == '':
+    if these_pk == "":
         raise Http404
 
     # Erhalte Objekt der aktuellen These von PK existiert, sonst 404
@@ -189,14 +192,14 @@ def reason(request):
     # Payload anpassen für nächste These (nicht bei letzter These)
     if current_these != these_list.reverse()[0]:
         # Falls These beantwortet ändere TK um 1
-        payload['t'] = these_list[pos + 1].pk
+        payload["t"] = these_list[pos + 1].pk
         payload_next = urllib.parse.urlencode(payload)
     else:
         payload_next = None
 
     # Payload anpassen für vorherige These (nicht bei erster These)
     if current_these != these_list[0]:
-        payload['t'] = these_list[pos - 1].pk
+        payload["t"] = these_list[pos - 1].pk
         payload_previous = urllib.parse.urlencode(payload)
     else:
         payload_previous = None
@@ -209,41 +212,44 @@ def reason(request):
     for partei, _ in results:
         try:
             antwort = Antwort.objects.get(
-                antwort_these=current_these, antwort_partei=partei)
+                antwort_these=current_these, antwort_partei=partei
+            )
             antworten.append(antwort)
         except Antwort.DoesNotExist:
             pass
 
-    context = {'these_list': these_list,
-               'current_payload': current_payload,
-               'pos': pos + 1,
-               'aktuelle_these': current_these,
-               'payload_next': payload_next,
-               'payload_previous': payload_previous,
-               'antworten': antworten,
-               'max_pos': max_pos,
-               'results': results}
+    context = {
+        "these_list": these_list,
+        "current_payload": current_payload,
+        "pos": pos + 1,
+        "aktuelle_these": current_these,
+        "payload_next": payload_next,
+        "payload_previous": payload_previous,
+        "antworten": antworten,
+        "max_pos": max_pos,
+        "results": results,
+    }
 
-    return render(request, 'wahlrechner/reason.html', context)
+    return render(request, "wahlrechner/reason.html", context)
 
 
 def calculate_results(request):
 
     # Erhalte Cache falls vorhanden, sonst erstelle das globale Dictionary
-    if not 'cache' in globals():
+    if not "cache" in globals():
         global cache
         cache = {}
 
     # Erhalte Payload und entferne Parameter für die aktuelle These, falls vorhanden
     payload = request.GET.copy()
-    if 't' in payload:
-        del payload['t']
+    if "t" in payload:
+        del payload["t"]
 
     # Sortiere die URL-Parameter und verwandel sie in einen String
     urlstr = urllib.parse.urlencode(sorted(payload.items()))
 
     # Erhalte Ergebnis aus Cache, falls vorhanden
-    if urlstr in cache and bool(int(os.environ['WAHLRECHNER_CACHING'])):
+    if urlstr in cache and bool(int(os.environ["WAHLRECHNER_CACHING"])):
         results = cache.get(urlstr)
 
     # Sonst berechne Ergebnis
@@ -257,7 +263,9 @@ def calculate_results(request):
             for antwort in Antwort.objects.filter(antwort_partei=partei):
 
                 # Falls These nicht übersprungen
-                if (position := request.GET.get(str(antwort.antwort_these.pk), "s")) != "s":
+                if (
+                    position := request.GET.get(str(antwort.antwort_these.pk), "s")
+                ) != "s":
 
                     # Stimmt Position mit Antwort der Partei überein? (2 Punkte)
                     if position == antwort.antwort_position:
@@ -307,16 +315,16 @@ def aussagekraeftig(request):
 
 
 def handler404(request, exception=""):
-    return HttpResponseNotFound(render_to_string('error/404.html'))
+    return HttpResponseNotFound(render_to_string("error/404.html"))
 
 
 def handler500(request):
-    return HttpResponseServerError(render_to_string('error/500.html'))
+    return HttpResponseServerError(render_to_string("error/500.html"))
 
 
 def increase_result_count():
     try:
-        file = open('wahlrechner/stats/result_count.txt', 'r')
+        file = open("wahlrechner/stats/result_count.txt", "r")
         result_count = file.read()
         file.close()
         if result_count == "":

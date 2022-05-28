@@ -4,7 +4,7 @@ services:
     django:
         container_name: django
         build: .
-        command: bash -c 'docker/wait-for-it/wait-for-it.sh db:3306 -t 120 -- docker/startup.sh'
+        command: bash -c 'docker/wait-for-it/wait-for-it.sh db:3306 -t 120 -- bash docker/startup.sh'
         volumes:
             - .:/code
         ports:
