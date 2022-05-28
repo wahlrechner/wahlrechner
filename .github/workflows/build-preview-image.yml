@@ -18,13 +18,6 @@ jobs:
             - name: Include version number
               run: echo "PRE-${{ github.run_number }}" > version.txt
 
-            - name: Purge Tailwind
-              uses: actions/setup-node@v1
-              with:
-                  node-version: 15.6
-            - run: npm install
-            - run: npm run build
-
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v1
               with:
