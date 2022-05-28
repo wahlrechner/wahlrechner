@@ -1,3 +1,4 @@
+import json
 import os
 from pathlib import Path
 
@@ -13,7 +14,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.getenv("DJANGO_DEBUG", 0)))
 
-ALLOWED_HOSTS = tuple(os.getenv("DJANGO_ALLOWED_HOSTS"))
+ALLOWED_HOSTS = json.loads(os.getenv("DJANGO_ALLOWED_HOSTS"))
+CSRF_TRUSTED_ORIGINS = json.loads(os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS"))
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
@@ -121,6 +123,5 @@ STATICFILES_DIRS = [
 
 # SSL-Encryption
 
-SECURE_SSL_REDIRECT = bool(int(os.getenv("DJANGO_SECURE_SSL_REDIRECT", 1)))
 SECURE_HSTS_SECONDS = int(os.getenv("DJANGO_SECURE_HSTS_SECONDS", 0))
 SESSION_COOKIE_SECURE = bool(int(os.getenv("DJANGO_SESSION_COOKIE_SECURE", 1)))
