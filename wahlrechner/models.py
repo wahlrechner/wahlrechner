@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 
 class These(models.Model):
     these_keyword_help = """<i>Maximal 40 Zeichen</i><br>
@@ -45,6 +43,17 @@ class Partei(models.Model):
     Beschreibung für die Partei, wird auf der Ergebnis-Seite angezeigt."""
     partei_beschreibung = models.TextField(
         "Beschreibung", help_text=partei_beschreibung_help, max_length=1000, blank=True
+    )
+
+    partei_bild_beschreibung = (
+        """Logo oder Foto, das auf der Ergebnis-Seite angezeigt werden soll."""
+    )
+    partei_bild = models.ImageField(
+        "Bild",
+        upload_to="partei_bild",
+        help_text=partei_bild_beschreibung,
+        blank=True,
+        default=None,
     )
 
     def __str__(self):

@@ -1,89 +1,90 @@
 {% extends 'wahlrechner/base.html' %} {% load get_item %}
 {% block title %}These {{ pos }} von {{ max_pos }}{% endblock %}
 {% block sidebar %}
-<p class="mb-2 text-lg font-semibold dark:text-gray-200">Alle Thesen</p>
-<ul class="space-y-1 sidebar-menu">
-    {% for these in these_list %}
-    <li>
-        {% with status=request.GET|get_item:these.pk %}
-            {% if status == 'a' %}
-                {% include "icons/agree.html" %}
-            {% elif status == 'd' %}
-                {% include "icons/disagree.html" %}
-            {% elif status == 'n' %}
-                {% include "icons/neutral.html" %}
-            {% elif status == 's' %}
-                {% include "icons/skip.html" %}
-            {% else %}
-                {% include "icons/empty.html" %}
-            {% endif %}
-        {% endwith %}
-        {% if these == aktuelle_these %}
-            <a class="active">{{ these.these_keyword }}</a>
-        {% else %}
-            <a onClick="location.href='{% url 'these' %}?t={{ these.pk }}&{{ current_payload }}'" class="clickable">
-                {{ these.these_keyword }}
-            </a>
-        {% endif %}
-    </li>
-    {% endfor %}
-</ul>
+    <p class="mb-2 text-lg font-semibold dark:text-gray-200">Alle Thesen</p>
+    <ul class="space-y-1 sidebar-menu">
+        {% for these in these_list %}
+            <li>
+                {% with status=request.GET|get_item:these.pk %}
+                    {% if status == 'a' %}
+                        {% include "icons/agree.html" %}
+                    {% elif status == 'd' %}
+                        {% include "icons/disagree.html" %}
+                    {% elif status == 'n' %}
+                        {% include "icons/neutral.html" %}
+                    {% elif status == 's' %}
+                        {% include "icons/skip.html" %}
+                    {% else %}
+                        {% include "icons/empty.html" %}
+                    {% endif %}
+                {% endwith %}
+                {% if these == aktuelle_these %}
+                    <a class="active">{{ these.these_keyword }}</a>
+                {% else %}
+                    <a onClick="location.href='{% url 'these' %}?t={{ these.pk }}&{{ current_payload }}'"
+                       class="clickable">
+                        {{ these.these_keyword }}
+                    </a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %} {% block content %}
-<div class="w-full p-6 text-center bg-white rounded-lg shadow-lg lg:p-10 dark:bg-gray-800">
-    <p class="font-mono text-gray-500 dark:text-gray-400">These {{ pos }} von {{ max_pos }}</p>
-    <p class="mb-8 text-xl font-semibold text-gray-800 break-words dark:text-gray-200 ">{{ aktuelle_these.these_text }}</p>
+    <div class="w-full p-6 text-center bg-white rounded-xl shadow-lg lg:p-10 dark:bg-gray-800">
+        <p class="font-mono text-gray-500 dark:text-gray-400">These {{ pos }} von {{ max_pos }}</p>
+        <p class="mb-8 text-xl font-semibold text-gray-800 break-words dark:text-gray-200 ">{{ aktuelle_these.these_text }}</p>
 
-    {% with status=request.GET|get_item:aktuelle_these.pk %}
-    <p class="mb-3 text-sm italic text-gray-600 dark:text-gray-400 lg:mb-0">
-            {% if status and status != 's' %}
-            Du hast dich bereits zu dieser These positioniert, aber du kannst deine Antwort noch anpassen:
-            {% elif status == 's' %}
-            Du hast diese These übersprungen, ab du kannst sie jetzt noch beantworten:
-            {% else %}
-            Bitte positioniere dich zu dieser These:
-            {% endif %}
-        </p>
-        <div class="w-full px-5 py-2 mx-auto space-y-2 lg:space-x-2">
-            <button onClick="location.href='{% url 'these' %}?{{ payload_agree }}'"
-                    class="btn btn-green w-full lg:w-48 {% if status == 'a' %}active{% endif %}">
-                {% include "icons/agree-white.html" %} stimme zu
-            </button>
-            <button onClick="location.href='{% url 'these' %}?{{ payload_neutral }}'"
-                    class="btn btn-gray w-full lg:w-28 {% if status == 'n' %}active{% endif %}">
-                {% include "icons/neutral-white.html" %} neutral
-            </button>
-            <button onClick="location.href='{% url 'these' %}?{{ payload_disagree }}'"
-                    class="btn btn-red w-full lg:w-48 {% if status == 'd' %}active{% endif %}">
-                {% include "icons/disagree-white.html" %} stimme nicht zu
-            </button>
-        </div>
-    {% endwith %}
-</div>
-<div class="flex flex-col justify-between mt-2 space-y-2 md:flex-row md:space-y-0 md:space-x-2">
+        {% with status=request.GET|get_item:aktuelle_these.pk %}
+            <p class="mb-3 text-sm italic text-gray-600 dark:text-gray-400 lg:mb-0">
+                {% if status and status != 's' %}
+                    Du hast dich bereits zu dieser These positioniert, aber du kannst deine Antwort noch anpassen:
+                {% elif status == 's' %}
+                    Du hast diese These übersprungen, ab du kannst sie jetzt noch beantworten:
+                {% else %}
+                    Bitte positioniere dich zu dieser These:
+                {% endif %}
+            </p>
+            <div class="w-full px-5 py-2 mx-auto space-y-2 lg:space-x-2">
+                <button onClick="location.href='{% url 'these' %}?{{ payload_agree }}'"
+                        class="btn btn-green w-full lg:w-48 {% if status == 'a' %}active{% endif %}">
+                    {% include "icons/agree-white.html" %} stimme zu
+                </button>
+                <button onClick="location.href='{% url 'these' %}?{{ payload_neutral }}'"
+                        class="btn btn-gray w-full lg:w-28 {% if status == 'n' %}active{% endif %}">
+                    {% include "icons/neutral-white.html" %} neutral
+                </button>
+                <button onClick="location.href='{% url 'these' %}?{{ payload_disagree }}'"
+                        class="btn btn-red w-full lg:w-48 {% if status == 'd' %}active{% endif %}">
+                    {% include "icons/disagree-white.html" %} stimme nicht zu
+                </button>
+            </div>
+        {% endwith %}
+    </div>
+    <div class="flex flex-col justify-between mt-2 space-y-2 md:flex-row md:space-y-0 md:space-x-2">
 
-    {% if payload_previous %}
-    <button onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="h-full btn btn-white">
-        {% include "icons/arrow-left.html" %} vorherige These
-    </button>
-    {% elif not show_continue_button %}
-    <div></div>
-    {% endif %}
-    
-    {% if show_continue_button %}
-    <button onClick="location.href='{% url 'confirm' %}?{{ current_payload }}'" class="h-full btn btn-white">
-        Abschließen {% include "icons/circle-right.html" %}
-    </button>
-    {% endif %}
+        {% if payload_previous %}
+            <button onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="h-full btn btn-white">
+                {% include "icons/arrow-left.html" %} vorherige These
+            </button>
+        {% elif not show_continue_button %}
+            <div></div>
+        {% endif %}
 
-    {% if these_beantwortet and payload_next %}
-    <button onClick="location.href='{% url 'these' %}?{{ payload_next }}'" class="h-full btn btn-white">
-        nächste These {% include "icons/arrow-right.html" %}
-    </button>
-    {% elif not these_beantwortet %}
-    <button onClick="location.href='{% url 'these' %}?{{ payload_skip }}'" class="h-full btn btn-white">
-        These überspringen {% include "icons/skip.html" %}
-    </button>
-    {% endif %}
-    
-</div>
+        {% if show_continue_button %}
+            <button onClick="location.href='{% url 'confirm' %}?{{ current_payload }}'" class="h-full btn btn-white">
+                Abschließen {% include "icons/circle-right.html" %}
+            </button>
+        {% endif %}
+
+        {% if these_beantwortet and payload_next %}
+            <button onClick="location.href='{% url 'these' %}?{{ payload_next }}'" class="h-full btn btn-white">
+                nächste These {% include "icons/arrow-right.html" %}
+            </button>
+        {% elif not these_beantwortet %}
+            <button onClick="location.href='{% url 'these' %}?{{ payload_skip }}'" class="h-full btn btn-white">
+                These überspringen {% include "icons/skip.html" %}
+            </button>
+        {% endif %}
+
+    </div>
 {% endblock %}

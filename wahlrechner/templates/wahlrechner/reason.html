@@ -32,7 +32,7 @@
     {% endfor %}
 </ul>
 {% endblock %} {% block content %}
-<div class="w-full p-5 text-center bg-white rounded-lg shadow-lg dark:bg-gray-800">
+<div class="w-full p-5 text-center bg-white rounded-xl shadow-lg dark:bg-gray-800">
     <p class="font-mono text-gray-500 dark:text-gray-400">These {{ pos }} von {{ max_pos }}</p>
     <p class="mb-8 text-xl font-bold text-gray-800 break-words dark:text-gray-200">{{ aktuelle_these.these_text }}</p>
 
@@ -41,7 +41,7 @@
         <p class="mb-1 text-sm font-semibold text-gray-600 dark:text-gray-400">Deine Position:</p>
     {% endif %}
             {% if status == 'a' %}
-            <div class="text-white text-sm flex sm:inline-flex bg-green-600 font-semibold rounded-lg pl-0.5 pr-1.5 py-1">
+            <div class="text-white text-sm flex sm:inline-flex bg-green-600 font-semibold rounded-xl pl-0.5 pr-1.5 py-1">
                 <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
                 <svg class="inline-flex w-5 h-4 mr-1 text-white align-middle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
                     <path
@@ -53,7 +53,7 @@
                 stimme zu
             </div>
             {% elif status == 'n' %}
-            <div class="text-white text-sm flex sm:inline-flex bg-gray-500 font-semibold rounded-lg pl-0.5 pr-1.5 py-1">
+            <div class="text-white text-sm flex sm:inline-flex bg-gray-500 font-semibold rounded-xl pl-0.5 pr-1.5 py-1">
                 <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
                 <svg class="inline-flex w-5 h-4 mr-1 text-white align-middle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
                     <path
@@ -65,7 +65,7 @@
                 neutral
             </div>
             {% elif status == 'd' %}
-            <div class="text-white text-sm flex sm:inline-flex bg-red-600 font-semibold rounded-lg pl-0.5 pr-1.5 py-1">
+            <div class="text-white text-sm flex sm:inline-flex bg-red-600 font-semibold rounded-xl pl-0.5 pr-1.5 py-1">
                 <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
                 <svg class="inline-flex w-5 h-4 mr-1 text-white align-middle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
                     <path
@@ -78,7 +78,7 @@
             </div>
             {% endif %}
             {% if request.GET|get_item_p:aktuelle_these.pk %}
-                <div class="text-white text-sm flex sm:inline-flex bg-yellow-500 font-semibold rounded-lg pl-0.5 pr-1.5 py-1 mt-1 md:mt-0">
+                <div class="text-white text-sm flex sm:inline-flex bg-yellow-500 font-semibold rounded-xl pl-0.5 pr-1.5 py-1 mt-1 md:mt-0">
                     <svg class="inline-flex w-5 h-4 mr-1 text-white align-middle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
                         <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
                         <path
@@ -118,12 +118,12 @@
 </div>
 
 {% for antwort in antworten %}
-<div class="w-full p-4 my-2 bg-white rounded-lg shadow-lg dark:bg-gray-800">
+<div class="w-full p-4 my-2 bg-white rounded-xl shadow-lg dark:bg-gray-800">
 
     <div class="mb-3">
         <div class="text-lg font-semibold text-gray-700 dark:text-gray-100 sm:inline-flex">{{ antwort.antwort_partei.partei_name }}</div>
         {% if antwort.antwort_position == 'a' %}
-            <div class="text-white text-sm flex sm:inline-flex bg-green-600 font-semibold rounded-lg pl-0.5 pr-1.5 py-1 sm:ml-1 mt-1 sm:mt-0">
+            <div class="text-white text-sm flex sm:inline-flex bg-green-600 font-semibold rounded-xl pl-0.5 pr-1.5 py-1 sm:ml-1 mt-1 sm:mt-0">
                 <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
                 <svg class="inline-flex w-5 h-4 mr-1 text-white align-middle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
                     <path
@@ -135,7 +135,7 @@
                 stimmt zu
             </div>
             {% elif antwort.antwort_position == 'n' %}
-            <div class="text-white text-sm flex sm:inline-flex bg-gray-500 font-semibold rounded-lg pl-0.5 pr-1.5 py-1 sm:ml-1 mt-1 sm:mt-0">
+            <div class="text-white text-sm flex sm:inline-flex bg-gray-500 font-semibold rounded-xl pl-0.5 pr-1.5 py-1 sm:ml-1 mt-1 sm:mt-0">
                 <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
                 <svg class="inline-flex w-5 h-4 mr-1 text-white align-middle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
                     <path
@@ -147,7 +147,7 @@
                 neutral
             </div>
             {% elif antwort.antwort_position == 'd' %}
-            <div class="text-white text-sm flex sm:inline-flex bg-red-600 font-semibold rounded-lg pl-0.5 pr-1.5 py-1 sm:ml-1 mt-1 sm:mt-0">
+            <div class="text-white text-sm flex sm:inline-flex bg-red-600 font-semibold rounded-xl pl-0.5 pr-1.5 py-1 sm:ml-1 mt-1 sm:mt-0">
                 <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
                 <svg class="inline-flex w-5 h-4 mr-1 text-white align-middle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
                     <path

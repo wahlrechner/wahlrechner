@@ -64,7 +64,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-
 # Database
 
 DATABASES = {
@@ -77,7 +76,6 @@ DATABASES = {
         "PORT": os.getenv("MYSQL_PORT"),
     }
 }
-
 
 # Password validation
 
@@ -96,7 +94,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 
 LANGUAGE_CODE = os.getenv("DJANGO_LANGUAGE_CODE", "de")
@@ -109,11 +106,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Static and media files (CSS, JavaScript, Images)
 
-# Static files (CSS, JavaScript, Images)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "/code/media/"
 
 STATIC_URL = "/static/"
-
 STATIC_ROOT = "/code/assets/"
 
 STATICFILES_DIRS = [
