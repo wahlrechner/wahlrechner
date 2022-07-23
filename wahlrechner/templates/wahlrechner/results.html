@@ -1,34 +1,11 @@
-{% extends 'wahlrechner/base.html' %} {% load get_item %}
+{% extends 'wahlrechner/base.html' %}
+
 {% block title %}Dein Ergebnis{% endblock %}
+
 {% block sidebar %}
-    <p class="mb-2 text-lg font-semibold dark:text-gray-200">Alle Thesen</p>
-    <ul class="space-y-1 sidebar-menu">
-        {% for these in these_list %}
-            <li>
-                {% with status=request.GET|get_item:these.pk %}
-                    {% if status == 'a' %}
-                        {% include "icons/agree.html" %}
-                    {% elif status == 'd' %}
-                        {% include "icons/disagree.html" %}
-                    {% elif status == 'n' %}
-                        {% include "icons/neutral.html" %}
-                    {% elif status == 's' or status == None %}
-                        {% include "icons/skip.html" %}
-                    {% else %}
-                        {% include "icons/empty.html" %}
-                    {% endif %}
-                {% endwith %}
-                <a onClick="location.href='{% url 'reason' %}?t={{ these.pk }}&{{ current_payload }}'"
-                   class="clickable">
-                    {{ these.these_keyword }}
-                </a>
-                {% if request.GET|get_item_p:these.pk %}
-                    {% include "icons/fav.html" %}
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+    {% include "wahlrechner/sidebar.html" with icon_default="skip" url_template="reason" %}
 {% endblock %}
+
 {% block content %}
     <div class="w-full p-5 text-center bg-white rounded-xl shadow-lg dark:bg-gray-800">
         <h1 class="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-100">Dein Ergebnis</h1>

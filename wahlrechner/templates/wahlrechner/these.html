@@ -1,40 +1,18 @@
-{% extends 'wahlrechner/base.html' %} {% load get_item %}
+{% extends 'wahlrechner/base.html' %}
+{% load wahlrechner_extras %}
+
 {% block title %}These {{ pos }} von {{ max_pos }}{% endblock %}
+
 {% block sidebar %}
-    <p class="mb-2 text-lg font-semibold dark:text-gray-200">Alle Thesen</p>
-    <ul class="space-y-1 sidebar-menu">
-        {% for these in these_list %}
-            <li>
-                {% with status=request.GET|get_item:these.pk %}
-                    {% if status == 'a' %}
-                        {% include "icons/agree.html" %}
-                    {% elif status == 'd' %}
-                        {% include "icons/disagree.html" %}
-                    {% elif status == 'n' %}
-                        {% include "icons/neutral.html" %}
-                    {% elif status == 's' %}
-                        {% include "icons/skip.html" %}
-                    {% else %}
-                        {% include "icons/empty.html" %}
-                    {% endif %}
-                {% endwith %}
-                {% if these == aktuelle_these %}
-                    <a class="active">{{ these.these_keyword }}</a>
-                {% else %}
-                    <a onClick="location.href='{% url 'these' %}?t={{ these.pk }}&{{ current_payload }}'"
-                       class="clickable">
-                        {{ these.these_keyword }}
-                    </a>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-{% endblock %} {% block content %}
+    {% include "wahlrechner/sidebar.html" with icon_default="empty" url_template="these" %}
+{% endblock %}
+
+{% block content %}
     <div class="w-full p-6 text-center bg-white rounded-xl shadow-lg lg:p-10 dark:bg-gray-800">
         <p class="font-mono text-gray-500 dark:text-gray-400">These {{ pos }} von {{ max_pos }}</p>
         <p class="mb-8 text-xl font-semibold text-gray-800 break-words dark:text-gray-200 ">{{ aktuelle_these.these_text }}</p>
 
-        {% with status=request.GET|get_item:aktuelle_these.pk %}
+        {% with status=request.GET|get_param_value:aktuelle_these.pk %}
             <p class="mb-3 text-sm italic text-gray-600 dark:text-gray-400 lg:mb-0">
                 {% if status and status != 's' %}
                     Du hast dich bereits zu dieser These positioniert, aber du kannst deine Antwort noch anpassen:

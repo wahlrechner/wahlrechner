@@ -1,0 +1,49 @@
+{% comment %}
+Template für die Seitenleiste mit der Übersicht aller Thesen.
+
+Parameter:
+1. "icon_default": Gibt an, welches Icon angezeigt werden soll, wenn eine These noch nicht
+   beantwortet wurde ("empty" oder "skip").
+2. "url_template": Gibt den Namen des Templates an, auf das der Hyperlink der einzelnen Thesen verweisen soll
+   ("reason", "these" oder leer für kein Hyperlink)
+{% endcomment %}
+
+{% load wahlrechner_extras %}
+
+<p class="mb-2 text-lg font-semibold dark:text-gray-200">Alle Thesen</p>
+
+<ul class="space-y-1 sidebar-menu">
+
+    {% for these in these_list %}
+
+        <li>
+
+            {# Erhalte Position des Nutzers aus den URL Parametern und füge ein passendes Icon hinzu #}
+            {% with status=request.GET|get_param_value:these.pk %}
+                {% include "icons/icons_sidebar.html" with icon=status|default_if_none:icon_default %}
+            {% endwith %}
+
+            {# Titel der These ggf. mit Hyperlink #}
+            {% if these == aktuelle_these %}
+                <a class="active">{{ these.these_keyword }}</a>
+            {% else %}
+                <a {% if url_template != "" %}
+                    onClick="location.href='{% url url_template %}?t={{ these.pk }}&{{ current_payload }}'"
+                    class="clickable"
+                {% endif %} >
+                    {{ these.these_keyword }}
+                </a>
+            {% endif %}
+
+            {# Erhalte aus den URL Parametern ob These priorisiert, falls ja füge passendes Icon hinzu #}
+            {% with "p"|addstr:these.pk as key %}
+                {% if request.GET|get_param_value:key %}
+                    {% include "icons/icons_sidebar.html" with icon="fav" %}
+                {% endif %}
+            {% endwith %}
+
+        </li>
+
+    {% endfor %}
+
+</ul>

@@ -1,43 +1,18 @@
-{% extends 'wahlrechner/base.html' %} {% load get_item %}
+{% extends 'wahlrechner/base.html' %}
+{% load wahlrechner_extras %}
+
 {% block title %}Begründungen der Parteien zu These {{ pos }} von {{ max_pos }}{% endblock %}
+
 {% block sidebar %}
-    <p class="mb-2 text-lg font-semibold dark:text-gray-200">Alle Thesen</p>
-    <ul class="space-y-1 sidebar-menu">
-        {% for these in these_list %}
-            <li>
-                {% with status=request.GET|get_item:these.pk %}
-                    {% if status == 'a' %}
-                        {% include "icons/agree.html" %}
-                    {% elif status == 'd' %}
-                        {% include "icons/disagree.html" %}
-                    {% elif status == 'n' %}
-                        {% include "icons/neutral.html" %}
-                    {% elif status == 's' %}
-                        {% include "icons/skip.html" %}
-                    {% else %}
-                        {% include "icons/empty.html" %}
-                    {% endif %}
-                {% endwith %}
-                {% if these == aktuelle_these %}
-                    <a class="active">{{ these.these_keyword }}</a>
-                {% else %}
-                    <a onClick="location.href='{% url 'reason' %}?t={{ these.pk }}&{{ current_payload }}'"
-                       class="clickable">
-                        {{ these.these_keyword }}
-                    </a>
-                {% endif %}
-                {% if request.GET|get_item_p:these.pk %}
-                    {% include "icons/fav.html" %}
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-{% endblock %} {% block content %}
+    {% include "wahlrechner/sidebar.html" with icon_default="skip" url_template="reason" %}
+{% endblock %}
+
+{% block content %}
     <div class="w-full p-5 text-center bg-white rounded-xl shadow-lg dark:bg-gray-800">
         <p class="font-mono text-gray-500 dark:text-gray-400">These {{ pos }} von {{ max_pos }}</p>
         <p class="mb-8 text-xl font-bold text-gray-800 break-words dark:text-gray-200">{{ aktuelle_these.these_text }}</p>
 
-        {% with status=request.GET|get_item:aktuelle_these.pk %}
+        {% with status=request.GET|get_param_value:aktuelle_these.pk %}
             {% if status != "s" %}
                 <p class="mb-1 text-sm font-semibold text-gray-600 dark:text-gray-400">Deine Position:</p>
             {% endif %}
@@ -81,18 +56,21 @@
                     stimme nicht zu
                 </div>
             {% endif %}
-            {% if request.GET|get_item_p:aktuelle_these.pk %}
-                <div class="text-white text-sm flex sm:inline-flex bg-yellow-500 font-semibold rounded-xl pl-0.5 pr-1.5 py-1 mt-1 md:mt-0">
-                    <svg class="inline-flex w-5 h-4 mr-1 text-white align-middle" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 16 16" fill="currentColor">
-                        <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
-                        <path
-                                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                        />
-                    </svg>
-                    wichtige These
-                </div>
-            {% endif %}
+
+            {% with "p"|addstr:aktuelle_these.pk as key %}
+                {% if request.GET|get_param_value:key %}
+                    <div class="text-white text-sm flex sm:inline-flex bg-yellow-500 font-semibold rounded-xl pl-0.5 pr-1.5 py-1 mt-1 md:mt-0">
+                        <svg class="inline-flex w-5 h-4 mr-1 text-white align-middle" xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 16 16" fill="currentColor">
+                            <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
+                            <path
+                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                            />
+                        </svg>
+                        wichtige These
+                    </div>
+                {% endif %}
+            {% endwith %}
             {% if status == 's' %}
                 <p class="text-sm text-gray-600 dark:text-gray-400">Du hast diese These übersprungen.</p>
             {% endif %}

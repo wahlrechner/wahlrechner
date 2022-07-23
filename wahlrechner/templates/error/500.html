@@ -1,44 +1,24 @@
-{% extends 'wahlrechner/base.html' %} {% load get_item %}
+{% extends 'wahlrechner/base.html' %}
+
 {% block title %}Fehler 500{% endblock %}
+
 {% block sidebar %}
-<div class="hidden md:block">
-    <p class="mb-2 text-lg font-semibold dark:text-gray-200">Alle Thesen</p>
-    <div class="mt-5 space-y-3 opacity-20">
-        <div class="w-5/6 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-2/5 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-1/3 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-1/2 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-3/4 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-5/6 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-2/5 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-1/3 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-1/2 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-3/4 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-5/6 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-2/5 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-1/3 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-1/2 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-3/4 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-5/6 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-2/5 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-1/3 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-1/2 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
-        <div class="w-3/4 h-4 bg-gray-900 rounded dark:bg-gray-500"></div>
+    {% include "error/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+    <div class="w-full p-6 text-center bg-white rounded-xl shadow-lg dark:bg-gray-800">
+        <h1 class="mb-3 text-xl font-semibold text-gray-700 dark:text-gray-100">Fehler 500</h1>
+        <div class="text-center text-gray-600 dark:text-gray-300">
+            Es ist ein unerwarteter Fehler aufgetreten. Bitte versuche es erneut!
+        </div>
     </div>
-</div>
-{% endblock %} {% block content %}
-<div class="w-full p-6 text-center bg-white rounded-xl shadow-lg dark:bg-gray-800">
-    <h1 class="mb-3 text-xl font-semibold text-gray-700 dark:text-gray-100">Fehler 500</h1>
-    <div class="text-center text-gray-600 dark:text-gray-300">
-        Es ist ein unerwarteter Fehler aufgetreten. Bitte versuche es erneut!
+    <div class="flex flex-col justify-between mt-2 space-y-2 md:flex-row md:space-x-2 md:space-y-0 ">
+        <button onClick="window.history.back();" class="h-full btn btn-white">
+            {% include "icons/arrow-left.html" %} Zurück
+        </button>
+        <button onClick="location.href='{% url 'start' %}'" class="h-full btn btn-white">
+            Zur Startseite {% include "icons/circle-right.html" %}
+        </button>
     </div>
-</div>
-<div class="flex flex-col justify-between mt-2 space-y-2 md:flex-row md:space-x-2 md:space-y-0 ">
-    <button onClick="window.history.back();"class="h-full btn btn-white">
-        {% include "icons/arrow-left.html" %} Zurück
-    </button>
-    <button onClick="location.href='{% url 'start' %}'" class="h-full btn btn-white">
-        Zur Startseite {% include "icons/circle-right.html" %}
-    </button>
-</div>
 {% endblock %}

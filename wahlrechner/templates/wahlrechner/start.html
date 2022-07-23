@@ -1,20 +1,13 @@
-{% extends 'wahlrechner/base.html' %} {% load get_item %}
+{% extends 'wahlrechner/base.html' %}
+{% load wahlrechner_extras %}
+
 {% block title %}Startseite{% endblock %}
+
 {% block sidebar %}
-    <p class="mb-2 text-lg font-semibold dark:text-gray-200">Alle Thesen</p>
-    <ul class="space-y-1 sidebar-menu">
-        {% if not these_list.first.pk %}
-            <p class="mt-4 italic text-gray-700 dark:text-gray-300">
-                Es wurden noch keine Thesen hinzugefügt. Bitte melde dich in der
-                <a class="underline" href="{% url 'admin:index' %}">Admin-Oberfläche</a> an, um neue Thesen
-                hinzuzufügen.</p>
-        {% else %}
-            {% for these in these_list %}
-                <li><a>{% include "icons/empty.html" %}{{ these.these_keyword }}</a></li>
-            {% endfor %}
-        {% endif %}
-    </ul>
-{% endblock %} {% block content %}
+    {% include "wahlrechner/sidebar.html" with icon_default="empty" url_template="" %}
+{% endblock %}
+
+{% block content %}
     <div class="w-full p-6 text-center bg-white rounded-xl shadow-lg dark:bg-gray-800">
         {% include 'intro_page.html' %}
     </div>

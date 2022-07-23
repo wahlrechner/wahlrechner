@@ -234,7 +234,6 @@ def reason(request):
 
 
 def calculate_results(request):
-
     # Erhalte Cache falls vorhanden, sonst erstelle das globale Dictionary
     if not "cache" in globals():
         global cache
@@ -342,3 +341,11 @@ def increase_result_count():
     file = open("wahlrechner/stats/result_count.txt", "w")
     file.write(str(result_count))
     file.close()
+
+
+def test404(request):
+    return render(request, template_name="error/404.html")
+
+
+def test500(request):
+    return render(request, template_name="error/500.html")
