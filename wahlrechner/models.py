@@ -1,3 +1,4 @@
+from colorfield.fields import ColorField
 from django.db import models
 
 
@@ -53,6 +54,16 @@ class Partei(models.Model):
         upload_to="partei_bild",
         help_text=partei_bild_beschreibung,
         blank=True,
+        null=True,
+        default=None,
+    )
+
+    partei_farbe_beschreibung = """Akzentfarbe der Partei, die als Streifen neben dem Ergebnis angezeigt wird."""
+    partei_farbe = ColorField(
+        "Akzentfarbe",
+        null=True,
+        blank=True,
+        help_text=partei_farbe_beschreibung,
         default=None,
     )
 

@@ -3,3 +3,4 @@ mysqlclient==2.1.1
 django-import-export==2.8.0
 gunicorn==20.1.0
 pillow==9.2.0
+django-colorfield==0.7.2

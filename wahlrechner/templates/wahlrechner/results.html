@@ -60,47 +60,52 @@
     </div>
 
     {% for partei, percentage in results %}
-        <div class="w-full p-4 my-2 bg-white rounded-xl shadow-lg dark:bg-gray-800">
+        <div class="w-full my-2 bg-white rounded-xl shadow-lg dark:bg-gray-800 overflow-hidden">
+            <div class="w-full h-full p-4 {% if partei.partei_farbe %}border-l-8{% endif %}"
+                 {% if partei.partei_farbe %}style="border-color: {{ partei.partei_farbe }}"{% endif %}>
 
-            {% if forloop.first %}
-                <div class="mb-3 text-sm text-gray-500 dark:text-gray-400">
-                    <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                         class="inline-flex w-5 h-5 align-middle">
-                        <path fill-rule="evenodd"
-                              d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                              clip-rule="evenodd"></path>
-                    </svg>
-                    Höchste Übereinstimmung
+
+                {% if forloop.first %}
+                    <div class="mb-3 text-sm text-gray-500 dark:text-gray-400">
+                        <!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                             class="inline-flex w-5 h-5 align-middle">
+                            <path fill-rule="evenodd"
+                                  d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                        Höchste Übereinstimmung
+                    </div>
+                {% endif %}
+
+                <div class="mb-3">
+                    {% if percentage >= 85 %}
+                        <span class="font-bold text-green-700 dark:text-green-300 bg-green-200 dark:bg-green-900 rounded-md px-1.5 py-1 mr-1">{{ percentage }}%</span>
+                    {% elif percentage >= 60 %}
+                        <span class="font-bold text-yellow-600 dark:text-yellow-300 bg-yellow-200 dark:bg-yellow-900 rounded-md px-1.5 py-1 mr-1">{{ percentage }}%</span>
+                    {% else %}
+                        <span class="font-bold text-red-700 dark:text-red-300 bg-red-200 dark:bg-red-900 rounded-md px-1.5 py-1 mr-1">{{ percentage }}%</span>
+                    {% endif %}
+                    <span class="text-lg font-semibold text-gray-700 dark:text-gray-100">{{ partei.partei_name }}</span>
                 </div>
-            {% endif %}
 
-            <div class="mb-3">
-                {% if percentage >= 85 %}
-                    <span class="font-bold text-green-700 dark:text-green-300 bg-green-200 dark:bg-green-900 rounded-md px-1.5 py-1 mr-1">{{ percentage }}%</span>
-                {% elif percentage >= 60 %}
-                    <span class="font-bold text-yellow-600 dark:text-yellow-300 bg-yellow-200 dark:bg-yellow-900 rounded-md px-1.5 py-1 mr-1">{{ percentage }}%</span>
-                {% else %}
-                    <span class="font-bold text-red-700 dark:text-red-300 bg-red-200 dark:bg-red-900 rounded-md px-1.5 py-1 mr-1">{{ percentage }}%</span>
-                {% endif %}
-                <span class="text-lg font-semibold text-gray-700 dark:text-gray-100">{{ partei.partei_name }}</span>
-            </div>
+                <div class="flex justify-start sm:space-x-4 space-y-4 sm:space-y-0 flex-col sm:flex-row">
 
-            <div class="flex justify-start sm:space-x-4 space-y-4 sm:space-y-0 flex-col sm:flex-row">
+                    {# Profilbild #}
+                    {% if partei.partei_bild %}
+                        <img src="{{ partei.partei_bild.url }}"
+                             class="rounded-full w-24 h-24 flex-none m-auto sm:m-0 object-cover"
+                             alt="{{ partei.partei_name }}">
+                    {% endif %}
 
-                {# Profilbild #}
-                {% if partei.partei_bild %}
-                    <img src="{{ partei.partei_bild.url }}" class="rounded-full w-24 h-24 flex-none m-auto sm:m-0"
-                         alt="{{ partei.partei_name }}">
-                {% endif %}
-
-                {% if partei.partei_beschreibung %}
-                    <p class="text-sm text-left text-gray-600 dark:text-gray-300">
-                        "{{ partei.partei_beschreibung.strip }}"</p>
-                {% else %}
-                    <p class="text-sm italic text-left text-gray-600 dark:text-gray-300">Es liegt keine Beschreibung zu
-                        dieser Partei bzw. zu diesem Kandidat vor.</p>
-                {% endif %}
+                    {% if partei.partei_beschreibung %}
+                        <p class="text-sm text-left text-gray-600 dark:text-gray-300">
+                            "{{ partei.partei_beschreibung.strip }}"</p>
+                    {% else %}
+                        <p class="text-sm italic text-left text-gray-600 dark:text-gray-300">Es liegt keine Beschreibung
+                            zu dieser Partei bzw. zu diesem Kandidat vor.</p>
+                    {% endif %}
+                </div>
             </div>
 
         </div>
