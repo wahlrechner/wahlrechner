@@ -14,6 +14,7 @@
     </div>
 
     <form method="get" action="{% url 'results' %}">
+
         <div class="w-full p-1 text-center bg-white rounded-xl shadow-lg lg:p-5 dark:bg-gray-800">
             <div class="m-4">
                 {% for these in these_list %}
@@ -58,15 +59,14 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="flex flex-col justify-between mt-2 space-y-2 md:flex-row md:space-y-0 md:space-x-2">
-            <button type="button" onClick="location.href='{% url 'these' %}?{{ payload_previous }}'"
-                    class="h-full btn btn-white">
-                {% include "snippets/icon.html" with icon="edit" %} Antworten bearbeiten
-            </button>
 
-            <button type="submit" class="h-full btn btn-white">
-                Ergebnisse anzeigen {% include "snippets/icon.html" with icon="cright" %}
-            </button>
+        <div class="btn-row">
+            {% alias "Antworten bearbeiten" as text %}
+            {% include "snippets/btn.html" with text=text url="these" get=payload_previous icon="edit" pos="l" %}
+
+            {% alias "Ergebnisse anzeigen" as text %}
+            {% include "snippets/btn.html" with text=text type="submit" icon="cright" pos="r" %}
         </div>
+
     </form>
 {% endblock %}

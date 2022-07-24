@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Farbverlauf Hintergrund */
-body {
-    @apply bg-gradient-to-br from-green-100 to-indigo-200 dark:from-gray-900 dark:to-gray-900;
-}
-
 /***********/
 /* Sidebar */
 /***********/
@@ -61,8 +56,32 @@ body {
     @apply mb-4 text-sm italic text-gray-600 dark:text-gray-400 lg:mb-2 text-center;
 }
 
+/********************/
+/* Button Container */
+/********************/
+
 .content .these.btn-container {
     @apply w-full px-5 mx-auto space-y-2 lg:space-x-2;
+}
+
+.btn-container .btn {
+    @apply text-white w-full px-3 py-1.5 rounded-xl focus:ring-4 focus:outline-none shadow-md transition;
+}
+
+.btn-container .btn.active {
+    @apply ring-4 font-bold;
+}
+
+.btn-container .btn.btn-agree {
+    @apply lg:w-48 bg-green-600 ring-green-400 hover:bg-green-700 focus:bg-green-700;
+}
+
+.btn-container .btn.btn-neutral {
+    @apply lg:w-28 bg-gray-500 ring-gray-400 hover:bg-gray-600 focus:bg-gray-600;
+}
+
+.btn-container .btn.btn-disagree {
+    @apply lg:w-48 bg-red-600 ring-red-400 hover:bg-red-800 focus:bg-red-800;
 }
 
 /**************/
@@ -73,31 +92,23 @@ body {
     @apply flex flex-col justify-between mt-2 space-y-2 md:flex-row md:space-y-0 md:space-x-2;
 }
 
-
-.btn {
-    @apply px-3 py-1.5 rounded-xl focus:ring-4 focus:outline-none shadow-md transition;
+.btn-row .btn {
+    @apply px-3 py-1.5 rounded-xl focus:ring-4 focus:outline-none shadow-md transition text-gray-700 dark:text-gray-200
+    bg-white dark:bg-gray-700 ring-white dark:ring-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 focus:bg-gray-200
+    dark:focus:bg-gray-500 h-full;
 }
 
-.btn.active {
-    @apply ring-4 font-bold;
+/*********/
+/* Other */
+/*********/
+
+/* Farbverlauf Hintergrund */
+body {
+    @apply bg-gradient-to-br from-green-100 to-indigo-200 dark:from-gray-900 dark:to-gray-900;
 }
 
-.btn-green {
-    @apply text-white bg-green-600 ring-green-400  hover:bg-green-700 focus:bg-green-700;
-}
-
-.btn-gray {
-    @apply text-white bg-gray-500 ring-gray-400  hover:bg-gray-600 focus:bg-gray-600;
-}
-
-.btn-red {
-    @apply text-white bg-red-600 ring-red-400  hover:bg-red-800 focus:bg-red-800;
-}
-
-.btn-white {
-    @apply text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 ring-white dark:ring-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 focus:bg-gray-200 dark:focus:bg-gray-500;
-}
-
+/* Fix für Stern-Icon im Formular zum Gewichten */
 input:checked + svg {
     display: block;
 }
+

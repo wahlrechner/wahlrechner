@@ -81,25 +81,19 @@
         {% endwith %}
     </div>
 
-
-    <div class="flex flex-col justify-between my-2 space-y-2 md:flex-row md:space-y-0 md:space-x-2">
-
+    <div class="btn-row">
         {% if payload_previous %}
-            <button onClick="location.href='{% url 'reason' %}?{{ payload_previous }}'" class="h-full btn btn-white">
-                {% include "snippets/icon.html" with icon="left" %} vorherige These
-            </button>
+            {% alias "vorherige These" as text %}
+            {% include "snippets/btn.html" with text=text url="reason" get=payload_previous icon="left" pos="l" %}
         {% endif %}
 
-        <button onClick="location.href='{% url 'results' %}?{{ current_payload }}'" class="h-full btn btn-white">
-            {% include "snippets/icon.html" with icon="cleft" %}Zurück zu meinem Ergebnis
-        </button>
+        {% alias "zurück zu meinem Ergebnis" as text %}
+        {% include "snippets/btn.html" with text=text url="results" get=current_payload icon="cleft" pos="l" %}
 
         {% if payload_next %}
-            <button onClick="location.href='{% url 'reason' %}?{{ payload_next }}'" class="h-full btn btn-white">
-                nächste These {% include "snippets/icon.html" with icon="right" %}
-            </button>
+            {% alias "nächste These" as text %}
+            {% include "snippets/btn.html" with text=text url="reason" get=payload_next icon="right" pos="r" %}
         {% endif %}
-
     </div>
 
     {% for antwort in antworten %}

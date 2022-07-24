@@ -29,18 +29,18 @@
 
             <div class="these btn-container">
 
-                <button onClick="location.href='{% url 'these' %}?{{ payload_agree }}'"
-                        class="btn btn-green w-full lg:w-48 {% if status == "a" %}active{% endif %}">
+                <button onClick="location.href='{% url "these" %}?{{ payload_agree }}'"
+                        class="btn btn-agree {% if status == "a" %}active{% endif %}">
                     {% include "snippets/icon.html" with icon="agree" color="white" %} stimme zu
                 </button>
 
-                <button onClick="location.href='{% url 'these' %}?{{ payload_neutral }}'"
-                        class="btn btn-gray w-full lg:w-28 {% if status == 'n' %}active{% endif %}">
+                <button onClick="location.href='{% url "these" %}?{{ payload_neutral }}'"
+                        class="btn btn-neutral {% if status == "n" %}active{% endif %}">
                     {% include "snippets/icon.html" with icon="neutral" color="white" %} neutral
                 </button>
 
-                <button onClick="location.href='{% url 'these' %}?{{ payload_disagree }}'"
-                        class="btn btn-red w-full lg:w-48 {% if status == 'd' %}active{% endif %}">
+                <button onClick="location.href='{% url "these" %}?{{ payload_disagree }}'"
+                        class="btn btn-disagree {% if status == "d" %}active{% endif %}">
                     {% include "snippets/icon.html" with icon="disagree" color="white" %} stimme nicht zu
                 </button>
 
@@ -53,28 +53,26 @@
     <div class="btn-row">
 
         {% if payload_previous %}
-            <button onClick="location.href='{% url 'these' %}?{{ payload_previous }}'" class="h-full btn btn-white">
-                {% include "snippets/icon.html" with icon="left" %} vorherige These
-            </button>
+            {% alias "vorherige These" as text %}
+            {% include "snippets/btn.html" with text=text url="these" get=payload_previous icon="left" pos="l" %}
         {% elif not show_continue_button %}
-            <div></div>
+            {# Leeres Div, um die restlichen Buttons korrekt anzuordnen #}
+            <div class="-mb-2"></div>
         {% endif %}
 
         {% if show_continue_button %}
-            <button onClick="location.href='{% url 'confirm' %}?{{ current_payload }}'" class="h-full btn btn-white">
-                Abschließen {% include "snippets/icon.html" with icon="cright" %}
-            </button>
+            {% alias "Abschließen" as text %}
+            {% include "snippets/btn.html" with text=text url="confirm" get=current_payload icon="cright" pos="r" %}
         {% endif %}
 
         {% if these_beantwortet and payload_next %}
-            <button onClick="location.href='{% url 'these' %}?{{ payload_next }}'" class="h-full btn btn-white">
-                nächste These {% include "snippets/icon.html" with icon="right" %}
-            </button>
+            {% alias "nächste These" as text %}
+            {% include "snippets/btn.html" with text=text url="these" get=payload_next icon="right" pos="r" %}
         {% elif not these_beantwortet %}
-            <button onClick="location.href='{% url 'these' %}?{{ payload_skip }}'" class="h-full btn btn-white">
-                These überspringen {% include "snippets/icon.html" with icon="skip" %}
-            </button>
+            {% alias "These überspringen" as text %}
+            {% include "snippets/btn.html" with text=text url="these" get=payload_skip icon="skip" pos="r" %}
         {% endif %}
 
     </div>
+
 {% endblock %}
