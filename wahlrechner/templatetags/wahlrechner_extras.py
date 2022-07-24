@@ -14,3 +14,8 @@ def addstr(arg1, arg2):
 @register.filter(name="times")
 def times(number):
     return range(number)
+
+
+@register.simple_tag(name="alias")
+def alias(obj):
+    return obj

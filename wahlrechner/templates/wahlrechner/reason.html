@@ -8,13 +8,15 @@
 {% endblock %}
 
 {% block content %}
-    <div class="w-full p-5 text-center bg-white rounded-xl shadow-lg dark:bg-gray-800">
-        <p class="font-mono text-gray-500 dark:text-gray-400">These {{ pos }} von {{ max_pos }}</p>
-        <p class="mb-8 text-xl font-bold text-gray-800 break-words dark:text-gray-200">{{ aktuelle_these.these_text }}</p>
+
+    <div class="content lg:p-10">
+
+        <div class="these counter">These {{ pos }} von {{ max_pos }}</div>
+        <div class="these title">{{ aktuelle_these.these_text }}</div>
 
         {% with status=request.GET|get_param_value:aktuelle_these.pk %}
             {% if status != "s" %}
-                <p class="mb-1 text-sm font-semibold text-gray-600 dark:text-gray-400">Deine Position:</p>
+                <p class="these clue">Deine Position:</p>
             {% endif %}
             {% if status == 'a' %}
                 <div class="text-white text-sm flex sm:inline-flex bg-green-600 font-semibold rounded-xl pl-0.5 pr-1.5 py-1">
@@ -84,17 +86,17 @@
 
         {% if payload_previous %}
             <button onClick="location.href='{% url 'reason' %}?{{ payload_previous }}'" class="h-full btn btn-white">
-                {% include "icons/arrow-left.html" %} vorherige These
+                {% include "snippets/icon.html" with icon="left" %} vorherige These
             </button>
         {% endif %}
 
         <button onClick="location.href='{% url 'results' %}?{{ current_payload }}'" class="h-full btn btn-white">
-            {% include "icons/circle-left.html" %} Zurück zu meinem Ergebnis
+            {% include "snippets/icon.html" with icon="cleft" %}Zurück zu meinem Ergebnis
         </button>
 
         {% if payload_next %}
             <button onClick="location.href='{% url 'reason' %}?{{ payload_next }}'" class="h-full btn btn-white">
-                nächste These {% include "icons/arrow-right.html" %}
+                nächste These {% include "snippets/icon.html" with icon="right" %}
             </button>
         {% endif %}
 

@@ -12,7 +12,7 @@ Parameter:
 
 <p class="mb-2 text-lg font-semibold dark:text-gray-200">Alle Thesen</p>
 
-<ul class="space-y-1 sidebar-menu">
+<ul class="space-y-1 sidebar">
 
     {% for these in these_list %}
 
@@ -20,7 +20,7 @@ Parameter:
 
             {# Erhalte Position des Nutzers aus den URL Parametern und füge ein passendes Icon hinzu #}
             {% with status=request.GET|get_param_value:these.pk %}
-                {% include "icons/icons_sidebar.html" with icon=status|default_if_none:icon_default %}
+                {% include "snippets/icon.html" with icon=status|default:icon_default %}
             {% endwith %}
 
             {# Titel der These ggf. mit Hyperlink #}
@@ -38,7 +38,7 @@ Parameter:
             {# Erhalte aus den URL Parametern ob These priorisiert, falls ja füge passendes Icon hinzu #}
             {% with "p"|addstr:these.pk as key %}
                 {% if request.GET|get_param_value:key %}
-                    {% include "icons/icons_sidebar.html" with icon="fav" %}
+                    {% include "snippets/icon.html" with icon="fav" %}
                 {% endif %}
             {% endwith %}
 

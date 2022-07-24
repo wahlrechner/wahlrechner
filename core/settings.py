@@ -113,7 +113,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = "/code/media/"
 
 STATIC_URL = "/static/"
-STATIC_ROOT = "/code/assets/"
+STATIC_ROOT = "/code/snippets/"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",

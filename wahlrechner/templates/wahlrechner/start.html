@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="w-full p-6 text-center bg-white rounded-xl shadow-lg dark:bg-gray-800">
+    <div class="content">
         {% include 'intro_page.html' %}
     </div>
     <div class="flex flex-col justify-between mt-2 md:flex-row md:space-x-2">
@@ -16,7 +16,7 @@
         {% if these_list.first.pk %}
             <button onClick="location.href='{% url 'these' %}?t={{ these_list.first.pk }}'"
                     class="h-full btn btn-white">
-                Start {% include "icons/circle-right.html" %}
+                Start {% include "snippets/icon.html" with icon="cright" %}
             </button>
         {% endif %}
     </div>

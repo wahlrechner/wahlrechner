@@ -2,29 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Farbverlauf Hintergrund */
 body {
     @apply bg-gradient-to-br from-green-100 to-indigo-200 dark:from-gray-900 dark:to-gray-900;
 }
 
-.sidebar-menu {
+/***********/
+/* Sidebar */
+/***********/
+
+.sidebar {
     @apply cursor-default;
 }
 
-.sidebar-menu li {
+.sidebar li {
     @apply text-gray-600 dark:text-gray-300 truncate;
 }
 
-.sidebar-menu li a {
-    @apply text-sm text-gray-700 dark:text-gray-300 m-1 ml-0 select-none;
+.sidebar li a {
+    @apply text-sm m-1 ml-0 select-none;
 }
 
-.sidebar-menu li a.clickable {
+.sidebar li a.clickable {
+    /* .clickable für Thesen, die in der Sidebar angeklickt werden können */
     @apply cursor-pointer hover:text-gray-900 dark:hover:text-white transition duration-150;
 }
 
-.sidebar-menu li a.active {
+.sidebar li a.active {
+    /* .active für die aktuell ausgewählte These */
     @apply text-gray-800 dark:text-gray-100 cursor-default font-bold;
 }
+
+/***********/
+/* Content */
+/***********/
+
+.content {
+    @apply w-full p-6 text-center bg-white rounded-xl shadow-2xl dark:bg-gray-800 my-2;
+}
+
+.content h1 {
+    @apply mb-2 text-xl font-semibold text-gray-700 dark:text-gray-100;
+}
+
+.content p {
+    @apply text-left text-gray-600 dark:text-gray-300;
+}
+
+.content .these.counter {
+    @apply font-mono text-gray-500 dark:text-gray-400 mb-2;
+}
+
+.content .these.title {
+    @apply mb-8 text-xl font-semibold text-gray-800 break-words dark:text-gray-200;
+}
+
+.content .these.clue {
+    @apply mb-4 text-sm italic text-gray-600 dark:text-gray-400 lg:mb-2 text-center;
+}
+
+.content .these.btn-container {
+    @apply w-full px-5 mx-auto space-y-2 lg:space-x-2;
+}
+
+/**************/
+/* Button Row */
+/**************/
+
+.btn-row {
+    @apply flex flex-col justify-between mt-2 space-y-2 md:flex-row md:space-y-0 md:space-x-2;
+}
+
 
 .btn {
     @apply px-3 py-1.5 rounded-xl focus:ring-4 focus:outline-none shadow-md transition;
