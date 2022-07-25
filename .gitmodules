@@ -4,3 +4,4 @@
 [submodule "themes/theme_default"]
 	path = themes/theme_default
 	url = https://github.com/wahlrechner/theme_default.git
+	branch = main
