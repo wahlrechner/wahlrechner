@@ -1,0 +1,37 @@
+{% comment %}
+Template zum Einfügen eines Badge.
+
+Parameter:
+1. "type": Typ des Badges ("a", "d", "n", "fav")
+2. "pers": Formulierungen in erster oder dritter Position ("1" oder "3")
+{% endcomment %}
+
+{% load wahlrechner_extras %}
+
+{% alias "h-4 w-5 inline-flex align-middle mr-1" as classes %}
+{% alias "0 0 16 16" as viewbox %}
+
+{% if type == "a" or type == "agree" %}
+    <div class="badge bg-green-600">
+        {% include "snippets/icon.html" with icon=type color="white" viewbox=viewbox classes=classes %}
+        {% if pers == "1" %}stimme zu{% else %}stimmt zu{% endif %}
+    </div>
+
+{% elif type == "d" or type == "disagree" %}
+    <div class="badge bg-red-600">
+        {% include "snippets/icon.html" with icon=type color="white" viewbox=viewbox classes=classes %}
+        {% if pers == "1" %}stimme nicht zu{% else %}stimmt nicht zu{% endif %}
+    </div>
+
+{% elif type == "n" or type == "neutral" %}
+    <div class="badge bg-gray-500">
+        {% include "snippets/icon.html" with icon=type color="white" viewbox=viewbox classes=classes %}
+        neutral
+    </div>
+
+{% elif type == "fav" %}
+    <div class="badge bg-yellow-500">
+        {% include "snippets/icon.html" with icon=type color="white" viewbox=viewbox classes=classes %}
+        wichtige These
+    </div>
+{% endif %}

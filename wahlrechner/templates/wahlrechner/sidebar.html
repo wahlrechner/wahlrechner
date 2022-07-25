@@ -14,36 +14,48 @@ Parameter:
 
 <ul class="space-y-1 sidebar">
 
-    {% for these in these_list %}
+    {# Zeige Meldung, falls noch keine Thesen hinzugefügt#}
+    {% if not these_list.first.pk %}
+        
+        <p class="mt-4 italic text-gray-700 dark:text-gray-300">
+            Es wurden noch keine Thesen hinzugefügt. Bitte melde dich in der
+            <a class="underline" href="{% url 'admin:index' %}">Admin-Oberfläche</a> an, um neue Thesen
+            hinzuzufügen.</p>
 
-        <li>
+    {% else %}
 
-            {# Erhalte Position des Nutzers aus den URL Parametern und füge ein passendes Icon hinzu #}
-            {% with status=request.GET|get_param_value:these.pk %}
-                {% include "snippets/icon.html" with icon=status|default:icon_default %}
-            {% endwith %}
+        {% for these in these_list %}
 
-            {# Titel der These ggf. mit Hyperlink #}
-            {% if these == aktuelle_these %}
-                <a class="active">{{ these.these_keyword }}</a>
-            {% else %}
-                <a {% if url_template != "" %}
-                    onClick="location.href='{% url url_template %}?t={{ these.pk }}&{{ current_payload }}'"
-                    class="clickable"
-                {% endif %} >
-                    {{ these.these_keyword }}
-                </a>
-            {% endif %}
+            <li>
 
-            {# Erhalte aus den URL Parametern ob These priorisiert, falls ja füge passendes Icon hinzu #}
-            {% with "p"|addstr:these.pk as key %}
-                {% if request.GET|get_param_value:key %}
-                    {% include "snippets/icon.html" with icon="fav" %}
+                {# Erhalte Position des Nutzers aus den URL Parametern und füge ein passendes Icon hinzu #}
+                {% with status=request.GET|get_param_value:these.pk %}
+                    {% include "snippets/icon.html" with icon=status|default:icon_default %}
+                {% endwith %}
+
+                {# Titel der These ggf. mit Hyperlink #}
+                {% if these == aktuelle_these %}
+                    <a class="active">{{ these.these_keyword }}</a>
+                {% else %}
+                    <a {% if url_template != "" %}
+                        onClick="location.href='{% url url_template %}?t={{ these.pk }}&{{ current_payload }}'"
+                        class="clickable"
+                    {% endif %} >
+                        {{ these.these_keyword }}
+                    </a>
                 {% endif %}
-            {% endwith %}
 
-        </li>
+                {# Erhalte aus den URL Parametern ob These priorisiert, falls ja füge passendes Icon hinzu #}
+                {% with "p"|addstr:these.pk as key %}
+                    {% if request.GET|get_param_value:key %}
+                        {% include "snippets/icon.html" with icon="fav" %}
+                    {% endif %}
+                {% endwith %}
 
-    {% endfor %}
+            </li>
+
+        {% endfor %}
+
+    {% endif %}
 
 </ul>
