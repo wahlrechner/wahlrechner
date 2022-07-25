@@ -71,8 +71,9 @@
 /********************/
 /* Button Container */
 /********************/
+
 .content .these.btn-container {
-    @apply w-full px-5 mx-auto space-y-2 lg:space-y-0 lg:space-x-2 mt-4 lg:mt-3;
+    @apply w-full px-5 mx-auto space-y-2 lg:space-y-0 lg:space-x-2 mt-4;
 }
 
 .btn-container .btn {
@@ -152,3 +153,7 @@ input:checked + svg {
     display: block;
 }
 
+.infobox {
+    @apply p-3 mt-5 italic text-gray-400 border border-gray-400 rounded dark:text-gray-200 dark:bg-gray-700
+    dark:border-none;
+}
