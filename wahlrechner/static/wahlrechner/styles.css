@@ -118,9 +118,9 @@
     @apply text-white text-sm flex sm:inline-flex font-semibold rounded-xl pl-0.5 pr-1.5 py-1 my-1 sm:mx-1;
 }
 
-/*********************/
-/* Favorite Checkbox */
-/*********************/
+/*****************/
+/* Prio Checkbox */
+/*****************/
 
 label.favbox.group {
     @apply flex items-start justify-start mb-2 cursor-pointer;
@@ -128,7 +128,7 @@ label.favbox.group {
 
 label.favbox div.favbox {
     @apply flex items-center justify-center flex-shrink-0 w-6 h-6 mr-3 transition duration-150 bg-yellow-500 rounded-md
-    shadow-md focus-within:ring-4 ring-yellow-300 dark:ring-yellow-800 group-hover:bg-yellow-600;
+    shadow-md focus-within:ring-4 ring-yellow-300 dark:ring-yellow-800;
 }
 
 label.favbox div.favbox input {

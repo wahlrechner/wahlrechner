@@ -7,18 +7,14 @@
 {% endblock %}
 
 {% block content %}
-    <div class="w-full p-6 text-center bg-white rounded-xl shadow-lg dark:bg-gray-800">
-        <h1 class="mb-3 text-xl font-semibold text-gray-700 dark:text-gray-100">Fehler 500</h1>
-        <div class="text-center text-gray-600 dark:text-gray-300">
-            Es ist ein unerwarteter Fehler aufgetreten. Bitte versuche es erneut!
-        </div>
+    <div class="content text-center">
+        <h1>Fehler 500</h1>
+        Es ist ein unerwarteter Fehler aufgetreten. Bitte versuche es erneut!
     </div>
-    <div class="flex flex-col justify-between mt-2 space-y-2 md:flex-row md:space-x-2 md:space-y-0 ">
-        <button onClick="window.history.back();" class="h-full btn btn-white">
-            {% include "icons/arrow-left.html" %} Zurück
-        </button>
-        <button onClick="location.href='{% url 'start' %}'" class="h-full btn btn-white">
-            Zur Startseite {% include "icons/circle-right.html" %}
-        </button>
+
+    <div class="btn-row">
+        {% include "snippets/btn.html" with text="Zurück" onclick="window.history.back();" icon="left" pos="l" %}
+        {% url "start" as url %}
+        {% include "snippets/btn.html" with text="Zur Startseite" url=url icon="cright" pos="r" %}
     </div>
 {% endblock %}

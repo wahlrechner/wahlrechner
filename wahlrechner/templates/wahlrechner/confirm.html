@@ -8,88 +8,81 @@
 {% endblock %}
 
 {% block content %}
-    
+
     <div class="content">
         <h1>Gewichtung der Thesen</h1>
         <p>Wähle die Thesen aus, die dir wichtig sind. Diese Thesen werden in der Berechnung doppelt gewichtet.</p>
     </div>
 
-    <form method="get" action="{% url 'results' %}">
+    <form method="get" action="{% url "confirm_submit" zustand_current %}">
+
+        <div class="btn-row">
+
+            {% url "these" thesen.last.pk zustand_current as url %}
+            {% include "snippets/btn.html" with text="Antworten bearbeiten" url=url icon="edit" pos="l" %}
+
+            {% include "snippets/btn.html" with text="Ergebnisse anzeigen" type="submit" icon="cright" pos="r" %}
+
+        </div>
 
         <div class="card p-6 lg:p-9">
 
-            {% for these in these_list %}
+            {% for these in thesen %}
 
-                {% with status=request.GET|get_param_value:these.pk %}
+                {# Erhalte Position des Nutzers zu der These #}
+                {% alias opinions|get_opinion:these as opinion %}
 
-                    {% comment %}
-                    Erstellt ein versteckten Input für jede These mit der Position des Nutzers, damit das Formular
-                    diese in Form von GET-Parametern an die Ergebnis-Seite übergibt. Die GET-Parameter werden also
-                    nach dem Abschicken dieses Formulars komplett neu generiert.
+                {# Beantwortete und nicht-übersprungene Thesen sollen priorisiert werden können #}
+                {% if opinion and opinion != 's' %}
 
-                    Thesen, die nicht beantwortet wurden, werden automatisch als Übersprungen makiert.
-                    {% endcomment %}
-                    <input type="hidden" name="{{ these.pk }}"
-                           value="{% if status %}{{ status }}{% else %}s{% endif %}">
+                    {# Das Label besteht aus der Checkbox, dem Titel der These, Position und Beschreibung #}
+                    <label class="favbox group" for="{{ these.pk }}">
 
-                    {# Beantwortete und nicht-übersprungene Thesen sollen priorisiert werden können #}
-                    {% if status and status != 's' %}
+                        {# Eigentliche Checkbox (oranges Kästchen) #}
+                        <div class="favbox group-hover:bg-yellow-600">
 
-                        {# Das Label besteht aus der Checkbox, dem Titel der These, Position und Beschreibung #}
-                        <label class="favbox group" for="p{{ these.pk }}">
+                            <input type="checkbox"
+                                   id="{{ these.pk }}"
+                                   name="{{ these.pk }}"
+                                   {% if opinions|is_prio:these %}checked{% endif %}
+                                   value=1>
 
-                            {# Eigentliche Checkbox (oranges Kästchen) #}
-                            <div class="favbox">
+                            {# Weißer Stern in der Checkbox #}
+                            {% alias "0 0 20 20" as vb %}
+                            {% alias "hidden w-4 h-4 fill-current" as css %}
+                            {% include "snippets/icon.html" with icon="fav" color="white" viewbox=vb classes=css %}
 
-                                <input type="checkbox"
-                                       id="p{{ these.pk }}"
-                                       name="p{{ these.pk }}"
-                                       value=1
+                        </div>
 
-                                        {# Checked, wenn entsprechender GET-Parameter vorhanden #}
-                                        {% with "p"|addstr:these.pk as key %}
-                                            {% if request.GET|get_param_value:key %}
-                                       checked
-                                            {% endif %}
-                                        {% endwith %}
-                                >
+                        <div class="text-left">
 
-                                {# Weißer Stern in der Checkbox #}
-                                {% alias "0 0 20 20" as vb %}
-                                {% alias "hidden w-4 h-4 fill-current" as css %}
-                                {% include "snippets/icon.html" with icon="fav" color="white" viewbox=vb classes=css %}
-
+                            {# Titel der These und Icon für die Position des Nutzers #}
+                            <div class="text-gray-700 select-none dark:text-gray-200">
+                                {{ these.these_keyword }}
+                                {% include "snippets/icon.html" with icon=opinion %}
                             </div>
 
-                            <div class="text-left">
+                            {# Beschreibung der These #}
+                            <div class="text-sm text-gray-500 dark:text-gray-400">{{ these.these_text }}</div>
 
-                                {# Titel der These und Icon für die Position des Nutzers #}
-                                <div class="text-gray-700 select-none dark:text-gray-200">
-                                    {{ these.these_keyword }}
-                                    {% include "snippets/icon.html" with icon=status %}
-                                </div>
+                        </div>
 
-                                {# Beschreibung der These #}
-                                <div class="text-sm text-gray-500 dark:text-gray-400">{{ these.these_text }}</div>
+                    </label>
 
-                            </div>
+                {% endif %}
 
-                        </label>
-
-                    {% endif %}
-
-                {% endwith %}
 
             {% endfor %}
 
         </div>
 
         <div class="btn-row">
-            {% alias "Antworten bearbeiten" as text %}
-            {% include "snippets/btn.html" with text=text url="these" get=payload_previous icon="edit" pos="l" %}
 
-            {% alias "Ergebnisse anzeigen" as text %}
-            {% include "snippets/btn.html" with text=text type="submit" icon="cright" pos="r" %}
+            {% url "these" thesen.last.pk zustand_current as url %}
+            {% include "snippets/btn.html" with text="Antworten bearbeiten" url=url icon="edit" pos="l" %}
+
+            {% include "snippets/btn.html" with text="Ergebnisse anzeigen" type="submit" icon="cright" pos="r" %}
+
         </div>
 
     </form>

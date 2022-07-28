@@ -22,18 +22,17 @@
     </div>
 
     <div class="btn-row">
-        {% alias "Antworten bearbeiten" as text %}
-        {% include "snippets/btn.html" with text=text url="these" get=payload_previous icon="edit" pos="l" %}
+        {% url "confirm" zustand_current as url %}
+        {% include "snippets/btn.html" with text="Gewichtung bearbeiten" url=url icon="edit" pos="l" %}
 
-        {% alias "Neustart" as text %}
-        {% include "snippets/btn.html" with text=text url="start" icon="restart" pos="l" %}
+        {% url "start" as url %}
+        {% include "snippets/btn.html" with text="Neustart" url=url icon="restart" pos="l" %}
 
-        {% alias "Zu den Begründungen" as text %}
-        {% alias "t="|addstr:these_list.first.pk|addstr:"&"|addstr:current_payload as get %}
-        {% include "snippets/btn.html" with text=text url="reason" get=get icon="cright" pos="r" %}
+        {% url "reason" thesen.first.pk zustand_current as url %}
+        {% include "snippets/btn.html" with text="Zu den Begründungen" url=url icon="cright" pos="r" %}
     </div>
 
-    {% for partei, percentage in results %}
+    {% for partei, percentage in result %}
         <div class="card">
 
             {# Farbiger Akzentstreifen, falls bei Partei vorhanden #}
@@ -91,15 +90,14 @@
     {% endfor %}
 
     <div class="btn-row">
-        {% alias "Antworten bearbeiten" as text %}
-        {% include "snippets/btn.html" with text=text url="these" get=payload_previous icon="edit" pos="l" %}
+        {% url "confirm" zustand_current as url %}
+        {% include "snippets/btn.html" with text="Gewichtung bearbeiten" url=url icon="edit" pos="l" %}
 
-        {% alias "Neustart" as text %}
-        {% include "snippets/btn.html" with text=text url="start" icon="restart" pos="l" %}
+        {% url "start" as url %}
+        {% include "snippets/btn.html" with text="Neustart" url=url icon="restart" pos="l" %}
 
-        {% alias "Zu den Begründungen" as text %}
-        {% alias "t="|addstr:these_list.first.pk|addstr:"&"|addstr:current_payload as get %}
-        {% include "snippets/btn.html" with text=text url="reason" get=get icon="cright" pos="r" %}
+        {% url "reason" thesen.first.pk zustand_current as url %}
+        {% include "snippets/btn.html" with text="Zu den Begründungen" url=url icon="cright" pos="r" %}
     </div>
 
 {% endblock %}

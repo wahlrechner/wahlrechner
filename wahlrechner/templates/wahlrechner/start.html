@@ -17,9 +17,9 @@
         {# Leeres Div, um die restlichen Buttons korrekt anzuordnen #}
         <div class="-mb-2"></div>
 
-        {% if these_list.first.pk %}
-            {% alias "t="|addstr:these_list.first.pk as get %}
-            {% include "snippets/btn.html" with text="Start" url="these" get=get icon="cright" pos="r" %}
+        {% if thesen.first %}
+            {% url "these" thesen.first.pk 0 as url %}
+            {% include "snippets/btn.html" with text="Start" url=url icon="cright" pos="r" %}
         {% endif %}
     </div>
 

@@ -11,52 +11,49 @@
 
     <div class="content lg:p-10 space-x-0">
 
-        <div class="these counter">These {{ pos }} von {{ max_pos }}</div>
-        <div class="these title">{{ aktuelle_these.these_text }}</div>
+        <div class="these counter">These {{ index.0 }} von {{ index.1 }}</div>
+        <div class="these title">{{ these_current.these_text }}</div>
 
-        {# Erhalte Position des Nutzers aus den URL Parametern #}
-        {% with status=request.GET|get_param_value:aktuelle_these.pk %}
+        {# Erhalte Position des Nutzers zu der These #}
+        {% alias opinions|get_opinion:these_current as opinion %}
 
-            {% if status != "s" %}
-                {# Falls These nicht übersprungen... #}
+        {% if opinion != "s" %}
+            {# Falls These nicht übersprungen... #}
 
-                {# Füge ein passendes Badge für die Position des Nutzers ein #}
-                <p class="these clue">Deine Position:</p>
-                {% include "snippets/badge.html" with type=status pers="1" %}
+            {# Füge ein passendes Badge für die Position des Nutzers ein #}
+            <p class="these clue">Deine Position:</p>
+            {% include "snippets/badge.html" with type=opinion pers="1" %}
 
-                {# Falls These priorisiert, füge ein passendes Badge ein #}
-                {% with "p"|addstr:aktuelle_these.pk as key %}
-                    {% if request.GET|get_param_value:key %}
-                        {% include "snippets/badge.html" with type="fav" pers="1" %}
-                    {% endif %}
-                {% endwith %}
-
-            {% else %}
-                {# Falls These übersprungen... #}
-                <p class="these clue">Du hast diese These übersprungen.</p>
-
+            {# Falls These priorisiert, füge ein passendes Badge ein #}
+            {% if opinions|is_prio:these_current %}
+                {% include "snippets/badge.html" with type="fav" pers="1" %}
             {% endif %}
 
-        {% endwith %}
+        {% else %}
+            {# Falls These übersprungen... #}
+            <p class="these clue">Du hast diese These übersprungen.</p>
+
+        {% endif %}
 
     </div>
 
     <div class="btn-row">
-        {% if payload_previous %}
-            {% alias "vorherige These" as text %}
-            {% include "snippets/btn.html" with text=text url="reason" get=payload_previous icon="left" pos="l" %}
+        {% if these_prev %}
+            {% url "reason" these_prev.pk zustand_current as url %}
+            {% include "snippets/btn.html" with text="vorherige These" url=url icon="left" pos="l" %}
         {% endif %}
 
-        {% alias "zurück zu meinem Ergebnis" as text %}
-        {% include "snippets/btn.html" with text=text url="results" get=current_payload icon="cleft" pos="l" %}
+        {% url "result" zustand_current as url %}
+        {% include "snippets/btn.html" with text="zurück zu meinem Ergebnis" url=url icon="cleft" pos="l" %}
 
-        {% if payload_next %}
-            {% alias "nächste These" as text %}
-            {% include "snippets/btn.html" with text=text url="reason" get=payload_next icon="right" pos="r" %}
+        {% if these_next %}
+            {% url "reason" these_next.pk zustand_current as url %}
+            {% include "snippets/btn.html" with text="nächste These" url=url icon="right" pos="r" %}
         {% endif %}
     </div>
 
     {% for antwort in antworten %}
+
         <div class="card">
 
             {# Farbiger Akzentstreifen, falls bei Partei vorhanden #}
@@ -86,5 +83,20 @@
         </div>
 
     {% endfor %}
+
+    <div class="btn-row">
+        {% if these_prev %}
+            {% url "reason" these_prev.pk zustand_current as url %}
+            {% include "snippets/btn.html" with text="vorherige These" url=url icon="left" pos="l" %}
+        {% endif %}
+
+        {% url "result" zustand_current as url %}
+        {% include "snippets/btn.html" with text="zurück zu meinem Ergebnis" url=url icon="cleft" pos="l" %}
+
+        {% if these_next %}
+            {% url "reason" these_next.pk zustand_current as url %}
+            {% include "snippets/btn.html" with text="nächste These" url=url icon="right" pos="r" %}
+        {% endif %}
+    </div>
 
 {% endblock %}

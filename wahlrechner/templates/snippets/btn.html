@@ -11,7 +11,8 @@ Parameter:
 {% endcomment %}
 
 <button type="{{ type|default:"button" }}"
-        {% if url %}onClick="location.href='{% url url %}{% if get %}?{{ get }}{% endif %}'"{% endif %} class="btn">
+        {% if url %}onClick="location.href='{{ url }}'"
+        {% elif onclick %}onClick="{{ onclick }}"{% endif %} class="btn">
     {% if pos == "l" or pos == "left" %}
         {% include "snippets/icon.html" with icon=icon %}
     {% endif %}

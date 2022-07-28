@@ -15,8 +15,8 @@ Parameter:
 <ul class="space-y-1 sidebar">
 
     {# Zeige Meldung, falls noch keine Thesen hinzugefügt#}
-    {% if not these_list.first.pk %}
-        
+    {% if not thesen.first %}
+
         <p class="mt-4 italic text-gray-700 dark:text-gray-300">
             Es wurden noch keine Thesen hinzugefügt. Bitte melde dich in der
             <a class="underline" href="{% url 'admin:index' %}">Admin-Oberfläche</a> an, um neue Thesen
@@ -24,33 +24,32 @@ Parameter:
 
     {% else %}
 
-        {% for these in these_list %}
+        {% for these in thesen %}
+
+            {# Erhalte Position des Nutzers zu der These #}
+            {% alias opinions|get_opinion:these as opinion %}
 
             <li>
 
-                {# Erhalte Position des Nutzers aus den URL Parametern und füge ein passendes Icon hinzu #}
-                {% with status=request.GET|get_param_value:these.pk %}
-                    {% include "snippets/icon.html" with icon=status|default:icon_default %}
-                {% endwith %}
+                {# Füge Icon passend zur Position des Nutzers hinzu #}
+                {% include "snippets/icon.html" with icon=opinion|default:icon_default %}
 
                 {# Titel der These ggf. mit Hyperlink #}
-                {% if these == aktuelle_these %}
+                {% if these == these_current %}
                     <a class="active">{{ these.these_keyword }}</a>
                 {% else %}
                     <a {% if url_template != "" %}
-                        onClick="location.href='{% url url_template %}?t={{ these.pk }}&{{ current_payload }}'"
+                        onClick="location.href='{% url url_template these.pk zustand_current %}'"
                         class="clickable"
                     {% endif %} >
                         {{ these.these_keyword }}
                     </a>
                 {% endif %}
 
-                {# Erhalte aus den URL Parametern ob These priorisiert, falls ja füge passendes Icon hinzu #}
-                {% with "p"|addstr:these.pk as key %}
-                    {% if request.GET|get_param_value:key %}
-                        {% include "snippets/icon.html" with icon="fav" %}
-                    {% endif %}
-                {% endwith %}
+                {# Falls These priorisiert, füge Icon hinzu #}
+                {% if opinions|is_prio:these %}
+                    {% include "snippets/icon.html" with icon="fav" %}
+                {% endif %}
 
             </li>
 
