@@ -4,3 +4,10 @@
 [submodule "themes/theme_default"]
 	path = themes/theme_default
 	url = https://github.com/wahlrechner/theme_default.git
+	branch = main
+[submodule "themes/theme_buxtomat"]
+	path = themes/theme_buxtomat
+	url = https://github.com/wahlrechner/theme_buxtomat.git
+[submodule "themes/theme_stadomat"]
+	path = themes/theme_stadomat
+	url = https://github.com/wahlrechner/theme_stadomat.git

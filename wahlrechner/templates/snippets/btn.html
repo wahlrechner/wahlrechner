@@ -1,0 +1,23 @@
+{% comment %}
+Template zum Einfügen eines Buttons innerhalb einer Button Row.
+
+Parameter:
+1. "url": Basis-URL
+2. "get": Payload / GET-Parameter
+3. "text": Text des Buttons
+4. "pos": Position des Icons ("l"/"r")
+5. "icon": Name des Icons
+6. "type": Button Typ (ggf. "submit")
+{% endcomment %}
+
+<button type="{{ type|default:"button" }}"
+        {% if url %}onClick="location.href='{{ url }}'"
+        {% elif onclick %}onClick="{{ onclick }}"{% endif %} class="btn">
+    {% if pos == "l" or pos == "left" %}
+        {% include "snippets/icon.html" with icon=icon %}
+    {% endif %}
+    {{ text }}
+    {% if pos == "r" or pos == "right" or pos == "" %}
+        {% include "snippets/icon.html" with icon=icon %}
+    {% endif %}
+</button>

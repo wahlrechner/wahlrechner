@@ -1,6 +1,5 @@
+from colorfield.fields import ColorField
 from django.db import models
-
-# Create your models here.
 
 
 class These(models.Model):
@@ -45,6 +44,27 @@ class Partei(models.Model):
     Beschreibung für die Partei, wird auf der Ergebnis-Seite angezeigt."""
     partei_beschreibung = models.TextField(
         "Beschreibung", help_text=partei_beschreibung_help, max_length=1000, blank=True
+    )
+
+    partei_bild_beschreibung = (
+        """Logo oder Foto, das auf der Ergebnis-Seite angezeigt werden soll."""
+    )
+    partei_bild = models.ImageField(
+        "Bild",
+        upload_to="partei_bild",
+        help_text=partei_bild_beschreibung,
+        blank=True,
+        null=True,
+        default=None,
+    )
+
+    partei_farbe_beschreibung = """Akzentfarbe der Partei, die als Streifen neben dem Ergebnis angezeigt wird."""
+    partei_farbe = ColorField(
+        "Akzentfarbe",
+        null=True,
+        blank=True,
+        help_text=partei_farbe_beschreibung,
+        default=None,
     )
 
     def __str__(self):

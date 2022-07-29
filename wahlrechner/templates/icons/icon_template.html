@@ -1,0 +1,14 @@
+<!-- Icon by Heroicons (License: https://github.com/tailwindlabs/heroicons) -->
+
+<svg class="
+        {% if classes %}
+            {{ classes }}
+        {% else %}
+            {% block classes %}h-5 w-5 inline-flex align-middle{% endblock %}
+        {% endif %}
+            {% block color %}text-gray-700 dark:text-gray-400{% endblock %}"
+     xmlns="http://www.w3.org/2000/svg"
+     viewBox="{% if viewbox %}{{ viewbox }}{% else %}{% block viewbox %}0 0 24 24{% endblock %}{% endif %}"
+     fill="currentColor">
+    {% block svg %} {% endblock %}
+</svg>

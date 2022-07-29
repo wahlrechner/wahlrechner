@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "wahlrechner",
     "import_export",
+    "colorfield",
 ]
 
 MIDDLEWARE = [
@@ -50,7 +51,6 @@ TEMPLATES = [
         "DIRS": [
             BASE_DIR / f"themes/{THEME}/templates",
         ],
-        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -58,12 +58,20 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
+            "loaders": [
+                (
+                    "django.template.loaders.cached.Loader",
+                    [
+                        "django.template.loaders.filesystem.Loader",
+                        "django.template.loaders.app_directories.Loader",
+                    ],
+                ),
+            ],
         },
     },
 ]
 
 WSGI_APPLICATION = "core.wsgi.application"
-
 
 # Database
 
@@ -77,7 +85,6 @@ DATABASES = {
         "PORT": os.getenv("MYSQL_PORT"),
     }
 }
-
 
 # Password validation
 
@@ -96,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 
 LANGUAGE_CODE = os.getenv("DJANGO_LANGUAGE_CODE", "de")
@@ -109,12 +115,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Static and media files (CSS, JavaScript, Images)
 
-# Static files (CSS, JavaScript, Images)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = "/code/media/"
 
 STATIC_URL = "/static/"
-
-STATIC_ROOT = "/code/assets/"
+STATIC_ROOT = "/code/snippets/"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",

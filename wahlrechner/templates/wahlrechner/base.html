@@ -8,26 +8,33 @@
 <html lang="de" class="">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'tailwind/styles.css' %}?">
+    <link rel="stylesheet" href="{% static "tailwind/styles.css" %}?">
     <title>{% block title %}{% endblock %} | {% wahlrechner_name %}</title>
     {% include 'head.html' %}
 </head>
 
 <body class="flex flex-col min-h-screen">
-    {% include 'header.html' %}
-    <div class="container flex-grow p-4 mx-auto xl:max-w-7xl sm:p-8 sm:px-16 md:p-8 lg:p-12 xl:p-16 2xl:p-28">
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 md:space-x-5">
-            <div class="w-full p-6 md:p-3 lg:col-span-2">{% block sidebar %} {% endblock %}</div>
 
-            <div class="row-span-1 row-start-1 md:row-start-auto md:col-span-2 lg:col-span-5">
-                {% include 'logo.html' %}
-                {% block content %} {% endblock %}
-            </div>
+{% include 'header.html' %}
+
+<div class="container flex-grow p-4 mx-auto xl:max-w-7xl sm:p-8 sm:px-16 md:p-8 lg:p-12 xl:p-16 2xl:p-28">
+
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 md:space-x-5">
+
+        <div class="w-full p-6 md:p-3 lg:col-span-2">{% block sidebar %} {% endblock %}</div>
+
+        <div class="row-span-1 row-start-1 md:row-start-auto md:col-span-2 lg:col-span-5">
+            {% include "logo.html" %}
+            {% block content %} {% endblock %}
         </div>
+
     </div>
-    {% include 'footer.html' %}
+</div>
+
+{% include 'footer.html' %}
+
 </body>
 
 </html>

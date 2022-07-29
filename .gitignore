@@ -244,3 +244,7 @@ dist
 
 # Wahlrechner
 wahlrechner/stats/
+media/
+
+# PyCharm
+.idea/

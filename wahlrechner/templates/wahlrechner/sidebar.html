@@ -1,0 +1,60 @@
+{% comment %}
+Template für die Seitenleiste mit der Übersicht aller Thesen.
+
+Parameter:
+1. "icon_default": Gibt an, welches Icon angezeigt werden soll, wenn eine These noch nicht
+   beantwortet wurde ("empty" oder "skip").
+2. "url_template": Gibt den Namen des Templates an, auf das der Hyperlink der einzelnen Thesen verweisen soll
+   ("reason", "these" oder leer für kein Hyperlink)
+{% endcomment %}
+
+{% load wahlrechner_extras %}
+
+<p class="mb-2 text-lg font-semibold dark:text-gray-200">Alle Thesen</p>
+
+<ul class="space-y-1 sidebar">
+
+    {# Zeige Meldung, falls noch keine Thesen hinzugefügt#}
+    {% if not thesen.first %}
+
+        <p class="mt-4 italic text-gray-700 dark:text-gray-300">
+            Es wurden noch keine Thesen hinzugefügt. Bitte melde dich in der
+            <a class="underline" href="{% url 'admin:index' %}">Admin-Oberfläche</a> an, um neue Thesen
+            hinzuzufügen.</p>
+
+    {% else %}
+
+        {% for these in thesen %}
+
+            {# Erhalte Position des Nutzers zu der These #}
+            {% alias opinions|get_opinion:these as opinion %}
+
+            <li>
+
+                {# Füge Icon passend zur Position des Nutzers hinzu #}
+                {% include "snippets/icon.html" with icon=opinion|default:icon_default %}
+
+                {# Titel der These ggf. mit Hyperlink #}
+                {% if these == these_current %}
+                    <a class="active">{{ these.these_keyword }}</a>
+                {% else %}
+                    <a {% if url_template != "" %}
+                        onClick="location.href='{% url url_template these.pk zustand_current %}'"
+                        class="clickable"
+                    {% endif %} >
+                        {{ these.these_keyword }}
+                    </a>
+                {% endif %}
+
+                {# Falls These priorisiert, füge Icon hinzu #}
+                {% if opinions|is_prio:these %}
+                    {% include "snippets/icon.html" with icon="fav" %}
+                {% endif %}
+
+            </li>
+
+        {% endfor %}
+
+    {% endif %}
+
+</ul>

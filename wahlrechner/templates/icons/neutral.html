@@ -1,14 +1,15 @@
-<!-- Heroicons by Tailwind (License: https://github.com/tailwindlabs/heroicons) -->
+{% extends 'icons/icon_template.html' %}
 
-<svg
-    class="h-5 w-5 inline-flex align-middle text-gray-700 dark:text-gray-400"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
->
-    <path
-        fill-rule="evenodd"
-        d="M3 7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 13a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-        clip-rule="evenodd"
-    />
-</svg>
+{% block svg %}
+    <path fill-rule="evenodd"
+          d="M3 7a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 13a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+          clip-rule="evenodd"></path>
+{% endblock %}
+
+{% block color %}
+    {% if color == "white" %}
+        text-white
+    {% else %}
+        text-gray-700 dark:text-gray-400
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,66 @@
+{% comment %}
+Template zum Einfügen eines Icons.
+
+Die Bezeichnungen der einzelnen Icons sind hier definiert,
+die verfügbaren Farben und SVG-Pfade sind in /wahlrechner/templates/icons/.
+
+Parameter:
+1. "icon": Name des Icons
+2. "color": Farbe des Icons
+3. "classes": Alternative CSS-Klassen
+4. "viewbox": Alternative Viewbox
+{% endcomment %}
+
+{% if icon == "agree" or icon == "a" %}
+    {# Agree: Grüner Haken #}
+    {% include "icons/agree.html" %}
+
+{% elif icon == "disagree" or icon == "d" %}
+    {# Disagree: Rotes Kreuz #}
+    {% include "icons/disagree.html" %}
+
+{% elif icon == "neutral" or icon == "n" %}
+    {# Neutral: Graues Gleichheitszeichen #}
+    {% include "icons/neutral.html" %}
+
+{% elif icon == "skip" or icon == "s" %}
+    {# Skip: Grauer Doppelpfeil #}
+    {% include "icons/skip.html" %}
+
+{% elif icon == "empty" %}
+    {# Empty: Platzhalter in der Größe der anderen Symbole #}
+    {% include "icons/empty.html" %}
+
+{% elif icon == "fav" %}
+    {# Fav: Gelber Stern #}
+    {% include "icons/fav.html" %}
+
+{% elif icon == "left" %}
+    {# Left: Pfeil nach links #}
+    {% include "icons/left.html" %}
+
+{% elif icon == "right" %}
+    {# Left: Pfeil nach rechts #}
+    {% include "icons/right.html" %}
+
+{% elif icon == "cleft" %}
+    {# CLeft: Pfeil im Kreis nach links #}
+    {% include "icons/cleft.html" %}
+
+{% elif icon == "cright" %}
+    {# CRight: Pfeil im Kreis nach rechts #}
+    {% include "icons/cright.html" %}
+
+{% elif icon == "edit" or icon == "pen" %}
+    {# Edit: Stift #}
+    {% include "icons/edit.html" %}
+
+{% elif icon == "restart" %}
+    {# Restart: Pfeile im Kreis #}
+    {% include "icons/restart.html" %}
+
+{% elif icon == "winner" %}
+    {# Winner: Eingekreister Haken #}
+    {% include "icons/winner.html" %}
+
+{% endif %}
