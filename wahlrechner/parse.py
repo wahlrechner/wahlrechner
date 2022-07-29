@@ -135,16 +135,14 @@ def calc_result(zustand, opinions):
 
     caching_enabled = bool(int(os.getenv("WAHLRECHNER_CACHING", 0)))
 
-    if caching_enabled:
+    # Erstelle Cache-Dictionary falls nicht vorhanden
+    if "cache" not in globals() and caching_enabled:
+        global cache
+        cache = dict()
 
-        # Erstelle Cache-Dictionary falls nicht vorhanden
-        if "cache" not in globals():
-            global cache
-            cache = dict()
-
-        # Erhalte Ergebnis falls im Cache
-        if zustand in cache:
-            results = cache.get(zustand)
+    # Erhalte Ergebnis falls im Cache
+    if zustand in cache and caching_enabled:
+        results = cache.get(zustand)
 
     # Sonst berechne Ergebnis
     else:
