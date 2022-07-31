@@ -1,9 +1,10 @@
 from django.template.defaulttags import register
 
 
+# noinspection PyGlobalUndefined,PyUnboundLocalVariable
 @register.simple_tag(name="wahlrechner_version")
 def wahlrechner_version():
-    if not "w_version" in globals():
+    if "w_version" not in globals():
         global w_version
         try:
             file = open("version.txt", "r")

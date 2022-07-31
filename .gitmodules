@@ -11,3 +11,6 @@
 [submodule "themes/theme_stadomat"]
 	path = themes/theme_stadomat
 	url = https://github.com/wahlrechner/theme_stadomat.git
+[submodule "themes/theme_delmomat"]
+	path = themes/theme_delmomat
+	url = https://github.com/wahlrechner/theme_delmomat.git
