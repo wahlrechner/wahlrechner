@@ -5,7 +5,7 @@
 
 <h3 align="center"><i>Wahlrechner</i> ist eine offene, individualisierbare und transparente Wahlempfehlungshilfe.</h3>
 
-<p align="center">Wahlrechner im Einsatz: <a href="https://buxt-o-mat.de/"><b>Buxt-O-Mat '21</b></a> | <a href="https://kw21.stad-o-mat.de/"><b>Stad-O-Mat '21</b></a></p>
+<p align="center">Wahlrechner im Einsatz: <a href="https://buxt-o-mat.de/"><b>Buxt-O-Mat '21</b></a> | <a href="https://kw21.stad-o-mat.de/"><b>Stad-O-Mat '21</b></a> | <a href="https://stad-o-mat.de/"><b>Stad-O-Mat '22</b></a> | <a href="https://delm-o-mat.de/"><b>Delm-O-Mat '22</b></a></p>
 
 
 ----
@@ -46,3 +46,5 @@ Wenn du einen Wahlrechner ausprobieren möchtest, dann nutze doch einen der Wahl
 
 - [Buxt-O-Mat zur nds. Kommunalwahl 2021](https://buxt-o-mat.de/)
 - [Stad-O-Mat zur nds. Kommunalwahl 2021](https://kw21.stad-o-mat.de/)
+- [Stad-O-Mat zur nds. Landtagswahl 2022](https://stad-o-mat.de/)
+- [Delm-O-Mat zur nds. Landtagswahl 2022](https://delm-o-mat.de/)
