@@ -1,8 +1,9 @@
 {% extends 'wahlrechner/base.html' %}
 {% load wahlrechner_extras %}
+{% load wahlrechner_name %}
 
-{% block title %}Startseite{% endblock %}
-
+{% block title %}{% wahlrechner_title %}{% endblock %}
+2
 {% block sidebar %}
     {% include "wahlrechner/sidebar.html" with icon_default="" url_template="" %}
 {% endblock %}
