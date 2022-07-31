@@ -5,7 +5,7 @@
 
 <h3 align="center"><i>Wahlrechner</i> ist eine offene, individualisierbare und transparente Wahlempfehlungshilfe.</h3>
 
-<p align="center">Wahlrechner im Einsatz: <a href="https://buxt-o-mat.de/"><b>Buxt-O-Mat</b></a> | <a href="https://stad-o-mat.de/"><b>Stad-O-Mat</b></a></p>
+<p align="center">Wahlrechner im Einsatz: <a href="https://buxt-o-mat.de/"><b>Buxt-O-Mat '21</b></a> | <a href="https://kw21.stad-o-mat.de/"><b>Stad-O-Mat '21</b></a></p>
 
 
 ----
@@ -13,7 +13,7 @@
 ## Funktionen
 
 - **Datenschutzfreundlich & Transparent**
-   - Benutzerdaten werden ausschließlich in Form von GET-Parametern übergeben
+   - Benutzerdaten werden ausschließlich in Form von URL-Parametern übergeben
    - auf dem Server werden keine Benutzerdaten gespeichert
    - keine Verwendung von Cookies
 - **Adminoberfläche mit Django 4**
@@ -44,5 +44,5 @@ https://github.com/wahlrechner/server
 
 Wenn du einen Wahlrechner ausprobieren möchtest, dann nutze doch einen der Wahlempfehlungshilfen, die mit diesem Projekt umgesetzt wurden:
 
-- [Buxt-O-Mat](https://buxt-o-mat.de/)
-- [Stad-O-Mat](https://stad-o-mat.de/)
+- [Buxt-O-Mat zur nds. Kommunalwahl 2021](https://buxt-o-mat.de/)
+- [Stad-O-Mat zur nds. Kommunalwahl 2021](https://kw21.stad-o-mat.de/)
