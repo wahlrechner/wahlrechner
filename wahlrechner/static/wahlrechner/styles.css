@@ -135,6 +135,27 @@ label.favbox div.favbox input {
     @apply absolute opacity-0 cursor-pointer;
 }
 
+/***********/
+/* Menubar */
+/***********/
+
+.menubar {
+    @apply bg-white dark:bg-gray-800 text-black dark:text-white h-7 py-1 px-2 space-x-2 md:space-x-4
+    overflow-x-auto overflow-y-hidden text-sm flex flex-row flex-nowrap sm:place-content-center;
+}
+
+.menubar div {
+    @apply font-semibold shrink-0;
+}
+
+.menubar a {
+    @apply underline text-gray-800 hover:text-gray-500 dark:text-gray-200 dark:hover:text-gray-400;
+}
+
+.menubar a.active {
+    @apply no-underline hover:text-inherit italic;
+}
+
 /*********/
 /* Other */
 /*********/
