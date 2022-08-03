@@ -149,7 +149,7 @@ label.favbox div.favbox input {
 }
 
 .menubar a {
-    @apply underline text-gray-800 hover:text-gray-500 dark:text-gray-200 dark:hover:text-gray-400;
+    @apply underline text-gray-800 hover:text-gray-500 dark:text-gray-200 dark:hover:text-gray-400 select-none;
 }
 
 .menubar a.active {
