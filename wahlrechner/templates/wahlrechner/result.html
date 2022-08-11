@@ -78,7 +78,8 @@
                     {# Beschreibung der Partei #}
                     {% if partei.partei_beschreibung %}
                         <p class="text-sm text-left text-gray-600 dark:text-gray-300">
-                            "{{ partei.partei_beschreibung.strip }}"</p>
+                            "{{ partei.partei_beschreibung.strip }}" <span
+                                class="text-gray-400 italic">(Selbstbeschreibung)</span></p>
                     {% else %}
                         <p class="text-sm italic text-left text-gray-600 dark:text-gray-300">
                             Es liegt keine Beschreibung zu dieser Partei bzw. zu diesem Kandidat vor.</p>

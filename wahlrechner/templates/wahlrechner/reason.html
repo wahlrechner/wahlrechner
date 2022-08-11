@@ -17,7 +17,7 @@
         {# Erhalte Position des Nutzers zu der These #}
         {% alias opinions|get_opinion:these_current as opinion %}
 
-        {% if opinion != "s" %}
+        {% if opinion != "s" and opinion != None %}
             {# Falls These nicht übersprungen... #}
 
             {# Füge ein passendes Badge für die Position des Nutzers ein #}
