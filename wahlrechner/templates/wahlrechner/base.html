@@ -29,6 +29,15 @@
         <div class="row-span-1 row-start-1 md:row-start-auto md:col-span-2 lg:col-span-5">
             {% include "logo.html" %}
             {% block content %} {% endblock %}
+
+            <div class="shortcuts">
+                <div>
+                    <ul>
+                        <li class="font-bold">Tastaturbefehle</li>
+                        {% block shortcuts %} {% endblock %}
+                    </ul>
+                </div>
+            </div>
         </div>
 
     </div>

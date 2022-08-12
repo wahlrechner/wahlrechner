@@ -161,6 +161,28 @@ label.favbox div.favbox input {
     @apply no-underline hover:text-inherit italic;
 }
 
+/***********/
+/* Shortcuts */
+/***********/
+
+.shortcuts {
+    @apply mt-16 text-center select-none hidden md:block;
+}
+
+.shortcuts div {
+    @apply inline-block justify-center text-left;
+}
+
+.shortcuts div ul {
+    @apply text-sm text-black dark:text-white space-y-1 opacity-30 font-mono;
+}
+
+.shortcuts div ul li .icon {
+    @apply bg-black dark:bg-white dark:text-black p-0.5 text-white rounded-md text-xs font-bold inline-block h-5 w-5
+    text-center font-sans;
+}
+
+
 /*********/
 /* Other */
 /*********/

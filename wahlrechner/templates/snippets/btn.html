@@ -8,11 +8,13 @@ Parameter:
 4. "pos": Position des Icons ("l"/"r")
 5. "icon": Name des Icons
 6. "type": Button Typ (ggf. "submit")
+7. "sc": Keyboard Shortcut für Button
 {% endcomment %}
 
 <button type="{{ type|default:"button" }}"
         {% if url %}onClick="location.href='{{ url }}'"
-        {% elif onclick %}onClick="{{ onclick }}"{% endif %} class="btn">
+        {% elif onclick %}onClick="{{ onclick }}"{% endif %} class="btn"
+        {% if sc %}id="{{ sc }}"{% endif %}>
     {% if pos == "l" or pos == "left" %}
         {% include "snippets/icon.html" with icon=icon %}
     {% endif %}
@@ -21,3 +23,14 @@ Parameter:
         {% include "snippets/icon.html" with icon=icon %}
     {% endif %}
 </button>
+
+{% if sc %}
+    <script>
+        $(document).keydown(function (event) {
+            if (event.which === {{ sc }}) {
+                $('#{{ sc }}').trigger('click');
+                event.preventDefault();
+            }
+        });
+    </script>
+{% endif %}

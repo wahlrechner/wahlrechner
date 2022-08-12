@@ -8,7 +8,6 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="content lg:p-10">
 
         <div class="these counter">These {{ index.0 }} von {{ index.1 }}</div>
@@ -47,19 +46,35 @@
             {% endif %}
 
             <button onClick="location.href='{{ url_agree }}'"
-                    class="btn btn-agree {% if opinion == "a" %}active{% endif %}">
+                    class="btn btn-agree {% if opinion == "a" %}active{% endif %}" id="agree">
                 {% include "snippets/icon.html" with icon="agree" color="white" %} stimme zu
             </button>
 
             <button onClick="location.href='{{ url_neutral }}'"
-                    class="btn btn-neutral {% if opinion == "n" %}active{% endif %}">
+                    class="btn btn-neutral {% if opinion == "n" %}active{% endif %}" id="neutral">
                 {% include "snippets/icon.html" with icon="neutral" color="white" %} neutral
             </button>
 
             <button onClick="location.href='{{ url_disagree }}'"
-                    class="btn btn-disagree {% if opinion == "d" %}active{% endif %}">
+                    class="btn btn-disagree {% if opinion == "d" %}active{% endif %}" id="disagree">
                 {% include "snippets/icon.html" with icon="disagree" color="white" %} stimme nicht zu
             </button>
+
+            <script>
+                {# Keyboard Shortcuts für Agree/Neutral/Disagree #}
+                $(document).keydown(function (event) {
+                    if (event.which === 65) {
+                        $('#agree').trigger('click');
+                        event.preventDefault();
+                    } else if (event.which === 78) {
+                        $('#neutral').trigger('click');
+                        event.preventDefault();
+                    } else if (event.which === 68) {
+                        $('#disagree').trigger('click');
+                        event.preventDefault();
+                    }
+                });
+            </script>
 
         </div>
 
@@ -70,7 +85,7 @@
 
         {% if these_prev %}
             {% url "these" these_prev.pk zustand_current as url %}
-            {% include "snippets/btn.html" with text="vorherige These" url=url icon="left" pos="l" %}
+            {% include "snippets/btn.html" with text="vorherige These" url=url icon="left" pos="l" sc="37" %}
         {% elif not opinions|get_opinion:thesen.last %}
             {# Leeres Div, um die restlichen Buttons korrekt anzuordnen #}
             <div class="-mb-2"></div>
@@ -78,22 +93,63 @@
 
         {% if opinions|get_opinion:thesen.last %}
             {% url "confirm" zustand_current as url %}
-            {% include "snippets/btn.html" with text="Abschließen" url=url icon="cright" pos="r" %}
+            {% include "snippets/btn.html" with text="Abschließen" url=url icon="cright" pos="r" sc="70" %}
         {% endif %}
 
         {% if opinion and these_next %}
             {% url "these" these_next.pk zustand_current as url %}
-            {% include "snippets/btn.html" with text="nächste These" url=url icon="right" pos="r" %}
+            {% include "snippets/btn.html" with text="nächste These" url=url icon="right" pos="r" sc="39" %}
         {% elif not opinion %}
             {% if these_next %}
                 {% url "these" these_next.pk zustand_skip as url %}
             {% else %}
                 {% url "confirm" zustand_skip as url %}
             {% endif %}
-            {% include "snippets/btn.html" with text="These überspringen" url=url icon="skip" pos="r" %}
+            {% include "snippets/btn.html" with text="These überspringen" url=url icon="skip" pos="r" sc="39" %}
         {% endif %}
 
     </div>
 
+
+{% endblock %}
+
+{% block shortcuts %}
+
+    {# Erhalte Position des Nutzers zu der These #}
+    {% alias opinions|get_opinion:these_current as opinion %}
+
+    <li>
+        <span class="icon">A</span> stimme zu
+    </li>
+
+    <li>
+        <span class="icon">N</span> neutral
+    </li>
+
+    <li>
+        <span class="icon">D</span> stimme nicht zu
+    </li>
+
+    {% if these_prev %}
+        <li>
+            <span class="icon">&larr;</span> vorherige These
+        </li>
+    {% endif %}
+
+    {% if opinion and these_next %}
+        <li>
+            <span class="icon">&rarr;</span> nächste These
+        </li>
+    {% elif not opinion %}
+        <li>
+            <span class="icon">&rarr;</span> These überspringen
+        </li>
+    {% endif %}
+    
+    {% if opinions|get_opinion:thesen.last %}
+        <li>
+            <span class="icon">F</span> Abschließen
+        </li>
+    {% endif %}
 
 {% endblock %}

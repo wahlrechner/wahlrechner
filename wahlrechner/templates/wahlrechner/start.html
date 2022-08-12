@@ -20,8 +20,17 @@
 
         {% if thesen.first %}
             {% url "these" thesen.first.pk 0 as url %}
-            {% include "snippets/btn.html" with text="Start" url=url icon="cright" pos="r" %}
+            {% include "snippets/btn.html" with text="Start" url=url icon="cright" pos="r" sc="39" %}
         {% endif %}
     </div>
+
+{% endblock %}
+
+
+{% block shortcuts %}
+
+    <li>
+        <span class="icon">&rarr;</span> Start
+    </li>
 
 {% endblock %}

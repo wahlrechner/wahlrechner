@@ -79,12 +79,25 @@
         <div class="btn-row">
 
             {% url "these" thesen.last.pk zustand_current as url %}
-            {% include "snippets/btn.html" with text="Antworten bearbeiten" url=url icon="edit" pos="l" %}
+            {% include "snippets/btn.html" with text="Antworten bearbeiten" url=url icon="edit" pos="l" sc="37" %}
 
-            {% include "snippets/btn.html" with text="Ergebnisse anzeigen" type="submit" icon="cright" pos="r" %}
+            {% alias "Ergebnisse anzeigen" as text %}
+            {% include "snippets/btn.html" with text=text type="submit" icon="cright" pos="r" sc="39" %}
 
         </div>
 
     </form>
+
+{% endblock %}
+
+{% block shortcuts %}
+
+    <li>
+        <span class="icon">&larr;</span> Antworten bearbeiten
+    </li>
+
+    <li>
+        <span class="icon">&rarr;</span> Ergebnisse anzeigen
+    </li>
 
 {% endblock %}
