@@ -13,8 +13,21 @@
     </div>
 
     <div class="btn-row">
-        {% include "snippets/btn.html" with text="Zurück" onclick="window.history.back();" icon="left" pos="l" %}
+        {% alias "window.history.back();" as onclick %}
+        {% include "snippets/btn.html" with text="Zurück" onclick=onclick icon="left" pos="l" sc="37" %}
         {% url "start" as url %}
-        {% include "snippets/btn.html" with text="Zur Startseite" url=url icon="cright" pos="r" %}
+        {% include "snippets/btn.html" with text="Zur Startseite" url=url icon="cright" pos="r" sc="39" %}
     </div>
+{% endblock %}
+
+{% block shortcuts %}
+
+    <li>
+        <span class="icon">&larr;</span> Zurück
+    </li>
+
+    <li>
+        <span class="icon">&rarr;</span> Zur Startseite
+    </li>
+
 {% endblock %}
