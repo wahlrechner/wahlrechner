@@ -1,7 +1,7 @@
 {% extends 'wahlrechner/base.html' %}
 {% load wahlrechner_extras %}
 
-{% block title %}Begründungen der Parteien zu These {{ pos }} von {{ max_pos }}{% endblock %}
+{% block title %}Begründungen der Parteien zu These {{ index.0 }} von {{ index.1 }}{% endblock %}
 
 {% block sidebar %}
     {% include "wahlrechner/sidebar.html" with icon_default="skip" url_template="reason" %}
