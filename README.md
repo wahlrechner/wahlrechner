@@ -8,6 +8,7 @@
 <p align="center">Wahlrechner im Einsatz: <a href="https://buxt-o-mat.de/"><b>Buxt-O-Mat '21</b></a> | <a href="https://kw21.stad-o-mat.de/"><b>Stad-O-Mat '21</b></a> | <a href="https://stad-o-mat.de/"><b>Stad-O-Mat '22</b></a> | <a href="https://delm-o-mat.de/"><b>Delm-O-Mat '22</b></a></p>
 
 
+
 ----
 
 ## Funktionen
