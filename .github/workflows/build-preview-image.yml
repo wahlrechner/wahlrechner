@@ -34,7 +34,7 @@ jobs:
                   password: ${{ secrets.CR_PAT }}
 
             - name: Cache Docker layers
-              uses: actions/cache@v3
+              uses: actions/cache@v4
               with:
                   path: /tmp/.buildx-cache
                   key: ${{ runner.os }}-buildx-${{ github.sha }}
@@ -44,5 +44,6 @@ jobs:
               uses: docker/build-push-action@v5
               with:
                   context: .
+                  platforms: linux/amd64,linux/arm64
                   push: true
-                  tags: ghcr.io/${{ github.repository_owner }}/wahlrechner-preview:latest, ghcr.io/${{ github.repository_owner }}/wahlrechner-preview:preview-${{ github.run_number }}
+                  tags: ghcr.io/${{ github.repository_owner }}/wahlrechner:latest, ghcr.io/${{ github.repository_owner }}/wahlrechner:preview-${{ github.run_number }}
