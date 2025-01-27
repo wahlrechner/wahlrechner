@@ -81,7 +81,7 @@ DATABASES = {
         "NAME": os.getenv("MYSQL_DATABASE"),
         "USER": os.getenv("MYSQL_USER"),
         "PASSWORD": os.getenv("MYSQL_PASSWORD"),
-        "HOST": "db",
+        "HOST": os.getenv("MYSQL_HOST", "db"),
         "PORT": os.getenv("MYSQL_PORT"),
     }
 }
@@ -132,3 +132,23 @@ STATICFILES_DIRS = [
 
 SECURE_HSTS_SECONDS = int(os.getenv("DJANGO_SECURE_HSTS_SECONDS", 0))
 SESSION_COOKIE_SECURE = bool(int(os.getenv("DJANGO_SESSION_COOKIE_SECURE", 1)))
+
+# Logging
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "/code/logs/wahlrechner-logs.txt",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": os.getenv("DJANGO_LOGLEVEL", "ERROR"),
+            "propagate": True,
+        },
+    },
+}
