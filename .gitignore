@@ -126,7 +126,6 @@ dmypy.json
 .pyre/
 
 # Logs
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -245,6 +244,7 @@ dist
 # Wahlrechner
 wahlrechner/stats/
 media/
+logs/wahlrechner-logs.txt
 
 # PyCharm
 .idea/
