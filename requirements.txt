@@ -1,4 +1,4 @@
-Django==5.1.5
+Django==5.1.7
 mysqlclient==2.2.7
 django-import-export==4.3.4
 gunicorn==23.0.0
